@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh"><head><title>数据库恢复技术</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Comic_Sans_MS:wght@400;700&amp;family=Comic_Sans_MS:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="🪴 Quartz 4.0"/><meta property="og:title" content="数据库恢复技术"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="数据库恢复技术"/><meta name="twitter:description" content="事务的基本概念 事务 事务(Transaction)是用户定义的一个数据库操作序列，这些操作要么全做，要么全不做，是一个不可分割的工作单位。 事务和程序是两个概念：在关系数据库中，一个事务可以是一条SQL语句，一组SQL语句或整个程序，一个程序通常包含多个事务。 事务是恢复和并发控制的基本单位。 事务的ACID特性 ..."/><meta property="og:description" content="事务的基本概念 事务 事务(Transaction)是用户定义的一个数据库操作序列，这些操作要么全做，要么全不做，是一个不可分割的工作单位。 事务和程序是两个概念：在关系数据库中，一个事务可以是一条SQL语句，一组SQL语句或整个程序，一个程序通常包含多个事务。 事务是恢复和并发控制的基本单位。 事务的ACID特性 ..."/><meta property="og:image:type" content="image/webp"/><meta property="og:image:alt" content="事务的基本概念 事务 事务(Transaction)是用户定义的一个数据库操作序列，这些操作要么全做，要么全不做，是一个不可分割的工作单位。 事务和程序是两个概念：在关系数据库中，一个事务可以是一条SQL语句，一组SQL语句或整个程序，一个程序通常包含多个事务。 事务是恢复和并发控制的基本单位。 事务的ACID特性 ..."/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:url" content="https://kisgp.cn/static/og-image.png"/><meta name="twitter:image" content="https://kisgp.cn/static/og-image.png"/><meta property="og:image" content="https://kisgp.cn/static/og-image.png"/><meta property="twitter:domain" content="kisgp.cn"/><meta property="og:url" content="https://kisgp.cn/计算机基础/数据库系统概论/10_数据库恢复技术"/><meta property="twitter:url" content="https://kisgp.cn/计算机基础/数据库系统概论/10_数据库恢复技术"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="事务的基本概念 事务 事务(Transaction)是用户定义的一个数据库操作序列，这些操作要么全做，要么全不做，是一个不可分割的工作单位。 事务和程序是两个概念：在关系数据库中，一个事务可以是一条SQL语句，一组SQL语句或整个程序，一个程序通常包含多个事务。 事务是恢复和并发控制的基本单位。 事务的ACID特性 ..."/><meta name="generator" content="Quartz"/><link href="../../static/font/font-style.css" rel="stylesheet" type="text/css" spa-preserve/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="计算机基础/数据库系统概论/10_数据库恢复技术"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">🪴 Quartz 4.0</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>搜索</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="collapse" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;编程语言&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Java&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/JavaScript&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust/Rust认识&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;服务器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/编译原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机操作系统&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机网络&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机组成原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/软件测试&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据结构和算法&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据库系统概论&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react/react学习&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/rspress&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;数据库&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读/未完成&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Git&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Markdown&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言"><button class="folder-button"><span class="folder-title">编程语言</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Java"><button class="folder-button"><span class="folder-title">Java</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Java"><li><a href="../../编程语言/Java/JavaWeb复习" data-for="编程语言/Java/JavaWeb复习">JavaWeb复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/JavaScript"><button class="folder-button"><span class="folder-title">JavaScript</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/JavaScript"><li><a href="../../编程语言/JavaScript/JS" data-for="编程语言/JavaScript/JS">JS</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust"><button class="folder-button"><span class="folder-title">Rust</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust/Rust认识"><button class="folder-button"><span class="folder-title">Rust认识</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust/Rust认识"><li><a href="../../编程语言/Rust/Rust认识/3_变量" data-for="编程语言/Rust/Rust认识/3_变量">3_变量</a></li><li><a href="../../编程语言/Rust/Rust认识/4_类型" data-for="编程语言/Rust/Rust认识/4_类型">4_类型</a></li><li><a href="../../编程语言/Rust/Rust认识/2_cargo使用" data-for="编程语言/Rust/Rust认识/2_cargo使用">Cargo 使用</a></li><li><a href="../../编程语言/Rust/Rust认识/1_环境配置" data-for="编程语言/Rust/Rust认识/1_环境配置">Rust 环境配置</a></li></ul></div></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="服务器"><button class="folder-button"><span class="folder-title">服务器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="服务器"><li><a href="../../服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问" data-for="服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问">使用 Cloudflare Workers 优化 Github 文件国内访问速度</a></li><li><a href="../../服务器/域名注册" data-for="服务器/域名注册">域名注册</a></li><li><a href="../../服务器/MinIO-使用" data-for="服务器/MinIO-使用">MinIO 使用</a></li><li><a href="../../服务器/OSS-对象存储" data-for="服务器/OSS-对象存储">OSS 对象存储</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础"><button class="folder-button"><span class="folder-title">计算机基础</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/编译原理"><button class="folder-button"><span class="folder-title">编译原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/编译原理"><li><a href="../../计算机基础/编译原理/3_词法分析" data-for="计算机基础/编译原理/3_词法分析">词法分析</a></li><li><a href="../../计算机基础/编译原理/1_开始" data-for="计算机基础/编译原理/1_开始">开始</a></li><li><a href="../../计算机基础/编译原理/2_引论" data-for="计算机基础/编译原理/2_引论">引论</a></li><li><a href="../../计算机基础/编译原理/4_语法分析" data-for="计算机基础/编译原理/4_语法分析">语法分析</a></li><li><a href="../../计算机基础/编译原理/5_语义分析与中间代码生成器" data-for="计算机基础/编译原理/5_语义分析与中间代码生成器">语义分析与中间代码生成器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机操作系统"><button class="folder-button"><span class="folder-title">计算机操作系统</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机操作系统"><li><a href="../../计算机基础/计算机操作系统/1_操作系统概述" data-for="计算机基础/计算机操作系统/1_操作系统概述">操作系统概述</a></li><li><a href="../../计算机基础/计算机操作系统/2_进程与线程" data-for="计算机基础/计算机操作系统/2_进程与线程">进程与线程</a></li><li><a href="../../计算机基础/计算机操作系统/3_内存管理" data-for="计算机基础/计算机操作系统/3_内存管理">内存管理</a></li><li><a href="../../计算机基础/计算机操作系统/4_文件管理" data-for="计算机基础/计算机操作系统/4_文件管理">文件管理</a></li><li><a href="../../计算机基础/计算机操作系统/5_输入输出管理" data-for="计算机基础/计算机操作系统/5_输入输出管理">I/O管理</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机网络"><button class="folder-button"><span class="folder-title">计算机网络</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机网络"><li><a href="../../计算机基础/计算机网络/5_传输层" data-for="计算机基础/计算机网络/5_传输层">传输层</a></li><li><a href="../../计算机基础/计算机网络/1_计算机网络体系结构" data-for="计算机基础/计算机网络/1_计算机网络体系结构">计算机网络体系结构</a></li><li><a href="../../计算机基础/计算机网络/3_数据链路层" data-for="计算机基础/计算机网络/3_数据链路层">数据链路层</a></li><li><a href="../../计算机基础/计算机网络/4_网络层" data-for="计算机基础/计算机网络/4_网络层">网络层</a></li><li><a href="../../计算机基础/计算机网络/2_物理层" data-for="计算机基础/计算机网络/2_物理层">物理层</a></li><li><a href="../../计算机基础/计算机网络/6_应用层" data-for="计算机基础/计算机网络/6_应用层">应用层</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机组成原理"><button class="folder-button"><span class="folder-title">计算机组成原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机组成原理"><li><a href="../../计算机基础/计算机组成原理/3_存储系统" data-for="计算机基础/计算机组成原理/3_存储系统">存储系统</a></li><li><a href="../../计算机基础/计算机组成原理/1_计算机系统概述" data-for="计算机基础/计算机组成原理/1_计算机系统概述">计算机组成原理</a></li><li><a href="../../计算机基础/计算机组成原理/2_数据的表示和运算" data-for="计算机基础/计算机组成原理/2_数据的表示和运算">数据的表示和运算</a></li><li><a href="../../计算机基础/计算机组成原理/4_指令系统" data-for="计算机基础/计算机组成原理/4_指令系统">指令系统</a></li><li><a href="../../计算机基础/计算机组成原理/5_中央处理器" data-for="计算机基础/计算机组成原理/5_中央处理器">中央处理器</a></li><li><a href="../../计算机基础/计算机组成原理/6_总线" data-for="计算机基础/计算机组成原理/6_总线">总线</a></li><li><a href="../../计算机基础/计算机组成原理/7_IO系统" data-for="计算机基础/计算机组成原理/7_IO系统">I/O 系统</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/软件测试"><button class="folder-button"><span class="folder-title">软件测试</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/软件测试"><li><a href="../../计算机基础/软件测试/1_软件测试技术复习" data-for="计算机基础/软件测试/1_软件测试技术复习">软件测试技术复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据结构和算法"><button class="folder-button"><span class="folder-title">数据结构和算法</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据结构和算法"><li><a href="../../计算机基础/数据结构和算法/8_查找" data-for="计算机基础/数据结构和算法/8_查找">查找</a></li><li><a href="../../计算机基础/数据结构和算法/5_串" data-for="计算机基础/数据结构和算法/5_串">串</a></li><li><a href="../../计算机基础/数据结构和算法/9_排序" data-for="计算机基础/数据结构和算法/9_排序">排序</a></li><li><a href="../../计算机基础/数据结构和算法/6_树" data-for="计算机基础/数据结构和算法/6_树">树</a></li><li><a href="../../计算机基础/数据结构和算法/1_数据结构基本概念" data-for="计算机基础/数据结构和算法/1_数据结构基本概念">数据结构的基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/2_算法基本概念" data-for="计算机基础/数据结构和算法/2_算法基本概念">算法基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/7_图" data-for="计算机基础/数据结构和算法/7_图">图</a></li><li><a href="../../计算机基础/数据结构和算法/3_线性表" data-for="计算机基础/数据结构和算法/3_线性表">线性表</a></li><li><a href="../../计算机基础/数据结构和算法/4_栈和队列" data-for="计算机基础/数据结构和算法/4_栈和队列">栈和队列</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据库系统概论"><button class="folder-button"><span class="folder-title">数据库系统概论</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据库系统概论"><li><a href="../../计算机基础/数据库系统概论/11_并发控制" data-for="计算机基础/数据库系统概论/11_并发控制">并发控制</a></li><li><a href="../../计算机基础/数据库系统概论/9_关系查询处理和查询优化" data-for="计算机基础/数据库系统概论/9_关系查询处理和查询优化">关系查询处理和查询优化</a></li><li><a href="../../计算机基础/数据库系统概论/2_关系数据库" data-for="计算机基础/数据库系统概论/2_关系数据库">关系数据库</a></li><li><a href="../../计算机基础/数据库系统概论/6_关系数据理论" data-for="计算机基础/数据库系统概论/6_关系数据理论">关系数据理论</a></li><li><a href="../../计算机基础/数据库系统概论/4_数据库安全性" data-for="计算机基础/数据库系统概论/4_数据库安全性">数据库安全性</a></li><li><a href="../../计算机基础/数据库系统概论/8_数据库编程" data-for="计算机基础/数据库系统概论/8_数据库编程">数据库编程</a></li><li><a href="../../计算机基础/数据库系统概论/10_数据库恢复技术" data-for="计算机基础/数据库系统概论/10_数据库恢复技术">数据库恢复技术</a></li><li><a href="../../计算机基础/数据库系统概论/7_数据库设计" data-for="计算机基础/数据库系统概论/7_数据库设计">数据库设计</a></li><li><a href="../../计算机基础/数据库系统概论/5_数据库完整性" data-for="计算机基础/数据库系统概论/5_数据库完整性">数据库完整性</a></li><li><a href="../../计算机基础/数据库系统概论/1_绪论" data-for="计算机基础/数据库系统概论/1_绪论">绪论</a></li><li><a href="../../计算机基础/数据库系统概论/3_SQL" data-for="计算机基础/数据库系统概论/3_SQL">SQL</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器"><button class="folder-button"><span class="folder-title">浏览器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react"><button class="folder-button"><span class="folder-title">react</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react/react学习"><button class="folder-button"><span class="folder-title">react学习</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react/react学习"><li><a href="../../浏览器/react/react学习/9_Hook" data-for="浏览器/react/react学习/9_Hook">Hook的使用</a></li><li><a href="../../浏览器/react/react学习/2_jsx基本语法" data-for="浏览器/react/react学习/2_jsx基本语法">jsx基本语法</a></li><li><a href="../../浏览器/react/react学习/1_react初体验" data-for="浏览器/react/react学习/1_react初体验">react初体验</a></li><li><a href="../../浏览器/react/react学习/6_react动画" data-for="浏览器/react/react学习/6_react动画">react动画</a></li><li><a href="../../浏览器/react/react学习/3_react脚手架解析" data-for="浏览器/react/react学习/3_react脚手架解析">react脚手架解析</a></li><li><a href="../../浏览器/react/react学习/4_react性能优化" data-for="浏览器/react/react学习/4_react性能优化">react性能优化</a></li><li><a href="../../浏览器/react/react学习/5_react组件化开发" data-for="浏览器/react/react学习/5_react组件化开发">react组件化开发</a></li><li><a href="../../浏览器/react/react学习/7_Redux的使用" data-for="浏览器/react/react学习/7_Redux的使用">Redux的使用</a></li><li><a href="../../浏览器/react/react学习/8_Router的使用" data-for="浏览器/react/react学习/8_Router的使用">Router的使用</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/rspress"><button class="folder-button"><span class="folder-title">rspress</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/rspress"><li><a href="../../浏览器/rspress/LaTeX无法使用$$语法" data-for="浏览器/rspress/LaTeX无法使用$$语法">LaTeX无法使用$$语法</a></li><li><a href="../../浏览器/rspress/自动生成侧边栏" data-for="浏览器/rspress/自动生成侧边栏">rspress 自动生成侧边栏</a></li></ul></div></li><li><a href="../../浏览器/CORS错误" data-for="浏览器/CORS错误">CORS错误</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="数据库"><button class="folder-button"><span class="folder-title">数据库</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="数据库"><li><a href="../../数据库/MongoDB-使用" data-for="数据库/MongoDB-使用">MongoDB 使用</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读"><button class="folder-button"><span class="folder-title">阅读</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读/未完成"><button class="folder-button"><span class="folder-title">未完成</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读/未完成"><li><a href="../../阅读/未完成/解构现代化：温铁军演讲录" data-for="阅读/未完成/解构现代化：温铁军演讲录">解构现代化：温铁军演讲录</a></li><li><a href="../../阅读/未完成/金瓶梅词话（上下）" data-for="阅读/未完成/金瓶梅词话（上下）">金瓶梅词话（上下）</a></li><li><a href="../../阅读/未完成/思想的力量（第9版）" data-for="阅读/未完成/思想的力量（第9版）">思想的力量（第9版）</a></li><li><a href="../../阅读/未完成/乡土中国-生育制度-乡土重建" data-for="阅读/未完成/乡土中国-生育制度-乡土重建">乡土中国 生育制度 乡土重建</a></li><li><a href="../../阅读/未完成/制造消费者：消费主义全球史" data-for="阅读/未完成/制造消费者：消费主义全球史">制造消费者：消费主义全球史</a></li></ul></div></li><li><a href="../../阅读/大清为何轰然倒塌" data-for="阅读/大清为何轰然倒塌">大清为何轰然倒塌</a></li><li><a href="../../阅读/叫魂：1768年中国妖术大恐慌" data-for="阅读/叫魂：1768年中国妖术大恐慌">叫魂：1768年中国妖术大恐慌</a></li><li><a href="../../阅读/菊与刀" data-for="阅读/菊与刀">菊与刀</a></li><li><a href="../../阅读/论语" data-for="阅读/论语">论语</a></li><li><a href="../../阅读/毛泽东选集" data-for="阅读/毛泽东选集">毛泽东选集</a></li><li><a href="../../阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" data-for="阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化">人民公开课：中国共产党与国家治理体系和治理能力现代化</a></li><li><a href="../../阅读/盛唐到底盛在哪儿" data-for="阅读/盛唐到底盛在哪儿">盛唐到底盛在哪儿</a></li><li><a href="../../阅读/伊豆的舞女" data-for="阅读/伊豆的舞女">伊豆的舞女</a></li><li><a href="../../阅读/以利为利：财政关系与地方政府行为" data-for="阅读/以利为利：财政关系与地方政府行为">以利为利：财政关系与地方政府行为</a></li><li><a href="../../阅读/哲学导论讲记" data-for="阅读/哲学导论讲记">哲学导论讲记</a></li><li><a href="../../阅读/治大国若烹小鲜：基层治理与世道人心" data-for="阅读/治大国若烹小鲜：基层治理与世道人心">治大国若烹小鲜：基层治理与世道人心</a></li><li><a href="../../阅读/置身事内：中国政府与经济发展" data-for="阅读/置身事内：中国政府与经济发展">置身事内：中国政府与经济发展</a></li><li><a href="../../阅读/中国是部金融史" data-for="阅读/中国是部金融史">中国是部金融史</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Git"><button class="folder-button"><span class="folder-title">Git</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Git"><li><a href="../../Git/删除分支" data-for="Git/删除分支">删除分支</a></li><li><a href="../../Git/文件.gitkeep是什么" data-for="Git/文件.gitkeep是什么">文件.gitkeep是什么</a></li></ul></div></li><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Markdown"><button class="folder-button"><span class="folder-title">Markdown</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Markdown"><li><a href="../../Markdown/Callouts-标注" data-for="Markdown/Callouts-标注">Callouts 标注</a></li><li><a href="../../Markdown/Obsidian-教程" data-for="Markdown/Obsidian-教程">Obsidian 教程</a></li><li><a href="../../Markdown/Typora-自定义-Callouts-样式" data-for="Markdown/Typora-自定义-Callouts-样式">Typora 自定义 Callouts</a></li><li><a href="../../Markdown/Typora-自定义字体" data-for="Markdown/Typora-自定义字体">Typora 自定义字体</a></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../计算机基础/">计算机基础</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../计算机基础/数据库系统概论/">数据库系统概论</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>数据库恢复技术</a></div></nav><h1 class="article-title">数据库恢复技术</h1><p show-comma="true" class="content-meta"><time datetime="2024-11-16T13:59:26.656Z">2024年11月16日</time><span>25分钟阅读</span></p><ul class="tags"><li><a href="../../tags/数据库" class="internal tag-link">数据库</a></li></ul></div></div><article class="popover-hint"><h1 id="事务的基本概念">事务的基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#事务的基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="事务">事务<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#事务" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>事务(Transaction)是用户定义的一个数据库操作序列，这些操作要么全做，要么全不做，是一个不可分割的工作单位。</p>
+<p>事务和程序是两个概念：在关系数据库中，一个事务可以是一条SQL语句，一组SQL语句或整个程序，一个程序通常包含多个事务。</p>
+<p>事务是恢复和并发控制的基本单位。</p>
+<h2 id="事务的acid特性">事务的ACID特性<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#事务的acid特性" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>事务的ACID特性：</p>
+<ul>
+<li>
+<p>原子性（Atomicity）</p>
+<p>事务是数据库的逻辑工作单位，事务中包括的诸操作要么都做，要么都不做。</p>
+</li>
+<li>
+<p>一致性（Consistency）</p>
+<p>事务执行的结果必须是使数据库从一个一致性状态变到另一个一致性状态。</p>
+<p>一致性状态：数据库中只包含成功事务提交的结果。</p>
+<p>不一致状态：数据库系统运行中发生故障，有些事务尚未完成就被迫中断。这些未完成事务对数据库所做的修改有一部分已写入物理数据库，这时数据库就处于一种不正确的状态。</p>
+</li>
+<li>
+<p>隔离性（Isolation）</p>
+<p>一个事务的执行不能被其他事务干扰，即一个事务内部的操作及使用的数据对其他并发事务是隔离的，并发执行的各个事务之间不能互相干扰。</p>
+</li>
+<li>
+<p>持续性（Durability ）</p>
+<p>持续性也称<strong>永久性</strong>，一个事务一旦提交，它对数据库中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其执行结果有任何影响。</p>
+</li>
+</ul>
+<p>保证事务ACID特性是事务处理的任务。</p>
+<p>破坏事务ACID特性的因素：</p>
+<ul>
+<li>
+<p>多个事务并行运行时，不同事务的操作交叉执行</p>
+<p>数据库管理系统必须保证多个事务的交叉运行不影响这些事务的隔离性</p>
+</li>
+<li>
+<p>事务在运行过程中被强行停止</p>
+<p>数据库管理系统必须保证被强行终止的事务对数据库和其他事务没有任何影响</p>
+</li>
+</ul>
+<h1 id="数据库恢复概述">数据库恢复概述<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据库恢复概述" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>故障是不可避免的。</p>
+<p>故障的影响：运行事务非正常中断，影响数据库中数据的正确性；破坏数据库，全部或部分丢失数据。</p>
+<p>数据库管理系统必须具有把数据库从错误状态恢复到某一已知的正确状态(亦称为一致状态或完整状态)的功能，这就是数据库的恢复管理系统对故障的对策。</p>
+<p>恢复子系统是数据库管理系统的一个重要组成部分。</p>
+<p>恢复技术是衡量系统优劣的重要指标。</p>
+<h1 id="故障的种类">故障的种类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#故障的种类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>各类故障，对数据库的影响有两种可能性</p>
+<ol>
+<li>数据库本身被破坏；</li>
+<li>数据库没有被破坏，但数据可能不正确，这是由于事务的运行被非正常终止造成的；</li>
+</ol>
+<h2 id="事务内部的故障">事务内部的故障<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#事务内部的故障" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>事务内部的故障</p>
+<ul>
+<li>有的是可以通过事务程序本身发现的；</li>
+<li>有的是非预期的，不能由事务程序处理的；</li>
+</ul>
+<p>事务内部更多的故障是非预期的，是不能由应用程序处理的。例如，运算溢出，并发事务发生死锁而被选中撤销该事务，违反了某些完整性限制而被终止等。</p>
+<p>以后，事务故障仅指这类非预期的故障。</p>
+<p>事务故障意味着事务没有达到预期的终点，即数据库可能处于不正确状态。</p>
+<p><strong>事务撤消</strong>（UNDO）：恢复程序在不影响其它事务运行的情况下，强行回滚出故障的事务，即撤销该事务已经作出的任何对数据库的修改，使得该事务象根本没有启动一样。</p>
+<h2 id="系统故障">系统故障<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#系统故障" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>系统故障称为<strong>软故障</strong>，是指造成系统停止运转的任何事件，使得系统要重新启动。 例如：特定类型的硬件错误（如CPU故障），操作系统故障，数据库管理系统代码错误，系统断电。</p>
+<ul>
+<li>
+<p>发生系统故障时，一些尚未完成的事务的结果可能已送入物理数据库，造成数据库可能处于不正确状态。</p>
+<p>恢复策略：系统重新启动时，恢复程序让所有非正常终止的事务回滚，强行撤消（UNDO）所有未完成事务。</p>
+</li>
+<li>
+<p>发生系统故障时，有些已完成的事务可能有一部分甚至全部留在缓冲区，尚未写回到磁盘上的物理数据库中，系统故障使得这些事务对数据库的修改部分或全部丢失</p>
+<p>恢复策略：系统重新启动时，恢复程序需要重做（REDO）所有已提交的事务。</p>
+</li>
+</ul>
+<h2 id="介质故障">介质故障<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#介质故障" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>介质故障称为<strong>硬故障</strong>，指外存故障。例如：磁盘损坏，磁头碰撞，瞬时强磁场干扰。</p>
+<p>介质故障破坏数据库或部分数据库，并影响正在存取这部分数据的所有事务。介质故障比前两类故障的可能性小得多，但破坏性大得多。</p>
+<h2 id="计算机病毒">计算机病毒<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#计算机病毒" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>一种人为的故障或破坏，是一些恶作剧者研制的一种计算机程序，可以繁殖和传播，造成对计算机系统包括数据库的危害。</p>
+<p>计算机病毒是数据库系统的主要威胁。</p>
+<p>数据库一旦被破坏仍要用恢复技术把数据库加以恢复。</p>
+<h1 id="恢复的实现技术">恢复的实现技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#恢复的实现技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>恢复操作的基本原理：<strong>冗余</strong>，即利用存储在系统别处的冗余数据来重建数据库中已被破坏或不正确的那部分数据。</p>
+<p>一个大型数据库产品，恢复子系统的代码要占全部代码的10%以上。</p>
+<p>恢复机制涉及的关键问题：</p>
+<ol>
+<li>如何建立冗余数据</li>
+<li>如何利用这些冗余数据实施数据库恢复</li>
+</ol>
+<h2 id="数据转储">数据转储<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据转储" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>转储</strong>是指数据库管理员定期地将整个数据库复制到磁带、磁盘或其他存储介质上保存起来的过程。</p>
+<p>备用的数据文本称为<strong>后备副本</strong>(backup)或后援副本。</p>
+<p>数据库遭到破坏后可以将后备副本重新装入，重装后备副本只能将数据库恢复到转储时的状态，要想恢复到故障发生时的状态，必须重新运行自转储以后的所有更新事务。</p>
+<blockquote>
+<p>例：</p>
+<p><img src="./assets/174.png" alt/></p>
+<p>系统在<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>时刻停止运行事务，进行数据库转储，在<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>时刻转储完毕，得到<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>时刻的数据库一致性副本。</p>
+<p>系统运行到<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>时刻发生故障。</p>
+<p>为恢复数据库，首先由数据库管理员重装数据库后备副本，将数据库恢复至<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>时刻的状态重新运行自<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>～<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>时刻的所有更新事务，把数据库恢复到故障发生前的一致状态。</p>
+</blockquote>
+<p>转储是十分耗费时间和资源的，不能频繁进行。</p>
+<p>转储可以分为：</p>
+<ol>
+<li>
+<p><strong>静态转储</strong></p>
+<p>在系统中无运行事务时进行的转储操作。</p>
+<p>转储开始时数据库处于一致性状态，转储期间不允许对数据库的任何存取、修改活动，得到的一定是一个数据一致性的副本。</p>
+<p>转储必须等待正运行的用户事务结束，新的事务必须等转储结束。</p>
+<p>优点：实现简单</p>
+<p>缺点：降低了数据库的可用性</p>
+</li>
+<li>
+<p><strong>动态转储</strong></p>
+<p>转储操作与用户事务并发进行，转储期间允许对数据库进行存取或修改。</p>
+<p>优点：不用等待正在运行的用户事务结束，不会影响新事务的运行</p>
+<p>缺点：不能保证副本中的数据正确有效</p>
+<p>利用动态转储得到的副本进行故障恢复，需要把动态转储期间各事务对数据库的修改活动登记下来，建立<strong>日志文件</strong>。后备副本加上日志文件就能把数据库恢复到某一时刻的正确状态。</p>
+</li>
+</ol>
+<p>转储还可以分为：</p>
+<ol>
+<li>海量转储：每次转储全部数据库</li>
+<li>增量转储：只转储上次转储后更新过的数据</li>
+</ol>
+<p>海量转储与增量转储比较：从恢复角度看，使用海量转储得到的后备副本进行恢复往往更方便。
+如果数据库很大，事务处理又十分频繁，则增量转储方式更实用更有效。</p>
+<p><img src="./assets/175.png" alt/></p>
+<h2 id="登记日志文件">登记日志文件<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#登记日志文件" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>日志文件是用来记录事务对数据库的更新操作的文件。</p>
+<h3 id="格式">格式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#格式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>日志文件的格式：</p>
+<ol>
+<li>
+<p>以记录为单位的日志文件</p>
+<p>各个事务的开始标记，各个事务的结束标记，各个事务的所有更新操作均作为日志文件中的一个日志记录。</p>
+<p>每个日志记录的内容包括：</p>
+<ul>
+<li>事务标识（标明是哪个事务）</li>
+<li>操作类型（插入、删除或修改）</li>
+<li>操作对象（记录ID、Block NO.）</li>
+<li>更新前数据的旧值（对插入操作而言，此项为空值）</li>
+<li>更新后数据的新值（对删除操作而言, 此项为空值）</li>
+</ul>
+</li>
+<li>
+<p>以数据块为单位的日志文件</p>
+<p>每条日志记录的内容包括：</p>
+<ul>
+<li>事务标识</li>
+<li>被更新的数据块</li>
+</ul>
+</li>
+</ol>
+<h3 id="作用">作用<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#作用" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>用途：进行事务故障恢复，进行系统故障恢复，协助后备副本进行介质故障恢复。</p>
+<p>具体作用：</p>
+<ul>
+<li>
+<p>事务故障恢复和系统故障恢复必须用日志文件。</p>
+</li>
+<li>
+<p>在动态转储方式中必须建立日志文件，后备副本和日志文件结合起来才能有效地恢复数据库。</p>
+</li>
+<li>
+<p>在静态转储方式中，也可以建立日志文件。</p>
+<p>当数据库毁坏后可重新装入后援副本把数据库恢复到转储结束时刻的正确状态。利用日志文件，把已完成的事务进行重做处理。对故障发生时尚未完成的事务进行撤销处理，不必重新运行那些已完成的事务程序就可把数据库恢复到故障前某一时刻的正确状态。</p>
+</li>
+</ul>
+<p><img src="./assets/176.png" alt/></p>
+<h3 id="登记日志文件-1">登记日志文件<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#登记日志文件-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>为保证数据库是可恢复的，登记日志文件时必须遵循两条原则：</p>
+<ol>
+<li>
+<p>登记的次序严格按并发事务执行的时间次序</p>
+</li>
+<li>
+<p>必须先写日志文件，后写数据库</p>
+<p>写日志文件操作：把表示这个修改的日志记录写到日志文件中；</p>
+<p>写数据库操作：把对数据的修改写到数据库中；</p>
+</li>
+</ol>
+<p>为什么要先写日志文件：因为写数据库和写日志文件是两个不同的操作，在这两个操作之间可能发生故障</p>
+<ul>
+<li>如果先写了数据库修改，而在日志文件中没有登记下这个修改，则以后就无法恢复这个修改了。</li>
+<li>如果先写日志，但没有修改数据库，按日志文件恢复时只不过是多执行一次不必要的UNDO操作，并不会影响数据库的正确性。</li>
+</ul>
+<h1 id="恢复策略">恢复策略<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#恢复策略" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="事务故障的恢复">事务故障的恢复<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#事务故障的恢复" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>事务故障：事务在运行至正常终止点前被终止。</p>
+<p>恢复方法：由恢复子系统利用日志文件撤消此事务已对数据库进行的修改。</p>
+<p>事务故障的恢复由系统自动完成，对用户是透明的，不需要用户干预。</p>
+<p>恢复步骤：</p>
+<ol>
+<li>反向扫描文件日志（即从最后向前扫描日志文件），查找该事务的更新操作。</li>
+<li>对该事务的更新操作执行逆操作，即将日志记录中“更新前的值” 写入数据库。</li>
+<li>继续反向扫描日志文件，查找该事务的其他更新操作，并做同样处理。</li>
+<li>如此处理下去，直至读到此事务的开始标记，事务故障恢复就完成了。</li>
+</ol>
+<h2 id="系统故障的恢复">系统故障的恢复<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#系统故障的恢复" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>系统故障造成数据库不一致状态的原因：</p>
+<ul>
+<li>未完成事务对数据库的更新可能已写入数据库</li>
+<li>已提交事务对数据库的更新可能还留在缓冲区没来得及写入数据库</li>
+</ul>
+<p>恢复方法：</p>
+<ol>
+<li>撤销故障发生时未完成的事务</li>
+<li>重做已完成的事务</li>
+</ol>
+<p>系统故障的恢复由系统在重新启动时自动完成，不需要用户干预。</p>
+<p>恢复步骤：</p>
+<ol>
+<li>正向扫描日志文件（即从头扫描日志文件）</li>
+<li>对撤销队列事务进行撤销处理</li>
+<li>对重做队列事务进行重做处理</li>
+</ol>
+<h2 id="介质故障的恢复">介质故障的恢复<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#介质故障的恢复" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>恢复方法是重装数据库，然后重做已完成的事务。</p>
+<p>恢复步骤：</p>
+<ol>
+<li>
+<p>装入最新的后备数据库副本(离故障发生时刻最近的转储副本) ，使数据库恢复到最近一次转储时的一致性状态。</p>
+<p>对于静态转储的数据库副本，装入后数据库即处于一致性状态。</p>
+<p>对于动态转储的数据库副本，还须同时装入转储时刻的日志文件副本，利用恢复系统故障的方法（即REDO+UNDO），才能将数据库恢复到一致性状态。</p>
+</li>
+<li>
+<p>装入有关的日志文件副本(转储结束时刻的日志文件副本) ，重做已完成的事务。</p>
+<p>首先扫描日志文件，找出故障发生时已提交的事务的标识，将其记入重做队列。</p>
+<p>然后正向扫描日志文件，对重做队列中的所有事务进行重做处理。即将日志记录中“更新后的值”写入数据库。</p>
+</li>
+</ol>
+<p>介质故障的恢复需要数据库管理员介入。</p>
+<p>数据库管理员的工作：重装最近转储的数据库副本和有关的各日志文件副本，执行系统提供的恢复命令。</p>
+<h1 id="具有检查点的恢复技术">具有检查点的恢复技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#具有检查点的恢复技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>利用日志技术恢复数据库时，有两个问题：</p>
+<ol>
+<li>搜索整个日志将耗费大量的时间</li>
+<li>重做处理浪费了大量时间</li>
+</ol>
+<p>为了解决这些问题，出现了具有检查点的恢复技术。</p>
+<p>具有检查点的恢复技术：</p>
+<ul>
+<li>
+<p>在日志文件中增加检查点记录（checkpoint）</p>
+<p>内容包括：建立检查点时刻所有正在执行的事务清单，这些事务最近一个日志记录的地址。</p>
+</li>
+<li>
+<p>增加重新开始文件</p>
+<p>内容包括：记录各个检查点记录在日志文件中的地址。</p>
+</li>
+<li>
+<p>恢复子系统在登录日志文件期间动态地维护日志</p>
+</li>
+</ul>
+<p><img src="./assets/177.png" alt/></p>
+<p>动态维护日志文件的方法：周期性地建立检查点，保存数据库状态。</p>
+<p>具体步骤是：</p>
+<ol>
+<li>将当前日志缓冲区中的所有日志记录写入磁盘的日志文件上</li>
+<li>在日志文件中写入一个检查点记录</li>
+<li>将当前数据缓冲区的所有数据记录写入磁盘的数据库中</li>
+<li>把检查点记录在日志文件中的地址写入一个重新开始文件</li>
+</ol>
+<p>恢复子系统可以定期或不定期地建立检查点，保存数据库状态</p>
+<ul>
+<li>定期：按照预定的一个时间间隔，如每隔一小时建立一个检查点。</li>
+<li>不定期：按照某种规则，如日志文件已写满一半建立一个检查点。</li>
+</ul>
+<p>使用检查点方法可以改善恢复效率。</p>
+<p>当事务T在一个检查点之前提交，T对数据库所做的修改已写入数据库。写入时间是在这个检查点建立之前或在这个检查点建立之时 。那么在进行恢复处理时，就没有必要对事务T执行重做操作。</p>
+<blockquote>
+<p><img src="./assets/178.png" alt/></p>
+<ul>
+<li>T1：在检查点之前提交</li>
+<li>T2：在检查点之前开始执行，在检查点之后故障点之前提交</li>
+<li>T3：在检查点之前开始执行，在故障点时还未完成</li>
+<li>T4：在检查点之后开始执行，在故障点之前提交</li>
+<li>T5：在检查点之后开始执行，在故障点时还未完成</li>
+</ul>
+<p>T3和T5在故障发生时还未完成，所以予以撤销。</p>
+<p>T2和T4在检查点之后才提交，它们对数据库所做的修改在故障发生时可能还在缓冲区中，尚未写入数据库，所以要重做。</p>
+<p>T1在检查点之前已提交，所以不必执行重做操作。</p>
+</blockquote>
+<p>系统使用检查点方法进行恢复的步骤：</p>
+<ol>
+<li>
+<p>从重新开始文件中找到最后一个检查点记录在日志文件中的地址，由该地址在日志文件中找到最后一个检查点记录。</p>
+</li>
+<li>
+<p>由该检查点记录得到检查点建立时刻所有正在执行的事务清单ACTIVE-LIST。</p>
+<p>建立两个事务队列：UNDO-LIST，REDO-LIST。把ACTIVE-LIST暂时放入UNDO-LIST队列，REDO-LIST队列暂为空。</p>
+</li>
+<li>
+<p>从检查点开始正向扫描日志文件，直到日志文件结束。</p>
+<p>如有新开始的事务<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>，把<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>暂时放入UNDO-LIST队列。</p>
+<p>如有提交的事务<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>，把<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span>从UNDO-LIST队列移到REDO-LIST队列；直到日志文件结束。</p>
+</li>
+<li>
+<p>对UNDO-LIST中的每个事务执行UNDO操作，对REDO-LIST中的每个事务执行REDO操作。</p>
+</li>
+</ol>
+<h1 id="数据库镜像">数据库镜像<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据库镜像" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>介质故障是对系统影响最为严重的一种故障，严重影响数据库的可用性。由于介质故障恢复比较费时，为了预防介质故障，数据库管理员必须周期性地转储数据库。</p>
+<p>提高数据库可用性的解决方案：<strong>数据库镜像</strong></p>
+<ul>
+<li>数据库管理系统自动把整个数据库或其中的关键数据复制到另一个磁盘上</li>
+<li>数据库管理系统自动保证镜像数据与主数据的一致性，每当主数据库更新时，数据库管理系统自动把更新后的数据复制过去。</li>
+</ul>
+<p><img src="./assets/179.png" alt/></p>
+<p>出现介质故障时，可由镜像磁盘继续提供使用，同时数据库管理系统自动利用镜像磁盘数据进行数据库的恢复，不需要关闭系统和重装数据库副本。</p>
+<p><img src="./assets/180.png" alt/></p>
+<p>没有出现故障时，可用于并发操作。一个用户对数据加排他锁修改数据，其他用户可以读镜像数据库上的数据，而不必等待该用户释放锁。</p>
+<p>频繁地复制数据自然会降低系统运行效率，因此在实际应用中用户往往只选择对关键数据和日志文件镜像，而不是对整个数据库进行镜像。</p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>目录</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#事务的基本概念" data-for="事务的基本概念">事务的基本概念</a></li><li class="depth-1"><a href="#事务" data-for="事务">事务</a></li><li class="depth-1"><a href="#事务的acid特性" data-for="事务的acid特性">事务的ACID特性</a></li><li class="depth-0"><a href="#数据库恢复概述" data-for="数据库恢复概述">数据库恢复概述</a></li><li class="depth-0"><a href="#故障的种类" data-for="故障的种类">故障的种类</a></li><li class="depth-1"><a href="#事务内部的故障" data-for="事务内部的故障">事务内部的故障</a></li><li class="depth-1"><a href="#系统故障" data-for="系统故障">系统故障</a></li><li class="depth-1"><a href="#介质故障" data-for="介质故障">介质故障</a></li><li class="depth-1"><a href="#计算机病毒" data-for="计算机病毒">计算机病毒</a></li><li class="depth-0"><a href="#恢复的实现技术" data-for="恢复的实现技术">恢复的实现技术</a></li><li class="depth-1"><a href="#数据转储" data-for="数据转储">数据转储</a></li><li class="depth-1"><a href="#登记日志文件" data-for="登记日志文件">登记日志文件</a></li><li class="depth-2"><a href="#格式" data-for="格式">格式</a></li><li class="depth-2"><a href="#作用" data-for="作用">作用</a></li><li class="depth-2"><a href="#登记日志文件-1" data-for="登记日志文件-1">登记日志文件</a></li><li class="depth-0"><a href="#恢复策略" data-for="恢复策略">恢复策略</a></li><li class="depth-1"><a href="#事务故障的恢复" data-for="事务故障的恢复">事务故障的恢复</a></li><li class="depth-1"><a href="#系统故障的恢复" data-for="系统故障的恢复">系统故障的恢复</a></li><li class="depth-1"><a href="#介质故障的恢复" data-for="介质故障的恢复">介质故障的恢复</a></li><li class="depth-0"><a href="#具有检查点的恢复技术" data-for="具有检查点的恢复技术">具有检查点的恢复技术</a></li><li class="depth-0"><a href="#数据库镜像" data-for="数据库镜像">数据库镜像</a></li></ul></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2025</p><ul><li><a href="https://github.com/KISGP">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script src="../../postscript.js" type="module"></script></html>

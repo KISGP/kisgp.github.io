@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh"><head><title>SQL</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Comic_Sans_MS:wght@400;700&amp;family=Comic_Sans_MS:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="🪴 Quartz 4.0"/><meta property="og:title" content="SQL"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="SQL"/><meta name="twitter:description" content="SQL概述 发展 结构化查询语言（Structured Query Language，SQL）是关系数据库的标准语言。 目前，没有一个数据库系统能够支持SQL标准的所有概念和特性。 特点 综合统一 集数据定义语言（DDL），数据操纵语言（DML），数据控制语言（DCL）功能于一体。 可以独立完成数据库生命周期中的全部活动。 ..."/><meta property="og:description" content="SQL概述 发展 结构化查询语言（Structured Query Language，SQL）是关系数据库的标准语言。 目前，没有一个数据库系统能够支持SQL标准的所有概念和特性。 特点 综合统一 集数据定义语言（DDL），数据操纵语言（DML），数据控制语言（DCL）功能于一体。 可以独立完成数据库生命周期中的全部活动。 ..."/><meta property="og:image:type" content="image/webp"/><meta property="og:image:alt" content="SQL概述 发展 结构化查询语言（Structured Query Language，SQL）是关系数据库的标准语言。 目前，没有一个数据库系统能够支持SQL标准的所有概念和特性。 特点 综合统一 集数据定义语言（DDL），数据操纵语言（DML），数据控制语言（DCL）功能于一体。 可以独立完成数据库生命周期中的全部活动。 ..."/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:url" content="https://kisgp.cn/static/og-image.png"/><meta name="twitter:image" content="https://kisgp.cn/static/og-image.png"/><meta property="og:image" content="https://kisgp.cn/static/og-image.png"/><meta property="twitter:domain" content="kisgp.cn"/><meta property="og:url" content="https://kisgp.cn/计算机基础/数据库系统概论/3_SQL"/><meta property="twitter:url" content="https://kisgp.cn/计算机基础/数据库系统概论/3_SQL"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="SQL概述 发展 结构化查询语言（Structured Query Language，SQL）是关系数据库的标准语言。 目前，没有一个数据库系统能够支持SQL标准的所有概念和特性。 特点 综合统一 集数据定义语言（DDL），数据操纵语言（DML），数据控制语言（DCL）功能于一体。 可以独立完成数据库生命周期中的全部活动。 ..."/><meta name="generator" content="Quartz"/><link href="../../static/font/font-style.css" rel="stylesheet" type="text/css" spa-preserve/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="计算机基础/数据库系统概论/3_SQL"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">🪴 Quartz 4.0</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>搜索</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="collapse" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;编程语言&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Java&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/JavaScript&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust/Rust认识&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;服务器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/编译原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机操作系统&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机网络&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机组成原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/软件测试&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据结构和算法&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据库系统概论&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react/react学习&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/rspress&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;数据库&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读/未完成&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Git&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Markdown&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言"><button class="folder-button"><span class="folder-title">编程语言</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Java"><button class="folder-button"><span class="folder-title">Java</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Java"><li><a href="../../编程语言/Java/JavaWeb复习" data-for="编程语言/Java/JavaWeb复习">JavaWeb复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/JavaScript"><button class="folder-button"><span class="folder-title">JavaScript</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/JavaScript"><li><a href="../../编程语言/JavaScript/JS" data-for="编程语言/JavaScript/JS">JS</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust"><button class="folder-button"><span class="folder-title">Rust</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust/Rust认识"><button class="folder-button"><span class="folder-title">Rust认识</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust/Rust认识"><li><a href="../../编程语言/Rust/Rust认识/3_变量" data-for="编程语言/Rust/Rust认识/3_变量">3_变量</a></li><li><a href="../../编程语言/Rust/Rust认识/4_类型" data-for="编程语言/Rust/Rust认识/4_类型">4_类型</a></li><li><a href="../../编程语言/Rust/Rust认识/2_cargo使用" data-for="编程语言/Rust/Rust认识/2_cargo使用">Cargo 使用</a></li><li><a href="../../编程语言/Rust/Rust认识/1_环境配置" data-for="编程语言/Rust/Rust认识/1_环境配置">Rust 环境配置</a></li></ul></div></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="服务器"><button class="folder-button"><span class="folder-title">服务器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="服务器"><li><a href="../../服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问" data-for="服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问">使用 Cloudflare Workers 优化 Github 文件国内访问速度</a></li><li><a href="../../服务器/域名注册" data-for="服务器/域名注册">域名注册</a></li><li><a href="../../服务器/MinIO-使用" data-for="服务器/MinIO-使用">MinIO 使用</a></li><li><a href="../../服务器/OSS-对象存储" data-for="服务器/OSS-对象存储">OSS 对象存储</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础"><button class="folder-button"><span class="folder-title">计算机基础</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/编译原理"><button class="folder-button"><span class="folder-title">编译原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/编译原理"><li><a href="../../计算机基础/编译原理/3_词法分析" data-for="计算机基础/编译原理/3_词法分析">词法分析</a></li><li><a href="../../计算机基础/编译原理/1_开始" data-for="计算机基础/编译原理/1_开始">开始</a></li><li><a href="../../计算机基础/编译原理/2_引论" data-for="计算机基础/编译原理/2_引论">引论</a></li><li><a href="../../计算机基础/编译原理/4_语法分析" data-for="计算机基础/编译原理/4_语法分析">语法分析</a></li><li><a href="../../计算机基础/编译原理/5_语义分析与中间代码生成器" data-for="计算机基础/编译原理/5_语义分析与中间代码生成器">语义分析与中间代码生成器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机操作系统"><button class="folder-button"><span class="folder-title">计算机操作系统</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机操作系统"><li><a href="../../计算机基础/计算机操作系统/1_操作系统概述" data-for="计算机基础/计算机操作系统/1_操作系统概述">操作系统概述</a></li><li><a href="../../计算机基础/计算机操作系统/2_进程与线程" data-for="计算机基础/计算机操作系统/2_进程与线程">进程与线程</a></li><li><a href="../../计算机基础/计算机操作系统/3_内存管理" data-for="计算机基础/计算机操作系统/3_内存管理">内存管理</a></li><li><a href="../../计算机基础/计算机操作系统/4_文件管理" data-for="计算机基础/计算机操作系统/4_文件管理">文件管理</a></li><li><a href="../../计算机基础/计算机操作系统/5_输入输出管理" data-for="计算机基础/计算机操作系统/5_输入输出管理">I/O管理</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机网络"><button class="folder-button"><span class="folder-title">计算机网络</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机网络"><li><a href="../../计算机基础/计算机网络/5_传输层" data-for="计算机基础/计算机网络/5_传输层">传输层</a></li><li><a href="../../计算机基础/计算机网络/1_计算机网络体系结构" data-for="计算机基础/计算机网络/1_计算机网络体系结构">计算机网络体系结构</a></li><li><a href="../../计算机基础/计算机网络/3_数据链路层" data-for="计算机基础/计算机网络/3_数据链路层">数据链路层</a></li><li><a href="../../计算机基础/计算机网络/4_网络层" data-for="计算机基础/计算机网络/4_网络层">网络层</a></li><li><a href="../../计算机基础/计算机网络/2_物理层" data-for="计算机基础/计算机网络/2_物理层">物理层</a></li><li><a href="../../计算机基础/计算机网络/6_应用层" data-for="计算机基础/计算机网络/6_应用层">应用层</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机组成原理"><button class="folder-button"><span class="folder-title">计算机组成原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机组成原理"><li><a href="../../计算机基础/计算机组成原理/3_存储系统" data-for="计算机基础/计算机组成原理/3_存储系统">存储系统</a></li><li><a href="../../计算机基础/计算机组成原理/1_计算机系统概述" data-for="计算机基础/计算机组成原理/1_计算机系统概述">计算机组成原理</a></li><li><a href="../../计算机基础/计算机组成原理/2_数据的表示和运算" data-for="计算机基础/计算机组成原理/2_数据的表示和运算">数据的表示和运算</a></li><li><a href="../../计算机基础/计算机组成原理/4_指令系统" data-for="计算机基础/计算机组成原理/4_指令系统">指令系统</a></li><li><a href="../../计算机基础/计算机组成原理/5_中央处理器" data-for="计算机基础/计算机组成原理/5_中央处理器">中央处理器</a></li><li><a href="../../计算机基础/计算机组成原理/6_总线" data-for="计算机基础/计算机组成原理/6_总线">总线</a></li><li><a href="../../计算机基础/计算机组成原理/7_IO系统" data-for="计算机基础/计算机组成原理/7_IO系统">I/O 系统</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/软件测试"><button class="folder-button"><span class="folder-title">软件测试</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/软件测试"><li><a href="../../计算机基础/软件测试/1_软件测试技术复习" data-for="计算机基础/软件测试/1_软件测试技术复习">软件测试技术复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据结构和算法"><button class="folder-button"><span class="folder-title">数据结构和算法</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据结构和算法"><li><a href="../../计算机基础/数据结构和算法/8_查找" data-for="计算机基础/数据结构和算法/8_查找">查找</a></li><li><a href="../../计算机基础/数据结构和算法/5_串" data-for="计算机基础/数据结构和算法/5_串">串</a></li><li><a href="../../计算机基础/数据结构和算法/9_排序" data-for="计算机基础/数据结构和算法/9_排序">排序</a></li><li><a href="../../计算机基础/数据结构和算法/6_树" data-for="计算机基础/数据结构和算法/6_树">树</a></li><li><a href="../../计算机基础/数据结构和算法/1_数据结构基本概念" data-for="计算机基础/数据结构和算法/1_数据结构基本概念">数据结构的基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/2_算法基本概念" data-for="计算机基础/数据结构和算法/2_算法基本概念">算法基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/7_图" data-for="计算机基础/数据结构和算法/7_图">图</a></li><li><a href="../../计算机基础/数据结构和算法/3_线性表" data-for="计算机基础/数据结构和算法/3_线性表">线性表</a></li><li><a href="../../计算机基础/数据结构和算法/4_栈和队列" data-for="计算机基础/数据结构和算法/4_栈和队列">栈和队列</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据库系统概论"><button class="folder-button"><span class="folder-title">数据库系统概论</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据库系统概论"><li><a href="../../计算机基础/数据库系统概论/11_并发控制" data-for="计算机基础/数据库系统概论/11_并发控制">并发控制</a></li><li><a href="../../计算机基础/数据库系统概论/9_关系查询处理和查询优化" data-for="计算机基础/数据库系统概论/9_关系查询处理和查询优化">关系查询处理和查询优化</a></li><li><a href="../../计算机基础/数据库系统概论/2_关系数据库" data-for="计算机基础/数据库系统概论/2_关系数据库">关系数据库</a></li><li><a href="../../计算机基础/数据库系统概论/6_关系数据理论" data-for="计算机基础/数据库系统概论/6_关系数据理论">关系数据理论</a></li><li><a href="../../计算机基础/数据库系统概论/4_数据库安全性" data-for="计算机基础/数据库系统概论/4_数据库安全性">数据库安全性</a></li><li><a href="../../计算机基础/数据库系统概论/8_数据库编程" data-for="计算机基础/数据库系统概论/8_数据库编程">数据库编程</a></li><li><a href="../../计算机基础/数据库系统概论/10_数据库恢复技术" data-for="计算机基础/数据库系统概论/10_数据库恢复技术">数据库恢复技术</a></li><li><a href="../../计算机基础/数据库系统概论/7_数据库设计" data-for="计算机基础/数据库系统概论/7_数据库设计">数据库设计</a></li><li><a href="../../计算机基础/数据库系统概论/5_数据库完整性" data-for="计算机基础/数据库系统概论/5_数据库完整性">数据库完整性</a></li><li><a href="../../计算机基础/数据库系统概论/1_绪论" data-for="计算机基础/数据库系统概论/1_绪论">绪论</a></li><li><a href="../../计算机基础/数据库系统概论/3_SQL" data-for="计算机基础/数据库系统概论/3_SQL">SQL</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器"><button class="folder-button"><span class="folder-title">浏览器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react"><button class="folder-button"><span class="folder-title">react</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react/react学习"><button class="folder-button"><span class="folder-title">react学习</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react/react学习"><li><a href="../../浏览器/react/react学习/9_Hook" data-for="浏览器/react/react学习/9_Hook">Hook的使用</a></li><li><a href="../../浏览器/react/react学习/2_jsx基本语法" data-for="浏览器/react/react学习/2_jsx基本语法">jsx基本语法</a></li><li><a href="../../浏览器/react/react学习/1_react初体验" data-for="浏览器/react/react学习/1_react初体验">react初体验</a></li><li><a href="../../浏览器/react/react学习/6_react动画" data-for="浏览器/react/react学习/6_react动画">react动画</a></li><li><a href="../../浏览器/react/react学习/3_react脚手架解析" data-for="浏览器/react/react学习/3_react脚手架解析">react脚手架解析</a></li><li><a href="../../浏览器/react/react学习/4_react性能优化" data-for="浏览器/react/react学习/4_react性能优化">react性能优化</a></li><li><a href="../../浏览器/react/react学习/5_react组件化开发" data-for="浏览器/react/react学习/5_react组件化开发">react组件化开发</a></li><li><a href="../../浏览器/react/react学习/7_Redux的使用" data-for="浏览器/react/react学习/7_Redux的使用">Redux的使用</a></li><li><a href="../../浏览器/react/react学习/8_Router的使用" data-for="浏览器/react/react学习/8_Router的使用">Router的使用</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/rspress"><button class="folder-button"><span class="folder-title">rspress</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/rspress"><li><a href="../../浏览器/rspress/LaTeX无法使用$$语法" data-for="浏览器/rspress/LaTeX无法使用$$语法">LaTeX无法使用$$语法</a></li><li><a href="../../浏览器/rspress/自动生成侧边栏" data-for="浏览器/rspress/自动生成侧边栏">rspress 自动生成侧边栏</a></li></ul></div></li><li><a href="../../浏览器/CORS错误" data-for="浏览器/CORS错误">CORS错误</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="数据库"><button class="folder-button"><span class="folder-title">数据库</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="数据库"><li><a href="../../数据库/MongoDB-使用" data-for="数据库/MongoDB-使用">MongoDB 使用</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读"><button class="folder-button"><span class="folder-title">阅读</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读/未完成"><button class="folder-button"><span class="folder-title">未完成</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读/未完成"><li><a href="../../阅读/未完成/解构现代化：温铁军演讲录" data-for="阅读/未完成/解构现代化：温铁军演讲录">解构现代化：温铁军演讲录</a></li><li><a href="../../阅读/未完成/金瓶梅词话（上下）" data-for="阅读/未完成/金瓶梅词话（上下）">金瓶梅词话（上下）</a></li><li><a href="../../阅读/未完成/思想的力量（第9版）" data-for="阅读/未完成/思想的力量（第9版）">思想的力量（第9版）</a></li><li><a href="../../阅读/未完成/乡土中国-生育制度-乡土重建" data-for="阅读/未完成/乡土中国-生育制度-乡土重建">乡土中国 生育制度 乡土重建</a></li><li><a href="../../阅读/未完成/制造消费者：消费主义全球史" data-for="阅读/未完成/制造消费者：消费主义全球史">制造消费者：消费主义全球史</a></li></ul></div></li><li><a href="../../阅读/大清为何轰然倒塌" data-for="阅读/大清为何轰然倒塌">大清为何轰然倒塌</a></li><li><a href="../../阅读/叫魂：1768年中国妖术大恐慌" data-for="阅读/叫魂：1768年中国妖术大恐慌">叫魂：1768年中国妖术大恐慌</a></li><li><a href="../../阅读/菊与刀" data-for="阅读/菊与刀">菊与刀</a></li><li><a href="../../阅读/论语" data-for="阅读/论语">论语</a></li><li><a href="../../阅读/毛泽东选集" data-for="阅读/毛泽东选集">毛泽东选集</a></li><li><a href="../../阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" data-for="阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化">人民公开课：中国共产党与国家治理体系和治理能力现代化</a></li><li><a href="../../阅读/盛唐到底盛在哪儿" data-for="阅读/盛唐到底盛在哪儿">盛唐到底盛在哪儿</a></li><li><a href="../../阅读/伊豆的舞女" data-for="阅读/伊豆的舞女">伊豆的舞女</a></li><li><a href="../../阅读/以利为利：财政关系与地方政府行为" data-for="阅读/以利为利：财政关系与地方政府行为">以利为利：财政关系与地方政府行为</a></li><li><a href="../../阅读/哲学导论讲记" data-for="阅读/哲学导论讲记">哲学导论讲记</a></li><li><a href="../../阅读/治大国若烹小鲜：基层治理与世道人心" data-for="阅读/治大国若烹小鲜：基层治理与世道人心">治大国若烹小鲜：基层治理与世道人心</a></li><li><a href="../../阅读/置身事内：中国政府与经济发展" data-for="阅读/置身事内：中国政府与经济发展">置身事内：中国政府与经济发展</a></li><li><a href="../../阅读/中国是部金融史" data-for="阅读/中国是部金融史">中国是部金融史</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Git"><button class="folder-button"><span class="folder-title">Git</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Git"><li><a href="../../Git/删除分支" data-for="Git/删除分支">删除分支</a></li><li><a href="../../Git/文件.gitkeep是什么" data-for="Git/文件.gitkeep是什么">文件.gitkeep是什么</a></li></ul></div></li><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Markdown"><button class="folder-button"><span class="folder-title">Markdown</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Markdown"><li><a href="../../Markdown/Callouts-标注" data-for="Markdown/Callouts-标注">Callouts 标注</a></li><li><a href="../../Markdown/Obsidian-教程" data-for="Markdown/Obsidian-教程">Obsidian 教程</a></li><li><a href="../../Markdown/Typora-自定义-Callouts-样式" data-for="Markdown/Typora-自定义-Callouts-样式">Typora 自定义 Callouts</a></li><li><a href="../../Markdown/Typora-自定义字体" data-for="Markdown/Typora-自定义字体">Typora 自定义字体</a></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../计算机基础/">计算机基础</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../计算机基础/数据库系统概论/">数据库系统概论</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>SQL</a></div></nav><h1 class="article-title">SQL</h1><p show-comma="true" class="content-meta"><time datetime="2024-11-16T13:59:26.667Z">2024年11月16日</time><span>40分钟阅读</span></p><ul class="tags"><li><a href="../../tags/数据库" class="internal tag-link">数据库</a></li></ul></div></div><article class="popover-hint"><h1 id="sql概述">SQL概述<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#sql概述" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="发展">发展<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#发展" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>结构化查询语言（Structured Query Language，SQL）是关系数据库的标准语言。</p>
+<p><img src="./assets/33.png" alt/></p>
+<p>目前，没有一个数据库系统能够支持SQL标准的所有概念和特性。</p>
+<h2 id="特点">特点<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#特点" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p>综合统一</p>
+<p>集数据定义语言（DDL），数据操纵语言（DML），数据控制语言（DCL）功能于一体。</p>
+<p>可以独立完成数据库生命周期中的全部活动。</p>
+<p>用户数据库投入运行后，可根据需要随时逐步修改模式，不影响数据库的运行。</p>
+<p>数据操作符统一。</p>
+</li>
+<li>
+<p>高度非过程化</p>
+<p>无须了解存取路径，存取路径的选择以及SQL的操作过程由系统自动完成。</p>
+</li>
+<li>
+<p>面向集合的操作方式</p>
+<p>非关系数据模型采用面向记录的操作方式，操作对象是一条记录。</p>
+<p>SQL采用集合操作方式，操作对象，查找结果，一次插入、删除、更新操作的对象可以是元组的集合。</p>
+</li>
+<li>
+<p>以同一种语法结构提供多种使用方式</p>
+<p>SQL是独立的语言，能够独立地用于联机交互的使用方式。</p>
+<p>SQL又是嵌入式语言，能够嵌入到高级语言（例如C，C++，Java）程序中，供程序员设计程序时使用。</p>
+</li>
+<li>
+<p>语言简洁，易学易用</p>
+<p>SQL功能极强，完成核心功能只用了9个动词。</p>
+<p><img src="./assets/34.png" alt/></p>
+</li>
+</ol>
+<h2 id="基本概念">基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>SQL支持关系数据库三级模式结构。</p>
+<p><img src="./assets/35.png" alt/></p>
+<p><strong>基本表</strong>：基本表是本身独立存在的表，一个关系就对应一个基本表，一个或多个基本表对应一个存储文件，一个表可以带若干索引。</p>
+<p><strong>存储文件</strong>：存储文件的逻辑结构组成了关系数据库的内模式；存储文件的物理结构对用户是隐蔽的。</p>
+<p><strong>视图</strong>：视图是从一个或几个基本表导出的表。它本身不独立存储在数据库中，即数据库中只存放视图的定义而不存放视图对应的数据。视图是一个虚表。用户可以在视图上再定义视图。</p>
+<h1 id="学生-课程数据库">学生-课程数据库<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#学生-课程数据库" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>学生表：Student(Sno,Sname,Ssex,Sage,Sdept)</p>
+<p>课程表：Course(Cno,Cname,Cpno,Ccredit)</p>
+<p>学生选课表：SC(Sno,Cno,Grade)</p>
+<p><img src="./assets/36.png" alt/></p>
+<p><img src="./assets/37.png" alt/></p>
+<p><img src="./assets/38.png" alt/></p>
+<h1 id="数据定义">数据定义<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据定义" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>SQL的数据定义功能：模式定义、表定义、视图和索引的定义。</p>
+<p><img src="./assets/39.png" alt/></p>
+<p>现代关系数据库管理系统提供了一个层次化的数据库对象命名机制。</p>
+<ul>
+<li>一个关系数据库管理系统的实例中可以建立多个数据库；</li>
+<li>一个数据库中可以建立多个模式；</li>
+<li>一个模式下通常包括多个表、视图和索引等数据库对象；</li>
+</ul>
+<h2 id="数据类型">数据类型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据类型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>SQL中域的概念用数据类型来实现。定义表的属性时需要指明其数据类型及长度。</p>
+<p>选用哪种数据类型，一般从两方面考虑：</p>
+<ol>
+<li>取值范围</li>
+<li>要做哪些运算</li>
+</ol>
+<p><img src="./assets/42.png" alt/></p>
+<h2 id="模式的定义与删除">模式的定义与删除<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#模式的定义与删除" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>定义模式实际上定义了一个命名空间，在这个空间中可以定义该模式包含的数据库对象，例如基本表、视图、索引等。</p>
+<p>在SQL中，模式定义语句：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> SCHEMA</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">模式名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> AUTHORIZATION </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">用户名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span></code></pre></figure>
+<p>::: tip</p>
+<p>如果没有指定&lt;模式名>，则&lt;模式名>隐含为&lt;用户名></p>
+<p>:::</p>
+<p>用户可以在创建模式的同时在这个模式定义中进一步创建基本表、视图，定义授权。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> SCHEMA</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">模式名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> AUTHORIZATION </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">用户名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[&lt;表定义子句>|&lt;视图定义子句>|&lt;授权定义子句>];</span></span></code></pre></figure>
+<blockquote>
+<p>例：为用户ZHANG创建了一个模式TEST，并且在其中定义一个表TAB1</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> SCHEMA</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> TEST</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> AUTHORIZATION ZHANG </span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> TABLE</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> TAB1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">( COL1 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">SMALLINT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                   COL2 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">INT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                   COL3 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CHAR</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">20</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">),</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                   COL4 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">NUMERIC</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">10</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">3</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">),</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                   COL5 </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">DECIMAL</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">5</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                  );</span></span></code></pre></figure>
+</blockquote>
+<p>在SQL中，删除模式语句：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">DROP</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> SCHEMA</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">模式名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">CASCADE|RESTRICT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span></code></pre></figure>
+<p>CASCADE和RESTRICT必须二选一。</p>
+<ul>
+<li>
+<p><strong>CASCADE</strong>（级联）</p>
+<p>删除模式的同时把该模式中所有的数据库对象全部删除。</p>
+</li>
+<li>
+<p><strong>RESTRICT</strong>（限制）</p>
+<p>如果该模式中定义了下属的数据库对象（如表、视图等），则拒绝该删除语句的执行。仅当该模式中没有任何下属的对象时才能执行。</p>
+</li>
+</ul>
+<h2 id="基本表的定义删除与修改">基本表的定义、删除与修改<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本表的定义删除与修改" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>定义表，格式如下：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> TABLE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ( </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">数据类型</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [&lt;列级完整性约束条件>]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      							[,&lt;列名> &lt;数据类型> [&lt;列级完整性约束条件>]]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                   	... </span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">										[,&lt;表级完整性约束条件>]);</span></span></code></pre></figure>
+<ul>
+<li>&lt;表名>：所要定义的基本表的名字；</li>
+<li>&lt;列名>：组成该表的各个属性（列）；</li>
+<li>&lt;列级完整性约束条件>：涉及相应属性列的完整性约束条件；</li>
+<li>&lt;表级完整性约束条件>：涉及一个或多个属性列的完整性约束条件；</li>
+</ul>
+<p><img src="./assets/40.png" alt/></p>
+<p><img src="./assets/41.png" alt/></p>
+<hr/>
+<p>删除表，格式如下：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">DROP</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> TABLE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [RESTRICT| CASCADE];</span></span></code></pre></figure>
+<ul>
+<li>
+<p>RESTRICT：删除表是有限制的。</p>
+<p>欲删除的基本表不能被其他表的约束所引用，如果存在依赖该表的对象，则此表不能被删除。</p>
+</li>
+<li>
+<p>CASCADE：删除该表没有限制。</p>
+<p>在删除基本表的同时，相关的依赖对象一起删除。</p>
+</li>
+</ul>
+<p>默认是RESTRICT。</p>
+<p><img src="./assets/43.png" alt/></p>
+<hr/>
+<p>修改表，格式如下：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">ALTER</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> TABLE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[ ADD[COLUMN] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">新列名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">数据类型</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [完整性约束] ]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[ ADD &lt;表级完整性约束>]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[ DROP [ COLUMN ] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [CASCADE|RESTRICT] ]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[ DROP CONSTRAINT &lt;完整性约束名> [RESTRICT|CASCADE] ]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[ ALTER COLUMN &lt;列名> &lt;数据类型> ] ;</span></span></code></pre></figure>
+<ul>
+<li>
+<p>&lt;表名>：要修改的基本表；</p>
+</li>
+<li>
+<p>ADD子句：用于增加新列、新的列级完整性约束条件和新的表级完整性约束条件；</p>
+</li>
+<li>
+<p>DROP COLUMN子句：用于删除表中的列；</p>
+<p>如果指定了CASCADE短语，则自动删除引用了该列的其他对象；</p>
+<p>如果指定了RESTRICT短语，则如果该列被其他对象引用，关系数据库管理系统将拒绝删除该列；</p>
+</li>
+<li>
+<p>DROP CONSTRAINT子句：用于删除指定的完整性约束条件；</p>
+</li>
+<li>
+<p>ALTER COLUMN子句：用于修改原有的列定义，包括修改列名和数据类型；</p>
+</li>
+</ul>
+<p><img src="./assets/44.png" alt/></p>
+<p>::: tip</p>
+<p>不管基本表中原来是否已有数据，新增加的列一律为空值 。</p>
+<p>:::</p>
+<h2 id="模式与表">模式与表<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#模式与表" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>每一个基本表都属于某一个模式，一个模式包含多个基本表。</p>
+<p>定义基本表所属模式一般有三种方法：</p>
+<ol>
+<li>
+<p>在表名中明显地给出模式名</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> TABLE</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;S-T&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.Student(......);  </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">-- 模式名为 S-T</span></span></code></pre></figure>
+</li>
+<li>
+<p>在创建模式语句中同时创建表</p>
+</li>
+<li>
+<p>设置所属的模式</p>
+</li>
+</ol>
+<p>创建基本表（其他数据库对象也一样）时，若没有指定模式，系统根据<strong>搜索路径</strong>来确定该对象所属的模式。</p>
+<p>::: info</p>
+<p>显示当前的搜索路径：<code>SHOW search_path; </code></p>
+<p>设置搜索路径：<code>SET search_path TO &quot;S-T&quot;, PUBLI;</code></p>
+<p>但以上两条命令是用于在 PostgreSQL 中的，在 MySQL 中，没有像 PostgreSQL 中的模式搜索路径概念。</p>
+<p>MySQL 主要依赖于当前所选的数据库来确定表和对象的搜索范围，而不是像 PostgreSQL 那样使用模式搜索路径。在 MySQL 中，会话使用的数据库（也就是当前默认数据库）会决定在查询时默认使用的模式。</p>
+<p>在 MySQL 中，</p>
+<ul>
+<li>查看当前会话所使用的默认数据库：<code>SELECT DATABASE();</code></li>
+<li>查看当前数据库中所有的模式（也被称为数据库）：<code>SHOW DATABASES;</code></li>
+</ul>
+<p>:::</p>
+<h2 id="索引的建立与删除">索引的建立与删除<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#索引的建立与删除" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>数据库索引是一种数据结构，用于提高数据库表中数据的检索速度。索引类似于书中的目录，可以快速指导数据库引擎到达包含特定数据的行，而无需扫描整个表。它们是数据库性能优化的关键组成部分。</p>
+<p>建立索引的目的是加快查询速度。</p>
+<p>关系数据库管理系统中常见索引：</p>
+<ul>
+<li>顺序文件上的索引</li>
+<li>B+树索引</li>
+<li>散列（hash）索引</li>
+<li>位图索引</li>
+</ul>
+<p>索引一般是由数据库管理员或表的属主（即建立表的人）建立的。维护索引则是由关系数据库管理系统自动完成。</p>
+<p>关系数据库管理系统自动选择合适的索引作为存取路径，<strong>用户不能显式地选择索引</strong>。</p>
+<hr/>
+<p>建立索引，格式：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [UNIQUE] [CLUSTERED] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">INDEX</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">索引名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ON</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[&lt;次序>][,&lt;列名>[&lt;次序>]]...);</span></span></code></pre></figure>
+<ul>
+<li>索引：可以建立在该表的一列或多列上，各列名之间用逗号分隔；</li>
+<li>&lt;表名>：要建索引的基本表的名字；</li>
+<li>&lt;次序>：指定索引值的排列次序，升序：ASC，降序：DESC，默认值：ASC；</li>
+<li>UNIQUE：此索引的每一个索引值只对应唯一的数据记录</li>
+<li>CLUSTER：表示要建立的索引是聚簇索引</li>
+</ul>
+<p>::: warning</p>
+<p>上面的格式是在 Microsoft SQL Server 的 T-SQL 中使用的语法。</p>
+<p>:::</p>
+<p><img src="./assets/45.png" alt/></p>
+<p>::: info 聚簇索引</p>
+<p>聚簇索引（Clustered Index）是一种特殊类型的索引，其顺序与表的物理顺序一致。</p>
+<p>这意味着表的数据行实际上按照聚簇索引的顺序进行存储，而不是存储在表的其他位置。因此，聚簇索引决定了表的物理排序方式。</p>
+<p>InnoDB是MySQL的默认存储引擎之一，它支持聚簇索引。因此当你在MYSQL数据库的表上定义主键时，InnoDB会默认使用主键作为聚簇索引。如果没有定义主键，InnoDB会选择第一个唯一非空索引作为聚簇索引。</p>
+<p>:::</p>
+<p>::: tip MYSQL建立索引</p>
+<p>在MYSQL中，建立索引的格式是：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [UNIQUE] [FULLTEXT|SPATIAL] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">INDEX</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">索引名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> ON</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [(length)] [ASC | DESC], ...);</span></span></code></pre></figure>
+<ul>
+<li>
+<p><code>length</code>: 对于文本列，可以指定索引的前缀长度。</p>
+</li>
+<li>
+<p><code>ASC | DESC</code>: 可选项，表示升序或降序排序，默认是升序。</p>
+</li>
+<li>
+<p><code>FULLTEXT|SPATIAL</code> 是用于创建特殊类型索引的关键字。</p>
+<p><code>FULLTEXT</code> 索引用于全文搜索。它允许你执行针对文本数据的全文搜索，而不仅仅是简单的字符串匹配。这对于需要在大量文本数据中进行自然语言搜索的场景非常有用。</p>
+<p><code>SPATIAL</code> 索引用于处理空间数据类型，例如地理信息系统中的地理坐标。它允许你执行空间查询，如范围搜索、邻近搜索等。</p>
+</li>
+</ul>
+<p>:::</p>
+<hr/>
+<p>修改索引，格式：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">ALTER</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> INDEX</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">旧索引名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> RENAME </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">TO</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">新索引名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span></code></pre></figure>
+<p><img src="./assets/46.png" alt/></p>
+<hr/>
+<p>删除索引，格式：</p>
+<p><img src="./assets/47.png" alt/></p>
+<h2 id="数据字典">数据字典<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据字典" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>数据字典是关系数据库管理系统内部的一组系统表，它记录了数据库中所有定义信息：</p>
+<ul>
+<li>关系模式定义</li>
+<li>视图定义</li>
+<li>索引定义</li>
+<li>完整性约束定义</li>
+<li>各类用户对数据库的操作权限</li>
+<li>统计信息等</li>
+</ul>
+<p>关系数据库管理系统在执行SQL的数据定义语句时，实际上就是在更新数据字典表中的相应信息。</p>
+<h1 id="数据查询">数据查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>查询的一般格式为：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">SELECT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [ALL|DISTINCT] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">目标列表达式</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[,&lt;目标列表达式>]...</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">FROM</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名或视图名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[,&lt;表名或视图名> ]...| (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">SELECT</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> 语句) [AS]</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">别名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[ WHERE &lt;条件表达式> ]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[ GROUP BY &lt;列名1> [ HAVING &lt;条件表达式> ] ]</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[ ORDER BY &lt;列名2> [ ASC|DESC ] ];</span></span></code></pre></figure>
+<ul>
+<li>SELECT子句：指定要显示的属性列；</li>
+<li>FROM子句：指定查询对象（基本表或视图）；</li>
+<li>WHERE子句：指定查询条件；</li>
+<li>GROUP BY子句：对查询结果按指定列的值分组，该属性列值相等的元组为一个组。通常会在每组中作用聚集函数；</li>
+<li>HAVING短语：只有满足指定条件的组才予以输出；</li>
+<li>ORDER BY子句：对查询结果表按指定列值的升序或降序排序；</li>
+</ul>
+<h2 id="单表查询">单表查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#单表查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>单表查询是查询仅涉及一个表的查询。</p>
+<h3 id="选择表中的若干列">选择表中的若干列<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#选择表中的若干列" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>查询指定列</p>
+<p>在SELECT子句的&lt;目标列表达式>中指定要查询的属性列。</p>
+<p><img src="./assets/48.png" alt/></p>
+</li>
+<li>
+<p>查询全部列</p>
+<p>可以在SELECT关键字后面列出所有列名，或者将&lt;目标列表达式>指定为<code>*</code>。</p>
+<p><img src="./assets/49.png" alt/></p>
+</li>
+<li>
+<p>查询经过计算的值</p>
+<p>SELECT子句的&lt;目标列表达式>不仅可以为表中的属性列，也可以是算术表达式，字符串常量，函数。</p>
+<p><img src="./assets/50.png" alt/></p>
+</li>
+</ul>
+<h3 id="选择表中的若干元组">选择表中的若干元组<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#选择表中的若干元组" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>
+<p>消除取值重复的行</p>
+<p>如果想去掉结果表中的重复行，必须指定<code>DISTINCT</code>，如果没有指定<code>DISTINCT</code>关键词，则默认为<code>ALL</code>。</p>
+<p><img src="./assets/51.png" alt/></p>
+</li>
+<li>
+<p>查询满足条件的元组</p>
+<p><img src="./assets/52.png" alt/></p>
+<ol>
+<li>
+<p>比较大小</p>
+<p><img src="./assets/53.png" alt/></p>
+</li>
+<li>
+<p>确定范围</p>
+<p><img src="./assets/54.png" alt/></p>
+</li>
+<li>
+<p>确定集合</p>
+<p><img src="./assets/55.png" alt/></p>
+</li>
+<li>
+<p>字符匹配</p>
+<p>&lt;匹配串>可以是一个完整的字符串，也可以含有通配符<code>%</code>和<code>_</code>。</p>
+<p>% （百分号）：代表任意长度（长度可以为0）的字符串。例如a%b表示以a开头，以b结尾的任意长度的字符串。</p>
+<p>_ （下横线）：代表任意单个字符。例如a_b表示以a开头，以b结尾的长度为3的任意字符串。</p>
+<p><img src="./assets/56.png" alt/></p>
+<p>如果要查询的字符串本身就含有<code>%</code>或者<code>_</code>，这时就需要使用<code>ESCAPE ‘&lt;换码字符>’</code>短语对通配符进行转义。ESCAPE ’＼’ 表示’＼‘为换码字符。</p>
+<p><img src="./assets/57.png" alt/></p>
+</li>
+<li>
+<p>涉及空值的查询</p>
+<p>“IS”不能用“=”代替</p>
+<p><img src="./assets/58.png" alt/></p>
+</li>
+<li>
+<p>多重条件查询</p>
+<p>AND和OR来连接多个查询条件，AND的优先级高于OR，但可以用括号改变优先级。</p>
+<p><img src="./assets/59.png" alt/></p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="order-by子句">ORDER BY子句<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#order-by子句" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>ORDER BY子句可以对查询结果按一个或多个属性列进行排序。</p>
+<p><img src="./assets/60.png" alt/></p>
+<p>::: tip</p>
+<p>对于空值，排序时显示的次序由具体系统实现来决定。</p>
+<p>:::</p>
+<h3 id="聚集函数">聚集函数<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#聚集函数" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>为了方便用户，增强检索功能，sql提供了许多聚集函数：</p>
+<ul>
+<li><code>COUNT(*)</code>：统计元组个数</li>
+<li><code>COUNT( [DISTINCT|ALL] &lt;列名>)</code>：统计一列中值的个数</li>
+<li><code>SUM( [DISTINCT|ALL] &lt;列名>)</code>：计算一列值的总和（此列必须为数值型）</li>
+<li><code>AVG( [DISTINCT|ALL] &lt;列名>)</code>：计算一列值的平均值（此列必须为数值型）</li>
+<li><code>MAX( [DISTINCT|ALL] &lt;列名>)</code>：求一列中的最大值</li>
+<li><code>MIN( [DISTINCT|ALL] &lt;列名>)</code>：求一列中的最小值</li>
+</ul>
+<p><img src="./assets/61.png" alt/></p>
+<p>当聚焦函数遇到空值时，除<code>COUNT(*)</code>外，都跳过空值，只处理非空值。</p>
+<p>::: tip</p>
+<p>聚焦函数只能用于SELECT子句和GROUP BY中的HAVING子句。</p>
+<p>:::</p>
+<h3 id="group-by子句">GROUP BY子句<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#group-by子句" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>GROUP BY子句将查询结果按某一列或多列的值分组，值相等的为一组。</p>
+<p>对查询结果分组的目的是为了<strong>细化聚集函数的作用对象</strong>。如果未对查询结果分组，聚集函数将作用于整个查询结果；对查询结果分组后，聚集函数将分别作用于每个组。</p>
+<p><img src="./assets/62.png" alt/></p>
+<p><img src="./assets/63.png" alt/></p>
+<p>::: tip HAVING短语与WHERE子句的区别</p>
+<ul>
+<li>作用对象不同。</li>
+<li>WHERE子句作用于基表或视图，从中选择满足条件的元组。</li>
+<li>HAVING短语作用于组，从中选择满足条件的组。</li>
+</ul>
+<p>:::</p>
+<h2 id="连接查询">连接查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#连接查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>同时涉及两个以上的表的查询称为<strong>连接查询</strong>。</p>
+<p>连接查询的WHERE子句中用来连接两个表的条件称为<strong>连接条件</strong>或<strong>连接谓词</strong>，一般格式为：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[&lt;表名1>.]</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">比较运算符</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [&lt;表名2>.]</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[&lt;表名1>.]</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> BETWEEN</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[&lt;表名2>.]</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名2</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> AND</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [&lt;表名2>.]</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名3</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span></span></code></pre></figure>
+<p>连接谓词中的列名称为<strong>连接字段</strong>。连接条件中的<strong>各连接字段类型必须是可比的</strong>，但名字不必相同。</p>
+<h3 id="等值与非等值连接查询">等值与非等值连接查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#等值与非等值连接查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>连接运算符为<code>=</code>时，称为<strong>等值连接</strong>；不为<code>=</code>则称为<strong>非等值连接</strong>。</p>
+<p><img src="./assets/65.png" alt/></p>
+<p>::: tip</p>
+<p>在上面例子中，SELECT子句和WHERE子句中的属性名前都加上了表名前缀，这是<strong>为了避免混淆</strong>。</p>
+<p>如果属性名在参加连接的歌表中是唯一的，则可以省略表名前缀。</p>
+<p>:::</p>
+<p>上面查询例子的几种可能的执行过程：</p>
+<ol>
+<li>
+<p><strong>嵌套循环法</strong></p>
+<p>首先在表1中找到第一个元组，然后从头开始扫描表2，逐一查找满足连接件的元组，找到后就将表1中的第一个元组与该元组拼接起来，形成结果表中一个元组。</p>
+<p>表2全部查找完后，再找表1中第二个元组，然后再从头开始扫描表2，逐一查找满足连接条件的元组，找到后就将表1中的第二个元组与该元组拼接起来，形成结果表中一个元组。</p>
+<p>重复上述操作，直到表1中的全部元组都处理完毕。</p>
+</li>
+<li>
+<p><strong>排序合并法</strong></p>
+<p>常用于<code>=</code>连接。</p>
+<p>首先按连接属性对表1和表2排序。</p>
+<p>对表1的第一个元组，从头开始扫描表2，顺序查找满足连接条件的元组，找到后就将表1中的第一个元组与该元组拼接起来，形成结果表中一个元组。当遇到表2中第一条大于表1连接字段值的元组时，对表2的查询不再继续。</p>
+<p>找到表1的第二条元组，然后从刚才的中断点处继续顺序扫描表2，查找满足连接条件的元组，找到后就将表1中的第一个元组与该元组拼接起来，形成结果表中一个元组。直接遇到表2中大于表1连接字段值的元组时，对表2的查询不再继续。</p>
+<p>重复上述操作，直到表1或表2中的全部元组都处理完毕为止。</p>
+</li>
+<li>
+<p><strong>索引连接</strong></p>
+<p>对表2按连接字段建立索引。</p>
+<p>对表1中的每个元组，依次根据其连接字段值查询表2的索引，从中找到满足条件的元组，找到后就将表1中的第一个元组与该元组拼接起来，形成结果表中一个元组。</p>
+</li>
+</ol>
+<p>若在等值连接中把目标中重复的属性列去掉则为<strong>自然连接</strong>。（例如上面例子的查询结果中学号重复了）</p>
+<p><img src="./assets/66.png" alt/></p>
+<p>一条SQL语句可以同时完成选择和连接查询，这时WHERE子句是由连接谓词和选择谓词组成的复合条件。</p>
+<p><img src="./assets/67.png" alt/></p>
+<h3 id="自身连接">自身连接<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#自身连接" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>连接操作不仅可以在两个表之间进行，也可以是一个表与其自己进行连接，成为表的自身连接。</p>
+<p>需要给表起别名以示区别。</p>
+<p>由于所有属性名都是同名属性，因此必须使用别名前缀。</p>
+<p><img src="./assets/68.png" alt/></p>
+<h3 id="外连接">外连接<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#外连接" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>外连接与普通连接的区别</p>
+<ul>
+<li>普通连接操作只输出满足连接条件的元组</li>
+<li>外连接操作以指定表为连接主体，将主体表中不满足连接条件的元组一并输出</li>
+</ul>
+<p>左外连接：列出左边关系中所有的元组；</p>
+<p>右外连接：列出右边关系中所有的元组；</p>
+<h3 id="多表连接">多表连接<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多表连接" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>两个以上的表</strong>进行连接称为多表连接。</p>
+<p><img src="./assets/69.png" alt/></p>
+<h2 id="嵌套查询">嵌套查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#嵌套查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>一个<code>SELECT-FROM-WHERE</code>语句称为一个<strong>查询块</strong>。</p>
+<p>将一个查询块嵌套在另一个查询块的WHERE子句或HAVING短语的条件中的查询称为<strong>嵌套查询</strong>。</p>
+<p><img src="./assets/70.png" alt/></p>
+<p>SQL语言允许多层嵌套查询，即一个子查询中还可以嵌套其他子查询。</p>
+<p>在子查询中不能使用ORDER BY子句。</p>
+<ul>
+<li>
+<p><strong>不相关子查询</strong>：子查询的查询条件不依赖于父查询</p>
+<p>由里向外逐层处理。即每个子查询在上一级查询处理之前求解，子查询的结果用于建立其父查询的查找条件。</p>
+</li>
+<li>
+<p><strong>相关子查询</strong>：查询的查询条件依赖于父查询</p>
+<p>首先取外层查询中表的第一个元组，根据它与内层查询相关的属性值处理内层查询，若WHERE子句返回值为真，则取此元组放入结果表，然后再取外层表的下一个元组。</p>
+<p>重复这一过程，直至外层表全部检查完为止。</p>
+</li>
+</ul>
+<h3 id="带有in谓词的子查询">带有IN谓词的子查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#带有in谓词的子查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/71.png" alt/></p>
+<h3 id="带有比较运算符的子查询">带有比较运算符的子查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#带有比较运算符的子查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>带有比较运算符的子查询是指父查询与子查询之间用比较运算符进行连接。</p>
+<p>当能确切知道内层查询返回单值时，可用比较运算符。</p>
+<p><img src="./assets/72.png" alt/></p>
+<p><img src="./assets/73.png" alt/></p>
+<h3 id="带有anysome或all谓词的子查询">带有ANY（SOME）或ALL谓词的子查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#带有anysome或all谓词的子查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>子查询返回单值的时候可以用比较运算符，但返回多值时要用ANY（有的系统是SOME）或ALL。</p>
+<ul>
+<li>> ANY：大于子查询结果中的某个值</li>
+<li>> ALL：大于子查询结果中的所有值</li>
+<li>&lt; ANY：小于子查询结果中的某个值</li>
+<li>&lt; ALL：小于子查询结果中的所有值</li>
+<li>>= ANY：大于等于子查询结果中的某个值</li>
+<li>>= ALL：大于等于子查询结果中的所有值</li>
+<li><span>⇐</span> ANY：小于等于子查询结果中的某个值</li>
+<li><span>⇐</span> ALL：小于等于子查询结果中的所有值</li>
+<li>= ANY：等于子查询结果中的某个值</li>
+<li>= ALL：等于子查询结果中的所有值（通常没有实际意义）</li>
+<li>!=（或&lt;>）ANY：不等于子查询结果中的某个值</li>
+<li>!=（或&lt;>）ALL：不等于子查询结果中的任何一个值</li>
+</ul>
+<p><img src="./assets/74.png" alt/></p>
+<h3 id="带有exists谓词的子查询">带有EXISTS谓词的子查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#带有exists谓词的子查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>EXISTS代表存在量词 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">∃</span></span></span></span></p>
+<p>带有EXISTS谓词的子查询不返回任何数据，只产生逻辑真值<code>true</code>或逻辑假值<code>false</code>。</p>
+<ul>
+<li>若内层查询结果非空，则外层的WHERE子句返回真值；</li>
+<li>若内层查询结果为空，则外层的WHERE子句返回假值；</li>
+</ul>
+<p>NOT EXISTS</p>
+<ul>
+<li>若内层查询结果非空，则外层的WHERE子句返回假值</li>
+<li>若内层查询结果为空，则外层的WHERE子句返回真值</li>
+</ul>
+<p>::: tip</p>
+<p>由EXISTS引出的子查询，其目标列表达式通常都用 <code>*</code> ，因为带EXISTS的子查询只返回真值或假值，给出列名无实际意义。</p>
+<p>:::</p>
+<p><img src="./assets/75.png" alt/></p>
+<p>不同形式的查询间的替换</p>
+<ul>
+<li>一些带EXISTS或NOT EXISTS谓词的子查询不能被其他形式的子查询等价替换；</li>
+<li>所有带IN谓词、比较运算符、ANY和ALL谓词的子查询都能用带EXISTS谓词的子查询等价替换；</li>
+</ul>
+<hr/>
+<p>用EXISTS/NOT EXISTS<strong>实现全称量词</strong>。</p>
+<p>SQL语言中没有全称量词 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">∀</span></span></span></span>，可以把带有全称量词的谓词转换为等价的带有存在量词的谓词，<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">¬</span><span class="mopen">(</span><span class="mord">∃</span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord">¬</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mclose">))</span></span></span></span></p>
+<p><img src="./assets/76.png" alt/></p>
+<hr/>
+<p>用EXISTS/NOT EXISTS<strong>实现逻辑蕴涵</strong>。</p>
+<p>SQL语言中没有蕴涵逻辑运算，可以利用谓词演算将逻辑蕴涵谓词等价转换为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6582em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.1944em;"></span><span class="mord">¬</span><span class="mord mathnormal">p</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">q</span></span></span></span></p>
+<p><img src="./assets/77.png" alt/></p>
+<p><img src="./assets/78.png" alt/></p>
+<h2 id="集合查询">集合查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#集合查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>集合操作的种类</p>
+<ul>
+<li>并操作 UNION</li>
+<li>交操作 INTERSECT</li>
+<li>差操作 EXCEPT</li>
+</ul>
+<p>::: tip</p>
+<p>参加集合操作的各查询结果的列数必须相同，对应项的数据类型也必须相同。</p>
+<p>:::</p>
+<p><img src="./assets/79.png" alt/></p>
+<p>::: tip</p>
+<ul>
+<li>UNION：将多个查询结果合并起来时，系统自动去掉重复元组</li>
+<li>UNION ALL：将多个查询结果合并起来时，保留重复元组</li>
+</ul>
+<p>:::</p>
+<p>::: tip</p>
+<p>MySQL只支持UNION，不支持INTERSECT和EXCEPT。</p>
+<p>INTERSECT和EXCEPT在PostgreSQL和Oracle等数据库系统中支持。</p>
+<p>:::</p>
+<h2 id="基于派生表的查询">基于派生表的查询<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基于派生表的查询" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>子查询不仅可以出现在WHERE子句中，还可以出现在FROM子句中，这时子查询生成的临时<strong>派生表</strong>(derived table)成为主查询的查询对象。</p>
+<p><img src="./assets/80.png" alt/></p>
+<p>如果子查询中没有聚集函数，派生表可以不指定属性列，子查询SELECT子句后面的列名为其默认属性。</p>
+<p><img src="./assets/81.png" alt/></p>
+<p>通过FORM生成派生表的时候，<strong>AS关键字可以省略，但别名不能省略</strong>。</p>
+<p><img src="./assets/82.png" alt/></p>
+<h1 id="数据更新">数据更新<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据更新" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="插入数据">插入数据<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#插入数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>
+<p>插入元组</p>
+<p>格式：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">INSERT INTO</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [(&lt;属性列1>[,&lt;属性列2 >...)] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">VALUES</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">常量1</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [,&lt;常量2>]...);</span></span></code></pre></figure>
+<ul>
+<li>
+<p>INTO子句</p>
+<p>指定要插入数据的表名及属性列。</p>
+<p>属性列的顺序可与表定义中的顺序不一致。若没有指定属性列，表示要插入的是一条完整的元组，且属性列属性与表定义中的顺序一致；若指定部分属性列，则插入的元组在其余属性列上取空值。</p>
+</li>
+<li>
+<p>VALUES子句</p>
+<p>提供的值必须与INTO子句匹配，如值的个数和值的类型。</p>
+</li>
+</ul>
+<p><img src="./assets/83.png" alt/></p>
+</li>
+<li>
+<p>插入子查询结果</p>
+<p>格式：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">INSERT INTO</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  [(&lt;属性列1> [,&lt;属性列2>...)] 子查询;</span></span></code></pre></figure>
+<p><img src="./assets/84.png" alt/></p>
+</li>
+</ul>
+<h2 id="修改数据">修改数据<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#修改数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>修改操作又称为更新操作。</p>
+<p>格式：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">UPDATE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> SET</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">列名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">>=&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表达式</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[,&lt;列名>=&lt;表达式>]... [WHERE &lt;条件>];</span></span></code></pre></figure>
+<p>功能：</p>
+<ul>
+<li>修改指定表中满足WHERE子句条件的元组</li>
+<li>SET子句给出&lt;表达式>的值用于取代相应的属性列</li>
+<li>如果省略WHERE子句，表示要修改表中的所有元组</li>
+</ul>
+<p>三种修改方式：</p>
+<ol>
+<li>修改某一个元组的值</li>
+<li>修改多个元组的值</li>
+<li>带子查询的修改语句</li>
+</ol>
+<p><img src="./assets/85.png" alt/></p>
+<h2 id="删除数据">删除数据<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#删除数据" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>格式：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">DELETE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> FROM</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">表名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [WHERE &lt;条件>];</span></span></code></pre></figure>
+<p>删除指定表中满足WHERE子句条件的元组。如果没有WHERE子句，则表示要删除表中的全部元组，表的定义仍在字典中。</p>
+<p>::: tip</p>
+<p>DELETE FROM只是删除表中数据并不是删除表，如果要删除表则是DROP。</p>
+<p>:::</p>
+<p>三种删除方式：</p>
+<ol>
+<li>删除某一个元组的值</li>
+<li>删除多个元组的值</li>
+<li>带子查询的删除语句</li>
+</ol>
+<p><img src="./assets/86.png" alt/></p>
+<h1 id="空值的处理">空值的处理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#空值的处理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>空值是一个很特殊的值，含有不确定性。对关系运算带来特殊的问题，需要做特殊的处理。</p>
+<p>空值的产生</p>
+<p><img src="./assets/87.png" alt/></p>
+<p>判断一个属性的值是否为空值，用IS NULL或IS NOT NULL来表示。</p>
+<p><img src="./assets/88.png" alt/></p>
+<p>空值的约束条件：</p>
+<ol>
+<li>有NOT NULL约束条件的不能取空值</li>
+<li>加了UNIQUE限制的属性不能取空值</li>
+<li>码属性不能取空值</li>
+</ol>
+<p>空值的运算和比较：</p>
+<ul>
+<li>
+<p>空值与另一个值（包括另一个空值）的算术运算的结果为空值。</p>
+</li>
+<li>
+<p>空值与另一个值（包括另一个空值）的比较运算的结果为UNKNOWN。有了UNKNOWN后，传统二值（TRUE，FALSE）逻辑就扩展成了三值逻辑。</p>
+<p><img src="./assets/89.png" alt/></p>
+</li>
+</ul>
+<p><img src="./assets/90.png" alt/></p>
+<h1 id="视图">视图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#视图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>视图是<strong>虚表</strong>，是从一个或几个基本表（或视图）导出的表。</p>
+<p>数据库中<strong>只存放视图的定义，不存放视图对应的数据</strong>，这些数据仍然存放在原来的基本表中。</p>
+<p>基表中的数据发生变化，从视图中查询出的数据也随之改变。</p>
+<h2 id="定义视图">定义视图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#定义视图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="建立视图">建立视图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#建立视图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>格式：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">CREATE</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> VIEW </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">视图名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  [(&lt;列名>  [,&lt;列名>]...)] </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">AS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">子查询</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> [WITH CHECK OPTION];</span></span></code></pre></figure>
+<ul>
+<li>
+<p>WITH CHECK OPTION：表示对视图进行UPDATE，INSERT和DELETE操作时要保证更新、插入或删除的行满足视图定义中的谓词条件（即子查询中的条件表达式）。</p>
+</li>
+<li>
+<p>子查询：可以是任意的SELECT语句，是否可以含有ORDER BY子句和DISTINCT短语，则决定具体系统的实现。</p>
+</li>
+<li>
+<p>列名：只有<strong>全部省略</strong>或<strong>全部指定</strong>。</p>
+<p>全部省略：代表各个属性列名由子查询中SELECT目标列中的诸字段组成。</p>
+<p>需要明确指定视图的所有列名的情况：某个目标列是聚集函数或列表达式、多表连接时选出了几个同名列作为视图的字段、需要在视图中为某个列启用新的更合适的名字。</p>
+</li>
+</ul>
+<p>关系数据库管理系统执行CREATE VIEW语句时只是把视图定义存入数据字典，并不执行其中的SELECT语句。</p>
+<p>在对视图查询时，按视图的定义从基本表中将数据查出。</p>
+<p><img src="./assets/91.png" alt/></p>
+<p>定义IS_Student视图时加上了WITH CHECK OPTION子句，表示对该视图进行插入、修改和删除操作时，关系数据库管理系统会自动加上<code>Sdept='IS'</code>的条件。</p>
+<p>若一个视图是从单个基本表导出的，并且只是去掉了基本表的某些行和某些列，但保留了主码，我们称这类视图为<strong>行列子集视图</strong>。</p>
+<ul>
+<li>
+<p>基于多个基表的视图</p>
+<p><img src="./assets/92.png" alt/></p>
+</li>
+<li>
+<p>基于视图的视图</p>
+<p><img src="./assets/93.png" alt/></p>
+</li>
+<li>
+<p>带表达式的视图</p>
+<p><img src="./assets/94.png" alt/></p>
+</li>
+<li>
+<p>分组视图</p>
+<p><img src="./assets/95.png" alt/></p>
+</li>
+</ul>
+<h3 id="删除视图">删除视图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#删除视图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>格式：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="sql" data-theme="github-light github-dark"><code data-language="sql" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">DROP</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> VIEW</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> &lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">视图名</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">></span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[CASCADE];</span></span></code></pre></figure>
+<p>该语句从数据字典中删除指定的视图定义。如果该视图上还导出了其他视图，使用CASCADE级联删除语句，可以把该视图和由它导出的所有视图一起删除。</p>
+<p>删除基表时，由该基表导出的所有视图定义都必须显式地使用DROP VIEW语句删除。</p>
+<h2 id="查询视图">查询视图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#查询视图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>从用户角度来看查询视图与查询基本表相同。</p>
+<p>关系数据库管理系统实现视图查询的方法：视图消解法（View Resolution）</p>
+<ul>
+<li>进行有效性检查</li>
+<li>转换成等价的对基本表的查询</li>
+<li>执行修正后的查询</li>
+</ul>
+<p><img src="./assets/96.png" alt/></p>
+<p>有些情况下，视图消解法不能生成正确的查询。</p>
+<h2 id="更新视图">更新视图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#更新视图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/97.png" alt/></p>
+<p>更新视图的限制：一些视图是不可更新的，因为对这些视图的更新不能唯一地有意义地转换成对相应基本表的更新。</p>
+<p>目前，各个数据库管理系统一般都只允许对行列子集视图进行更新，对其他类型视图的更新不同系统有不同限制。</p>
+<p>一个不允许更新的视图上定义的视图也不允许更新。</p>
+<p>::: tip 不可更新的视图和不允许更新的视图是两个不同的概念</p>
+<p>“不可更新的视图”和”不允许更新的视图”这两个概念在数据库中有些微妙的区别。</p>
+<ol>
+<li>
+<p>不可更新的视图
+这指的是某些视图，它们不能被更新，无法执行对其进行插入、更新或删除操作。这可能是因为视图的定义包含了使其不可更新的元素，比如包含以下情况：</p>
+<ul>
+<li>聚合函数</li>
+<li><code>DISTINCT</code> 关键字</li>
+<li>在视图中使用了 <code>GROUP BY</code> 子句</li>
+</ul>
+<p>这些情况都可能导致视图不支持直接的更新操作，因为它们使得无法明确地确定如何更新视图，或者更新可能会影响多个源表格，导致歧义。</p>
+</li>
+<li>
+<p>不允许更新的视图
+这种情况下，视图可能本身是可以更新的，但数据库管理员或视图的创建者可能出于安全性考虑或者为了确保数据的完整性明确地禁止了对视图的更新操作。</p>
+<p>管理员可能认为某些视图不应该被修改，即使它们实际上可能支持更新操作。</p>
+</li>
+</ol>
+<p>在数据库中，不可更新的视图是由其定义所决定的，而不允许更新的视图是通过权限设置或安全策略来实现的。</p>
+<p>:::</p>
+<h2 id="视图的作用">视图的作用<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#视图的作用" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>视图能够简化用户的操作</li>
+<li>视图使用户能以多种角度看待同一数据</li>
+<li>视图对重构数据库提供了一定程度的逻辑独立性</li>
+<li>视图能够对机密数据提供安全保护</li>
+<li>适当的利用视图可以更清晰的表达查询</li>
+</ul></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>目录</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#sql概述" data-for="sql概述">SQL概述</a></li><li class="depth-1"><a href="#发展" data-for="发展">发展</a></li><li class="depth-1"><a href="#特点" data-for="特点">特点</a></li><li class="depth-1"><a href="#基本概念" data-for="基本概念">基本概念</a></li><li class="depth-0"><a href="#学生-课程数据库" data-for="学生-课程数据库">学生-课程数据库</a></li><li class="depth-0"><a href="#数据定义" data-for="数据定义">数据定义</a></li><li class="depth-1"><a href="#数据类型" data-for="数据类型">数据类型</a></li><li class="depth-1"><a href="#模式的定义与删除" data-for="模式的定义与删除">模式的定义与删除</a></li><li class="depth-1"><a href="#基本表的定义删除与修改" data-for="基本表的定义删除与修改">基本表的定义、删除与修改</a></li><li class="depth-1"><a href="#模式与表" data-for="模式与表">模式与表</a></li><li class="depth-1"><a href="#索引的建立与删除" data-for="索引的建立与删除">索引的建立与删除</a></li><li class="depth-1"><a href="#数据字典" data-for="数据字典">数据字典</a></li><li class="depth-0"><a href="#数据查询" data-for="数据查询">数据查询</a></li><li class="depth-1"><a href="#单表查询" data-for="单表查询">单表查询</a></li><li class="depth-2"><a href="#选择表中的若干列" data-for="选择表中的若干列">选择表中的若干列</a></li><li class="depth-2"><a href="#选择表中的若干元组" data-for="选择表中的若干元组">选择表中的若干元组</a></li><li class="depth-2"><a href="#order-by子句" data-for="order-by子句">ORDER BY子句</a></li><li class="depth-2"><a href="#聚集函数" data-for="聚集函数">聚集函数</a></li><li class="depth-2"><a href="#group-by子句" data-for="group-by子句">GROUP BY子句</a></li><li class="depth-1"><a href="#连接查询" data-for="连接查询">连接查询</a></li><li class="depth-2"><a href="#等值与非等值连接查询" data-for="等值与非等值连接查询">等值与非等值连接查询</a></li><li class="depth-2"><a href="#自身连接" data-for="自身连接">自身连接</a></li><li class="depth-2"><a href="#外连接" data-for="外连接">外连接</a></li><li class="depth-2"><a href="#多表连接" data-for="多表连接">多表连接</a></li><li class="depth-1"><a href="#嵌套查询" data-for="嵌套查询">嵌套查询</a></li><li class="depth-2"><a href="#带有in谓词的子查询" data-for="带有in谓词的子查询">带有IN谓词的子查询</a></li><li class="depth-2"><a href="#带有比较运算符的子查询" data-for="带有比较运算符的子查询">带有比较运算符的子查询</a></li><li class="depth-2"><a href="#带有anysome或all谓词的子查询" data-for="带有anysome或all谓词的子查询">带有ANY（SOME）或ALL谓词的子查询</a></li><li class="depth-2"><a href="#带有exists谓词的子查询" data-for="带有exists谓词的子查询">带有EXISTS谓词的子查询</a></li><li class="depth-1"><a href="#集合查询" data-for="集合查询">集合查询</a></li><li class="depth-1"><a href="#基于派生表的查询" data-for="基于派生表的查询">基于派生表的查询</a></li><li class="depth-0"><a href="#数据更新" data-for="数据更新">数据更新</a></li><li class="depth-1"><a href="#插入数据" data-for="插入数据">插入数据</a></li><li class="depth-1"><a href="#修改数据" data-for="修改数据">修改数据</a></li><li class="depth-1"><a href="#删除数据" data-for="删除数据">删除数据</a></li><li class="depth-0"><a href="#空值的处理" data-for="空值的处理">空值的处理</a></li><li class="depth-0"><a href="#视图" data-for="视图">视图</a></li><li class="depth-1"><a href="#定义视图" data-for="定义视图">定义视图</a></li><li class="depth-2"><a href="#建立视图" data-for="建立视图">建立视图</a></li><li class="depth-2"><a href="#删除视图" data-for="删除视图">删除视图</a></li><li class="depth-1"><a href="#查询视图" data-for="查询视图">查询视图</a></li><li class="depth-1"><a href="#更新视图" data-for="更新视图">更新视图</a></li><li class="depth-1"><a href="#视图的作用" data-for="视图的作用">视图的作用</a></li></ul></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2025</p><ul><li><a href="https://github.com/KISGP">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script src="../../postscript.js" type="module"></script></html>

@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="zh"><head><title>JavaWeb复习</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Comic_Sans_MS:wght@400;700&amp;family=Comic_Sans_MS:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="🪴 Quartz 4.0"/><meta property="og:title" content="JavaWeb复习"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="JavaWeb复习"/><meta name="twitter:description" content="Web是基于客户/服务器（C/S）的一种体系结构。主要由三部分构成： Web服务器：提供Web页面和其他资源。 Web客户端：运行在客户端的一种访问Web资源的软件。 通信协议：客户端和服务器之间采用HTTP协议进行通信。 HTTP：超文本传输协议（Hypertext Transfer Protocol）是Web使用的协议，一个基于请求-响应的无状态的协议，详细规定了Web客户与服务器之间如何通信。 ..."/><meta property="og:description" content="Web是基于客户/服务器（C/S）的一种体系结构。主要由三部分构成： Web服务器：提供Web页面和其他资源。 Web客户端：运行在客户端的一种访问Web资源的软件。 通信协议：客户端和服务器之间采用HTTP协议进行通信。 HTTP：超文本传输协议（Hypertext Transfer Protocol）是Web使用的协议，一个基于请求-响应的无状态的协议，详细规定了Web客户与服务器之间如何通信。 ..."/><meta property="og:image:type" content="image/webp"/><meta property="og:image:alt" content="Web是基于客户/服务器（C/S）的一种体系结构。主要由三部分构成： Web服务器：提供Web页面和其他资源。 Web客户端：运行在客户端的一种访问Web资源的软件。 通信协议：客户端和服务器之间采用HTTP协议进行通信。 HTTP：超文本传输协议（Hypertext Transfer Protocol）是Web使用的协议，一个基于请求-响应的无状态的协议，详细规定了Web客户与服务器之间如何通信。 ..."/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:url" content="https://kisgp.cn/static/og-image.png"/><meta name="twitter:image" content="https://kisgp.cn/static/og-image.png"/><meta property="og:image" content="https://kisgp.cn/static/og-image.png"/><meta property="twitter:domain" content="kisgp.cn"/><meta property="og:url" content="https://kisgp.cn/编程语言/Java/JavaWeb复习"/><meta property="twitter:url" content="https://kisgp.cn/编程语言/Java/JavaWeb复习"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="Web是基于客户/服务器（C/S）的一种体系结构。主要由三部分构成： Web服务器：提供Web页面和其他资源。 Web客户端：运行在客户端的一种访问Web资源的软件。 通信协议：客户端和服务器之间采用HTTP协议进行通信。 HTTP：超文本传输协议（Hypertext Transfer Protocol）是Web使用的协议，一个基于请求-响应的无状态的协议，详细规定了Web客户与服务器之间如何通信。 ..."/><meta name="generator" content="Quartz"/><link href="../../static/font/font-style.css" rel="stylesheet" type="text/css" spa-preserve/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="编程语言/Java/JavaWeb复习"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">🪴 Quartz 4.0</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>搜索</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="collapse" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;编程语言&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Java&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/JavaScript&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust/Rust认识&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;服务器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/编译原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机操作系统&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机网络&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机组成原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/软件测试&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据结构和算法&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据库系统概论&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react/react学习&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/rspress&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;数据库&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读/未完成&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Git&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Markdown&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言"><button class="folder-button"><span class="folder-title">编程语言</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Java"><button class="folder-button"><span class="folder-title">Java</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Java"><li><a href="../../编程语言/Java/JavaWeb复习" data-for="编程语言/Java/JavaWeb复习">JavaWeb复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/JavaScript"><button class="folder-button"><span class="folder-title">JavaScript</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/JavaScript"><li><a href="../../编程语言/JavaScript/JS" data-for="编程语言/JavaScript/JS">JS</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust"><button class="folder-button"><span class="folder-title">Rust</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust/Rust认识"><button class="folder-button"><span class="folder-title">Rust认识</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust/Rust认识"><li><a href="../../编程语言/Rust/Rust认识/3_变量" data-for="编程语言/Rust/Rust认识/3_变量">3_变量</a></li><li><a href="../../编程语言/Rust/Rust认识/4_类型" data-for="编程语言/Rust/Rust认识/4_类型">4_类型</a></li><li><a href="../../编程语言/Rust/Rust认识/2_cargo使用" data-for="编程语言/Rust/Rust认识/2_cargo使用">Cargo 使用</a></li><li><a href="../../编程语言/Rust/Rust认识/1_环境配置" data-for="编程语言/Rust/Rust认识/1_环境配置">Rust 环境配置</a></li></ul></div></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="服务器"><button class="folder-button"><span class="folder-title">服务器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="服务器"><li><a href="../../服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问" data-for="服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问">使用 Cloudflare Workers 优化 Github 文件国内访问速度</a></li><li><a href="../../服务器/域名注册" data-for="服务器/域名注册">域名注册</a></li><li><a href="../../服务器/MinIO-使用" data-for="服务器/MinIO-使用">MinIO 使用</a></li><li><a href="../../服务器/OSS-对象存储" data-for="服务器/OSS-对象存储">OSS 对象存储</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础"><button class="folder-button"><span class="folder-title">计算机基础</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/编译原理"><button class="folder-button"><span class="folder-title">编译原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/编译原理"><li><a href="../../计算机基础/编译原理/3_词法分析" data-for="计算机基础/编译原理/3_词法分析">词法分析</a></li><li><a href="../../计算机基础/编译原理/1_开始" data-for="计算机基础/编译原理/1_开始">开始</a></li><li><a href="../../计算机基础/编译原理/2_引论" data-for="计算机基础/编译原理/2_引论">引论</a></li><li><a href="../../计算机基础/编译原理/4_语法分析" data-for="计算机基础/编译原理/4_语法分析">语法分析</a></li><li><a href="../../计算机基础/编译原理/5_语义分析与中间代码生成器" data-for="计算机基础/编译原理/5_语义分析与中间代码生成器">语义分析与中间代码生成器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机操作系统"><button class="folder-button"><span class="folder-title">计算机操作系统</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机操作系统"><li><a href="../../计算机基础/计算机操作系统/1_操作系统概述" data-for="计算机基础/计算机操作系统/1_操作系统概述">操作系统概述</a></li><li><a href="../../计算机基础/计算机操作系统/2_进程与线程" data-for="计算机基础/计算机操作系统/2_进程与线程">进程与线程</a></li><li><a href="../../计算机基础/计算机操作系统/3_内存管理" data-for="计算机基础/计算机操作系统/3_内存管理">内存管理</a></li><li><a href="../../计算机基础/计算机操作系统/4_文件管理" data-for="计算机基础/计算机操作系统/4_文件管理">文件管理</a></li><li><a href="../../计算机基础/计算机操作系统/5_输入输出管理" data-for="计算机基础/计算机操作系统/5_输入输出管理">I/O管理</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机网络"><button class="folder-button"><span class="folder-title">计算机网络</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机网络"><li><a href="../../计算机基础/计算机网络/5_传输层" data-for="计算机基础/计算机网络/5_传输层">传输层</a></li><li><a href="../../计算机基础/计算机网络/1_计算机网络体系结构" data-for="计算机基础/计算机网络/1_计算机网络体系结构">计算机网络体系结构</a></li><li><a href="../../计算机基础/计算机网络/3_数据链路层" data-for="计算机基础/计算机网络/3_数据链路层">数据链路层</a></li><li><a href="../../计算机基础/计算机网络/4_网络层" data-for="计算机基础/计算机网络/4_网络层">网络层</a></li><li><a href="../../计算机基础/计算机网络/2_物理层" data-for="计算机基础/计算机网络/2_物理层">物理层</a></li><li><a href="../../计算机基础/计算机网络/6_应用层" data-for="计算机基础/计算机网络/6_应用层">应用层</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机组成原理"><button class="folder-button"><span class="folder-title">计算机组成原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机组成原理"><li><a href="../../计算机基础/计算机组成原理/3_存储系统" data-for="计算机基础/计算机组成原理/3_存储系统">存储系统</a></li><li><a href="../../计算机基础/计算机组成原理/1_计算机系统概述" data-for="计算机基础/计算机组成原理/1_计算机系统概述">计算机组成原理</a></li><li><a href="../../计算机基础/计算机组成原理/2_数据的表示和运算" data-for="计算机基础/计算机组成原理/2_数据的表示和运算">数据的表示和运算</a></li><li><a href="../../计算机基础/计算机组成原理/4_指令系统" data-for="计算机基础/计算机组成原理/4_指令系统">指令系统</a></li><li><a href="../../计算机基础/计算机组成原理/5_中央处理器" data-for="计算机基础/计算机组成原理/5_中央处理器">中央处理器</a></li><li><a href="../../计算机基础/计算机组成原理/6_总线" data-for="计算机基础/计算机组成原理/6_总线">总线</a></li><li><a href="../../计算机基础/计算机组成原理/7_IO系统" data-for="计算机基础/计算机组成原理/7_IO系统">I/O 系统</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/软件测试"><button class="folder-button"><span class="folder-title">软件测试</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/软件测试"><li><a href="../../计算机基础/软件测试/1_软件测试技术复习" data-for="计算机基础/软件测试/1_软件测试技术复习">软件测试技术复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据结构和算法"><button class="folder-button"><span class="folder-title">数据结构和算法</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据结构和算法"><li><a href="../../计算机基础/数据结构和算法/8_查找" data-for="计算机基础/数据结构和算法/8_查找">查找</a></li><li><a href="../../计算机基础/数据结构和算法/5_串" data-for="计算机基础/数据结构和算法/5_串">串</a></li><li><a href="../../计算机基础/数据结构和算法/9_排序" data-for="计算机基础/数据结构和算法/9_排序">排序</a></li><li><a href="../../计算机基础/数据结构和算法/6_树" data-for="计算机基础/数据结构和算法/6_树">树</a></li><li><a href="../../计算机基础/数据结构和算法/1_数据结构基本概念" data-for="计算机基础/数据结构和算法/1_数据结构基本概念">数据结构的基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/2_算法基本概念" data-for="计算机基础/数据结构和算法/2_算法基本概念">算法基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/7_图" data-for="计算机基础/数据结构和算法/7_图">图</a></li><li><a href="../../计算机基础/数据结构和算法/3_线性表" data-for="计算机基础/数据结构和算法/3_线性表">线性表</a></li><li><a href="../../计算机基础/数据结构和算法/4_栈和队列" data-for="计算机基础/数据结构和算法/4_栈和队列">栈和队列</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据库系统概论"><button class="folder-button"><span class="folder-title">数据库系统概论</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据库系统概论"><li><a href="../../计算机基础/数据库系统概论/11_并发控制" data-for="计算机基础/数据库系统概论/11_并发控制">并发控制</a></li><li><a href="../../计算机基础/数据库系统概论/9_关系查询处理和查询优化" data-for="计算机基础/数据库系统概论/9_关系查询处理和查询优化">关系查询处理和查询优化</a></li><li><a href="../../计算机基础/数据库系统概论/2_关系数据库" data-for="计算机基础/数据库系统概论/2_关系数据库">关系数据库</a></li><li><a href="../../计算机基础/数据库系统概论/6_关系数据理论" data-for="计算机基础/数据库系统概论/6_关系数据理论">关系数据理论</a></li><li><a href="../../计算机基础/数据库系统概论/4_数据库安全性" data-for="计算机基础/数据库系统概论/4_数据库安全性">数据库安全性</a></li><li><a href="../../计算机基础/数据库系统概论/8_数据库编程" data-for="计算机基础/数据库系统概论/8_数据库编程">数据库编程</a></li><li><a href="../../计算机基础/数据库系统概论/10_数据库恢复技术" data-for="计算机基础/数据库系统概论/10_数据库恢复技术">数据库恢复技术</a></li><li><a href="../../计算机基础/数据库系统概论/7_数据库设计" data-for="计算机基础/数据库系统概论/7_数据库设计">数据库设计</a></li><li><a href="../../计算机基础/数据库系统概论/5_数据库完整性" data-for="计算机基础/数据库系统概论/5_数据库完整性">数据库完整性</a></li><li><a href="../../计算机基础/数据库系统概论/1_绪论" data-for="计算机基础/数据库系统概论/1_绪论">绪论</a></li><li><a href="../../计算机基础/数据库系统概论/3_SQL" data-for="计算机基础/数据库系统概论/3_SQL">SQL</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器"><button class="folder-button"><span class="folder-title">浏览器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react"><button class="folder-button"><span class="folder-title">react</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react/react学习"><button class="folder-button"><span class="folder-title">react学习</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react/react学习"><li><a href="../../浏览器/react/react学习/9_Hook" data-for="浏览器/react/react学习/9_Hook">Hook的使用</a></li><li><a href="../../浏览器/react/react学习/2_jsx基本语法" data-for="浏览器/react/react学习/2_jsx基本语法">jsx基本语法</a></li><li><a href="../../浏览器/react/react学习/1_react初体验" data-for="浏览器/react/react学习/1_react初体验">react初体验</a></li><li><a href="../../浏览器/react/react学习/6_react动画" data-for="浏览器/react/react学习/6_react动画">react动画</a></li><li><a href="../../浏览器/react/react学习/3_react脚手架解析" data-for="浏览器/react/react学习/3_react脚手架解析">react脚手架解析</a></li><li><a href="../../浏览器/react/react学习/4_react性能优化" data-for="浏览器/react/react学习/4_react性能优化">react性能优化</a></li><li><a href="../../浏览器/react/react学习/5_react组件化开发" data-for="浏览器/react/react学习/5_react组件化开发">react组件化开发</a></li><li><a href="../../浏览器/react/react学习/7_Redux的使用" data-for="浏览器/react/react学习/7_Redux的使用">Redux的使用</a></li><li><a href="../../浏览器/react/react学习/8_Router的使用" data-for="浏览器/react/react学习/8_Router的使用">Router的使用</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/rspress"><button class="folder-button"><span class="folder-title">rspress</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/rspress"><li><a href="../../浏览器/rspress/LaTeX无法使用$$语法" data-for="浏览器/rspress/LaTeX无法使用$$语法">LaTeX无法使用$$语法</a></li><li><a href="../../浏览器/rspress/自动生成侧边栏" data-for="浏览器/rspress/自动生成侧边栏">rspress 自动生成侧边栏</a></li></ul></div></li><li><a href="../../浏览器/CORS错误" data-for="浏览器/CORS错误">CORS错误</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="数据库"><button class="folder-button"><span class="folder-title">数据库</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="数据库"><li><a href="../../数据库/MongoDB-使用" data-for="数据库/MongoDB-使用">MongoDB 使用</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读"><button class="folder-button"><span class="folder-title">阅读</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读/未完成"><button class="folder-button"><span class="folder-title">未完成</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读/未完成"><li><a href="../../阅读/未完成/解构现代化：温铁军演讲录" data-for="阅读/未完成/解构现代化：温铁军演讲录">解构现代化：温铁军演讲录</a></li><li><a href="../../阅读/未完成/金瓶梅词话（上下）" data-for="阅读/未完成/金瓶梅词话（上下）">金瓶梅词话（上下）</a></li><li><a href="../../阅读/未完成/思想的力量（第9版）" data-for="阅读/未完成/思想的力量（第9版）">思想的力量（第9版）</a></li><li><a href="../../阅读/未完成/乡土中国-生育制度-乡土重建" data-for="阅读/未完成/乡土中国-生育制度-乡土重建">乡土中国 生育制度 乡土重建</a></li><li><a href="../../阅读/未完成/制造消费者：消费主义全球史" data-for="阅读/未完成/制造消费者：消费主义全球史">制造消费者：消费主义全球史</a></li></ul></div></li><li><a href="../../阅读/大清为何轰然倒塌" data-for="阅读/大清为何轰然倒塌">大清为何轰然倒塌</a></li><li><a href="../../阅读/叫魂：1768年中国妖术大恐慌" data-for="阅读/叫魂：1768年中国妖术大恐慌">叫魂：1768年中国妖术大恐慌</a></li><li><a href="../../阅读/菊与刀" data-for="阅读/菊与刀">菊与刀</a></li><li><a href="../../阅读/论语" data-for="阅读/论语">论语</a></li><li><a href="../../阅读/毛泽东选集" data-for="阅读/毛泽东选集">毛泽东选集</a></li><li><a href="../../阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" data-for="阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化">人民公开课：中国共产党与国家治理体系和治理能力现代化</a></li><li><a href="../../阅读/盛唐到底盛在哪儿" data-for="阅读/盛唐到底盛在哪儿">盛唐到底盛在哪儿</a></li><li><a href="../../阅读/伊豆的舞女" data-for="阅读/伊豆的舞女">伊豆的舞女</a></li><li><a href="../../阅读/以利为利：财政关系与地方政府行为" data-for="阅读/以利为利：财政关系与地方政府行为">以利为利：财政关系与地方政府行为</a></li><li><a href="../../阅读/哲学导论讲记" data-for="阅读/哲学导论讲记">哲学导论讲记</a></li><li><a href="../../阅读/治大国若烹小鲜：基层治理与世道人心" data-for="阅读/治大国若烹小鲜：基层治理与世道人心">治大国若烹小鲜：基层治理与世道人心</a></li><li><a href="../../阅读/置身事内：中国政府与经济发展" data-for="阅读/置身事内：中国政府与经济发展">置身事内：中国政府与经济发展</a></li><li><a href="../../阅读/中国是部金融史" data-for="阅读/中国是部金融史">中国是部金融史</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Git"><button class="folder-button"><span class="folder-title">Git</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Git"><li><a href="../../Git/删除分支" data-for="Git/删除分支">删除分支</a></li><li><a href="../../Git/文件.gitkeep是什么" data-for="Git/文件.gitkeep是什么">文件.gitkeep是什么</a></li></ul></div></li><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Markdown"><button class="folder-button"><span class="folder-title">Markdown</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Markdown"><li><a href="../../Markdown/Callouts-标注" data-for="Markdown/Callouts-标注">Callouts 标注</a></li><li><a href="../../Markdown/Obsidian-教程" data-for="Markdown/Obsidian-教程">Obsidian 教程</a></li><li><a href="../../Markdown/Typora-自定义-Callouts-样式" data-for="Markdown/Typora-自定义-Callouts-样式">Typora 自定义 Callouts</a></li><li><a href="../../Markdown/Typora-自定义字体" data-for="Markdown/Typora-自定义字体">Typora 自定义字体</a></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../编程语言/">编程语言</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../编程语言/Java/">Java</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>JavaWeb复习</a></div></nav><h1 class="article-title">JavaWeb复习</h1><p show-comma="true" class="content-meta"><time datetime="2024-11-16T13:59:26.220Z">2024年11月16日</time><span>45分钟阅读</span></p></div></div><article class="popover-hint"><p>Web是基于客户/服务器（C/S）的一种体系结构。主要由三部分构成：</p>
+<ul>
+<li>Web服务器：提供Web页面和其他资源。</li>
+<li>Web客户端：运行在客户端的一种访问Web资源的软件。</li>
+<li>通信协议：客户端和服务器之间采用HTTP协议进行通信。</li>
+</ul>
+<p>HTTP：超文本传输协议（Hypertext Transfer Protocol）是Web使用的协议，一个基于请求-响应的无状态的协议，详细规定了Web客户与服务器之间如何通信。
+<img src="./assets/1.png" alt/></p>
+<h1 id="urluriurn">URL、URI、URN<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#urluriurn" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>Web服务器上的资源是通过URL标识的。</p>
+<p><strong>URL</strong>（Uniform Resource Locator）称为<strong>统一资源定位器</strong>，指向Internet上位于某个位置的某个HTML文件、图像文件和程序等资源。</p>
+<p>URL通常由4部分组成：</p>
+<ul>
+<li><strong>协议名称</strong></li>
+<li>所在主机的<strong>DNS名</strong>或<strong>IP地址</strong></li>
+<li>可选的<strong>端口号</strong></li>
+<li><strong>资源的名称</strong></li>
+</ul>
+<hr/>
+<p><strong>URI</strong>（Uniform Resource Identifier）称为<strong>统一资源标识符</strong>，是以特定语法标识一个资源的字符串。</p>
+<p>由<strong>模式</strong>和<strong>模式特有的部分</strong>组成，它们之间用冒号隔开，一般格式为：<code>schema:schema-specific-part</code>。常见模式包括：file、ftp、http、mail等。</p>
+<hr/>
+<p><strong>URN</strong>（Uniform Resource Name）称为<strong>统一资源名称</strong>，唯一标识一个资源但不指定如何访问资源。</p>
+<p>一般形式为：<code>urn：命名空间：资源名</code>，例如：<code>urn:ISBN:1-930110-59-6</code>，它唯一地标识某一本书，但它不是URL，因为它没有指定如何检索该书。</p>
+<h1 id="html常用标签">HTML常用标签<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#html常用标签" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>HTML，超文本标记语言（HyperText Markup Language）是一种用来制作超文本文档的简单标记语言。</p>
+<p>HTML常用标签：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>标签</th><th>作用</th></tr></thead><tbody><tr><td><code>&lt;html>&lt;/html></code></td><td>限定文档的开始点和结束点</td></tr><tr><td><code>&lt;head></code></td><td>定义文档的头部。</td></tr><tr><td><code>&lt;body></code></td><td>定义文档的主体。</td></tr><tr><td><code>&lt;meta></code></td><td>提供有关页面的元信息。</td></tr><tr><td><code>&lt;title> </code></td><td>定义文档的标题。</td></tr><tr><td><code>&lt;p></code></td><td>定义段落</td></tr><tr><td><code>&lt;br> </code></td><td>插入一个简单的换行符</td></tr><tr><td><code>&lt;form> </code></td><td>创建 HTML 表单</td></tr></tbody></table></div>
+<p>XML称为可扩展标记语言，相对HTML，XML具有如下一些特点：</p>
+<ul>
+<li>不是标记语言，不包含任何标记，允许用户自己定义标记和属性。</li>
+<li>侧重于对文档内容的描述，而不是文档的显示。</li>
+<li>对数据的描述和数据本身都包含在文档中，数据具有很大的灵活性。</li>
+<li>数据与显示分离。</li>
+</ul>
+<h1 id="动态文档技术">动态文档技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#动态文档技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>Web文档是一种重要的Web资源，通常也称为Web页面，可分为静态文档和动态文档。</p>
+<p>动态文档是指文档的内容可根据需要动态生成。动态文档技术又分为<strong>服务器端动态文档技术</strong>和<strong>客户端动态文档技术</strong>。</p>
+<p>在<strong>服务器端</strong>动态生成Web页面有多种方法：</p>
+<ul>
+<li>
+<p>CGI技术</p>
+<p><img src="./assets/2.png" alt/></p>
+</li>
+<li>
+<p>服务器扩展技术（Servlet技术）</p>
+<p>使服务器支持单独的可执行模块，当服务器启动时该模块就装入内存并只初始化一次。然后，就可以通过已经驻留在内存的模块副本（线程）为每个请求提供服务。这些独立的可执行的模块称为服务器扩展模块。</p>
+<p>在Java平台上，服务器扩展模块叫做servlet容器或Web容器，<strong>负责处理客户请求、把请求传送给Servlet并把结果返回给客户</strong>。</p>
+</li>
+<li>
+<p>动态Web页面技术（JSP技术）</p>
+<p>在Web页面中嵌入某种语言的脚本，然后让服务器来执行这些脚本以便生成最终发送给客户的页面。</p>
+<p>比如：ASP.NET，PHP，JSP</p>
+</li>
+</ul>
+<p><strong>客户端</strong>动态文档技术是在HTML页面中嵌入脚本，这些脚本是在客户机上被执行的而不是在服务器上执行的。通过<code>&lt;script></code>标签来使用这样的脚本。</p>
+<p>两者的<strong>区别</strong>是：</p>
+<ul>
+<li>服务器端动态文档技术的页面，是在服务器端执行的。</li>
+<li>客户端动态文档技术的页面，是在客户端执行的。</li>
+</ul>
+<h1 id="tomcat">Tomcat<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tomcat" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>Tomcat安装目录的<strong>webapps</strong>目录是<strong>所有Web应用程序的根目录</strong>。</p>
+<h1 id="servlet">Servlet<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#servlet" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>Servlet接口是Servlet API中的基本接口，每个Servlet必须直接或间接实现该接口。</p>
+<p><code>HttpServlet</code>抽象类用来实现针对HTTP协议的Servlet，在编写Servlet时，需要<strong>继承</strong><code>Httpservlet</code>类。</p>
+<p>在<code>HttpServlet</code>类中增加了一个新的<code>service()</code>方法，格式如下：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> service</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(HttpServletRequest request, HttpServletResponse response)</span></span></code></pre></figure>
+<p>在<code>HttpServlet</code>中针对不同的HTTP请求方法定义了不同的处理方法，如：</p>
+<ul>
+<li>
+<p>处理GET请求的<code>doGet()</code>格式如下：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> doGet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(HttpServletRequest request, HttpServletResponse response)  </span></span></code></pre></figure>
+</li>
+<li>
+<p>如处理POST请求的方法是<code>doPost()</code>：</p>
+</li>
+</ul>
+<p>Servlet<strong>生命周期</strong>：Servlet 从创建到销毁的整个过程。</p>
+<p><img src="./assets/3.png" alt/></p>
+<ol>
+<li>加载到内存：使用<code>Class.forName()</code>方法</li>
+<li>实例化：调用<code>HelloServlet()</code>构造方法</li>
+<li>初始化：调用<code>init(ServletConfig config)</code>方法</li>
+<li>提供服务：调用<code>service()</code>方法，根据HTTP类型决定调用<code>doGet()</code>或<code>doPost()</code>方法</li>
+<li>销毁：调用<code>destroy()</code>构造方法</li>
+</ol>
+<hr/>
+<p>常用的HTTP请求方法：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th style="text-align:left;">特征</th><th style="text-align:left;">GET方法</th><th style="text-align:left;">POST方法</th></tr></thead><tbody><tr><td style="text-align:left;">资源类型</td><td style="text-align:left;">静态的或动态的</td><td style="text-align:left;">动态的</td></tr><tr><td style="text-align:left;">数据类型</td><td style="text-align:left;">文本</td><td style="text-align:left;">文本或二进制数据</td></tr><tr><td style="text-align:left;">数据量</td><td style="text-align:left;">一般不超过255个字符</td><td style="text-align:left;">没有限制</td></tr><tr><td style="text-align:left;">可见性</td><td style="text-align:left;">数据是URL的一部分，在浏览器的地址栏中对用户可见</td><td style="text-align:left;">数据不是URL的一部分而是作为请求的消息体发送，在浏览器的地址栏中对用户不可见</td></tr><tr><td style="text-align:left;">数据缓存</td><td style="text-align:left;">数据可在浏览器的URL历史中缓存</td><td style="text-align:left;">数据不能在浏览器的URL历史中缓存</td></tr></tbody></table></div>
+<p>常用的发送HTTP请求方法：</p>
+<ul>
+<li>用户在浏览器的地址栏中<strong>输入URL</strong>并按回车键。</li>
+<li>用户在HTML页面中<strong>点击超链接</strong>。</li>
+<li>用户在HTML页面中<strong>填写表单</strong>并提交。</li>
+</ul>
+<p>在<code>Httpservlet</code>中处理这些请求对应的方法：</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th style="text-align:left;">HTTP方法</th><th style="text-align:left;">HttpServlet方法</th></tr></thead><tbody><tr><td style="text-align:left;">GET</td><td style="text-align:left;"><code>doGet()</code></td></tr><tr><td style="text-align:left;">POST</td><td style="text-align:left;"><code>doPost()</code></td></tr><tr><td style="text-align:left;">HEAD</td><td style="text-align:left;"><code>doHead()</code></td></tr><tr><td style="text-align:left;">PUT</td><td style="text-align:left;"><code>doPut()</code></td></tr><tr><td style="text-align:left;">DELETE</td><td style="text-align:left;"><code>doDelete()</code></td></tr><tr><td style="text-align:left;">OPTIONS</td><td style="text-align:left;"><code>doOptions()</code></td></tr><tr><td style="text-align:left;">TRACE</td><td style="text-align:left;"><code>doTrace()</code></td></tr></tbody></table></div>
+<hr/>
+<p><strong>检索请求参数</strong></p>
+<p>请求参数是随请求一起发送到服务器的数据，它以“名/值”对的形式发送。</p>
+<ul>
+<li>POST请求，参数在数据区。</li>
+<li>GET请求，参数附加在URI后面。例如：有一个URL，<a href="http://example.com?name=value" class="external">http://example.com?name=value<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a>，问号后面的内容称为<strong>查询串</strong>，代表<strong>请求参数</strong>。</li>
+</ul>
+<p>使用<code>HttpServletRequest</code>中定义的方法检索这些参数：</p>
+<ul>
+<li><code>String getParameter(String name)</code>：获取参数，返回指定参数名的值</li>
+<li><code>String[] getParameterValues()</code>：获取所有参数的值</li>
+</ul>
+<hr/>
+<p><strong>请求转发</strong></p>
+<ol>
+<li>
+<p>通过请求对象的<code>getRequestDispatcher()</code>得到<code>RequestDispatcher</code>对象，该对象称为请求转发器对象。</p>
+<p>格式：<code>RequestDispatcher getRequestDispatcher(String path)</code>。</p>
+</li>
+<li>
+<p>调用<code>RequestDispatcher</code>对象的<code>forward()</code>方法。</p>
+<p>格式：<code>void forward(ServletRequest request, ServletResponse response)</code>。</p>
+</li>
+</ol>
+<p>路径以<code>/</code>开头，表示相对当前应用程序根目录；不以<code>/</code>开头，表示相对当前资源所在的目录。</p>
+<p>请求转发的特点：</p>
+<ul>
+<li>请求转发是服务器端控制权的转移，浏览器并不知情。</li>
+<li>使用请求转发，在客户的浏览器地址栏中不会显示转发后的资源地址。</li>
+<li>使用请求转发可以共享请求作用域中的数据。</li>
+</ul>
+<hr/>
+<p><strong>使用请求对象存储数据</strong></p>
+<p>请求对象是一个作用域对象，可以在其上存储<strong>属性</strong>实现数据共享。属性包括<strong>属性名</strong>和<strong>属性值</strong>，属性名是一个字符串，属性值是一个对象。</p>
+<p>有关属性存储的方法有4个，定义在<code>HttpServletRequest</code>接口中。格式如下：</p>
+<ul>
+<li><code>public void setAttribute(String name, Object obj)</code></li>
+<li><code>public Object getAttribute(String name)</code></li>
+<li><code>public void removeAttribute(String name)</code></li>
+<li><code>public Enumeration getAttributeNames()</code></li>
+</ul>
+<hr/>
+<p><code>SerevletResponse</code><strong>向客户发送文本数据</strong></p>
+<p>调用响应对象的<code>getWriter()</code>方法，返回一个<code>PrintWriter</code>对象用于向客户发送文本数据。</p>
+<p>在发送响应数据之前还需通过响应对象的<code>setContentType()</code>设置响应的内容类型。</p>
+<hr/>
+<p><strong>实现响应重定向</strong></p>
+<p>响应重定向：Servlet向浏览器发送一个<code>Location</code>响应头，告诉浏览器访问其他资源。</p>
+<p>响应重定向是通过响应对象的<code>sendRedirect()</code>实现，格式为：<code>public void sendRedirect(String location)</code></p>
+<hr/>
+<p><strong>响应重定向与请求转发的比较</strong>：</p>
+<ul>
+<li>使用<strong>请求转发</strong>，浏览器地址栏<strong>不会显示</strong>转发后的地址。</li>
+<li>使用<strong>响应重定向</strong>，浏览器的地址栏<strong>会显示</strong>转发后的地址。</li>
+<li><strong>请求转发</strong>可以共享<strong>请求作用域</strong>中的数据；<strong>响应重定向</strong>可以共享<strong>会话作用域</strong>中的数据。</li>
+</ul>
+<p><img src="./assets/4.png" alt/></p>
+<hr/>
+<p><strong>部署描述文件 web.xml</strong></p>
+<p>用于对应用程序进行配置，初始化Web应用中所包含的组件，如Servlet等。</p>
+<hr/>
+<p><strong><code>&lt;servlet></code>元素</strong></p>
+<p><code>&lt;servlet></code>元素为Web应用程序定义一个Servlet。子元素包括：</p>
+<ul>
+<li>
+<p><code>&lt;servlet-name></code>元素：用来定义Servlet名称，必选。</p>
+</li>
+<li>
+<p><code>&lt;servlet-class></code>元素：指定Servlet类的完整名称，即需要带包的名称。</p>
+</li>
+<li>
+<p><code>&lt;init-param></code>元素：定义向Servlet传递的初始化参数。</p>
+</li>
+<li>
+<p><code>&lt;load-on-startup></code>元素：指定是否在Web应用程序启动时载入该Servlet。</p>
+</li>
+<li>
+<p><code>&lt;servlet-mapping></code>元素：定义一个映射，它指定哪个URL模式被该Servlet处理。包含：</p>
+<ul>
+<li><code>&lt;servlet-name></code>元素应该是使用<code>&lt;servlet></code>元素定义的Servlet名。</li>
+<li><code>&lt;url-pattern></code>包含要与该Servlet关联的模式字符串。</li>
+</ul>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="xml" data-theme="github-light github-dark"><code data-language="xml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">servlet-mapping</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">servlet-name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>helloServlet&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">servlet-name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">url-pattern</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>/helloServlet/hello/*&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">url-pattern</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">servlet-mapping</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span></code></pre></figure>
+</li>
+</ul>
+<hr/>
+<p>URL请求的组成有三部分：<strong>协议与主机名</strong>、<strong>请求URI（上下文路径、Servlet路径、路径信息）</strong>、<strong>查询串</strong></p>
+<hr/>
+<p>@WebServlet和@WebInitParam注解，在应用程序启动时被Web容器处理，容器根据具体的属性配置将相应的类部署为Servlet。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// 例如：为HelloServlet添加的注解</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">@</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">WebServlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">name</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;helloServlet&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">urlPatterns</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;/hello-servlet&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">})</span></span></code></pre></figure>
+<p>@WebServlet注解包含多个属性，它们与web.xml中的对应元素等价。</p>
+<ul>
+<li>name属性：指定Servlet名称，等价于web.xml中的<code>&lt;servlet-name></code>元素。</li>
+<li>urlPatterns属性：指定一组URL映射模式，该元素等价于web.xml文件中的<code>&lt;url-pattern></code>元素。</li>
+<li>loadOnStartup属性：指定该Servlet的加载顺序，等价于web.xml文件中的<code>&lt;load-on-startup></code>元素。</li>
+<li>initParams属性：指定Servlet的一组初始化参数，等价于<code>&lt;init-param></code>元素。</li>
+</ul>
+<p>@WebInitParam注解通常配合@WebServlet使用。</p>
+<ul>
+<li>name属性，指定初始化参数名，等价于<code>&lt;param-name></code>元素。</li>
+<li>value属性，指定初始化参数值，等价于<code>&lt;param-value></code>元素。</li>
+</ul>
+<hr/>
+<p><code>ServletConfig</code>称为Servlet配置对象。使用该对象可以获得Servlet初始化参数、Servlet名称、ServletContext对象等。</p>
+<p>web容器在创建servlet实例对象时，会自动将初始化参数封装到ServletConfig对象中，并在调用servlet的<code>init()</code>方法时，将ServletConfig 对象传递给servlet。</p>
+<p>得到ServletConfig接口对象有两种方法：</p>
+<ol>
+<li>覆盖Servlet的<code>init(ServletConfig config)</code>，然后把容器创建的ServletConfig对象保存到一个成员变量中。</li>
+</ol>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">ServletConfig config </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> init</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(ServletConfig config){</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">	super</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">init</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(config); </span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">//调用超类的init()</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">  this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.config </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> config; </span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<ol start="2">
+<li>在Servlet中直接使用<code>getServletConfig()</code>获得<code>ServletConfig</code>对象，如下所示：</li>
+</ol>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">ServletConfig config </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getServletConfig</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span></code></pre></figure>
+<p>ServletConfig接口定义了下面4个方法：</p>
+<ul>
+<li><code>String getInitParameter(String name) </code></li>
+<li><code>Enumeration getInitParameterNames() </code></li>
+<li><code>ServletContext getServletContext() </code></li>
+<li><code>String getServletName()</code></li>
+</ul>
+<hr/>
+<p>Web容器在启动时会加载每个Web应用程序，并为每个Web应用程序创建一个唯一的<code>ServletContext</code>实例对象，该对象称为<strong>Servlet上下文对象</strong>。</p>
+<p>使用<code>ServletContext</code>对象获得Web应用程序的初始化参数、它是重要的作用域对象，可实现数据共享、获得Web容器的版本等信息。</p>
+<p>有两种方法得到ServletContext引用：</p>
+<ol>
+<li>
+<p>直接调用<code>getServletContext()</code></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">ServletContext context </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getServletContext</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span></code></pre></figure>
+</li>
+<li>
+<p>先得到<code>ServletConfig</code>，再调用它的<code>getServletContext()</code></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ServletContext context </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getServletConfig</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">().</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getServletContext</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(); </span></span></code></pre></figure>
+</li>
+</ol>
+<p>应用程序初始化参数应该在web.xml文件中使用<code>&lt;context-param></code>元素定义，</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="xml" data-theme="github-light github-dark"><code data-language="xml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">web-app</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">context-param</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">   &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">param-name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>name&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">param-name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">   &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">param-value</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>value&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">param-value</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">context-param</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">servlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  // ...</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">servlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">web-app</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span></code></pre></figure>
+<p>使用ServletContext接口中的以下方法检索应用程序的初始化参数：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">String </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getInitParameter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(String name);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">Enumeration </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getInitParameterNames</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span></code></pre></figure>
+<p>Servlet上下文初始化参数和Servlet初始化参数区别：</p>
+<ul>
+<li>Servlet上下文初始化参数是属于Web应用程序的，可以被Web应用程序的所有的Servlet和JSP页面访问。</li>
+<li>Servlet初始化参数是属于定义它们的Servlet的，不能被Web应用程序的其他组件访问。</li>
+</ul>
+<p><code>ServletContext</code>是一个作用域对象，使用它可以存储数据，它的作用域是整个应用程序。</p>
+<ul>
+<li>
+<p><code>void setAttribute(String name, Object object)</code></p>
+</li>
+<li>
+<p><code>Object getAttribute(String name)</code></p>
+</li>
+<li>
+<p><code>Enumeration getAttributeNames()</code></p>
+</li>
+<li>
+<p><code>void removeAttribute(String name)</code></p>
+</li>
+</ul>
+<p>使用<code>ServletContext</code>接口的<code>RequestDispatcher getRequestDispatcher(String path)</code>也可以获得<code>RequestDispatcher</code>对象，实现请求转发。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>参数path表示资源路径，它必须以<code>/</code>开头，表示相对于Web应用的文档根目录。如果不能返回转发器对象，将返回null。</p>
+</div>
+</blockquote>
+<p>使用<code>ServletContext</code>对象存储数据，与使用请求对象<code>HttpServletRequest</code>存储数据有什么区别：</p>
+<ol>
+<li><strong>作用域</strong>：
+<ul>
+<li><code>HttpServletRequest</code>：它的作用域仅限于当前HTTP请求。当请求处理完成并响应发送给客户端后，该请求对象及其关联的数据将被销毁。</li>
+<li><code>ServletContext</code>：它代表整个Web应用程序的上下文，其作用域是全局的，对部署在同一Web应用中的所有Servlet、JSP页面都是可见的。</li>
+</ul>
+</li>
+<li><strong>生命周期</strong>：
+<ul>
+<li><code>HttpServletRequest</code>：与单个HTTP请求的生命周期相同，一旦请求结束，所绑定的数据也随之消失。</li>
+<li><code>ServletContext</code>：从Web应用程序启动直到服务器关闭，或者Web应用被卸载为止，其生命周期是最长的。</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="html" data-theme="github-light github-dark"><code data-language="html" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">html</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">head</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">meta</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> charset</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;UTF-8&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">title</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>登录页面&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">title</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">head</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">body</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">form</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> action</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;user-login&quot;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> method</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;post&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">fieldset</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">legend</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>用户登录&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">legend</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>用户名: &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">input</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;text&quot;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;username&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>密码：&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">input</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;password&quot;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;password&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">input</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;submit&quot;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> value</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;登录&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          &lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">input</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> type</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;reset&quot;</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> value</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;取消&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> /></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">label</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">p</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">fieldset</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  &lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">form</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">body</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">html</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">@</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">WebServlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">name</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;LoginServlet&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">urlPatterns</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> =</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;/user-login&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">})</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> LoginServlet</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> HttpServlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> doPost</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(HttpServletRequest </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, HttpServletResponse </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">response</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ServletException, IOException {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String username </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getParameter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;username&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String password </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getParameter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;password&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        response.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setContentType</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;text/html;charset=UTF-8&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        PrintWriter out </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> response.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getWriter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        out.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">println</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;&lt;!DOCTYPE html>&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        out.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">println</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;&lt;html>&lt;body>&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;admin&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">equals</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(username) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&amp;&amp;</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;admin&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">equals</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(password)) {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            out.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">println</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;登录成功！欢迎您， &quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> +</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> username);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">else</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            out.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">println</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;对不起！您的用户名或密码不正确．&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        out.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">println</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;&lt;/body>&lt;/html>&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<h1 id="jsp">JSP<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#jsp" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th style="text-align:left;">JSP页面元素</th><th>简要说明</th><th>标签语法</th></tr></thead><tbody><tr><td style="text-align:left;">声明(JSP脚本元素)</td><td>声明变量与定义方法</td><td><code>&lt;%!  Java 声明   %></code></td></tr><tr><td style="text-align:left;">小脚本(JSP脚本元素)</td><td>执行业务逻辑的Java代码</td><td><code>&lt;%  Java 代码    %></code></td></tr><tr><td style="text-align:left;">表达式(JSP脚本元素)</td><td>用于在JSP页面输出表达式的值</td><td><code>&lt;%=  表达式    %></code></td></tr><tr><td style="text-align:left;">指令</td><td>指定转换时向容器发出的指令</td><td><code>&lt;%@ 指令    %></code></td></tr><tr><td style="text-align:left;">动作（标签）</td><td>向容器提供请求时的指令</td><td><code>&lt;jsp:标签名   /></code></td></tr><tr><td style="text-align:left;">EL表达式</td><td>JSP  2.0引进的表达式语言</td><td><code>${applicationScope.email}</code></td></tr><tr><td style="text-align:left;">注释</td><td>用于文档注释</td><td><code>&lt;%--  任何文本    --%></code></td></tr></tbody></table></div>
+<ul>
+<li>JSP声明：可以包含任意数量的合法的Java声明语句。</li>
+<li>JSP小脚本：可以包含任意数量Java语句。在小脚本中的代码必须是合法的Java语言代码。</li>
+<li>JSP表达式：作为Java语言表达式的占位符。在百分号和等号之间不能有空格，而且表达式不能以分号结束。</li>
+</ul>
+<hr/>
+<p><strong>JSP页面生命周期</strong></p>
+<p>!<img src="./assets/5.png" alt/></p>
+<ol>
+<li>转换阶段：Web容器读取JSP页面对其解析，并将其转换成Java源代码。</li>
+<li>编译阶段：在Web容器调用Java编译器javac编译该文件。</li>
+<li>类的加载与实例化：Web容器调用类加载程序将页面实现类加载到内存中。</li>
+<li>调用<code>jspInit()</code>：Web容器调用<code>jspInit()</code>初始化Servlet实例。该方法是在任何其他方法调用之前调用的，并在页面生命期内只调用一次。</li>
+<li>调用<code>_jspService()</code>：对该页面的每次请求，容器都调用一次<code>_jspService()</code>，并给它传递请求和响应对象。</li>
+<li>调用<code>jspDestroy()</code>：当容器决定停止该实例提供服务时，它将调<code>jspDestroy()</code>，这是在Servlet实例上调用的最后一个方法，它主要用来清理<code>jspInit()</code>获得的资源。</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>一般不需要实现jspInit()和jspDestroy() ，因为它们已经由基类实现了。但可以根据需要使用JSP的声明标签&lt;%! … %>覆盖这两个方法。</li>
+<li>不能覆盖_jspService()，因为该方法由Web容器自动产生。</li>
+</ul>
+</div>
+</blockquote>
+<hr/>
+<p><strong>页面转换</strong></p>
+<p>容器根据下面规则将JSP页面中的元素转换成Servlet代码：</p>
+<ol>
+<li>所有JSP声明都转换成页面实现类的成员，它们被原样拷贝。</li>
+<li>所有JSP小脚本都转换成页面实现类的<code>_jspService()</code>的一部分，它们也被原样拷贝。小脚本中声明的变量转换成<code>_jspService()</code>的局部变量。小脚本中的语句转换成<code>_jspService()</code>中的语句。</li>
+<li>所有的JSP表达式都转换成为<code>_jspService()</code>的一部分，表达式的值使用<code>out.print()</code>语句输出。</li>
+<li>有些指令在转换阶段产生Java代码。</li>
+<li>所有的JSP动作都通过调用针对厂商的类来替换。</li>
+<li>所有表达式语言EL通过计算后使用<code>out.write()</code>语句输出。</li>
+<li>所有模板文本都成为<code>_jspService()</code>的一部分，模板内容使用<code>out.write()</code>语句输出。</li>
+<li>所有的JSP注释都被忽略。</li>
+</ol>
+<hr/>
+<p>JSP声明中定义的变量和小脚本中定义的变量的不同：</p>
+<ol>
+<li>
+<p>出现顺序：</p>
+<ul>
+<li>在JSP声明中定义的变量和方法都转换成页面实现类的成员，因此它们在页面中出现的顺序无关紧要。</li>
+<li>小脚本被转换成页面实现类的<code>_jspService()</code>方法的一部分，因此小脚本中声明的变量成为该方法的局部变量，故它们出现的顺序很重要。</li>
+</ul>
+</li>
+<li>
+<p>初始化：</p>
+<ul>
+<li>
+<p>JSP声明中定义的变量被自动初始化为默认值。</p>
+<p>在容器实例化Servlet时被创建的并只被初始化一次，因此在JSP声明中声明的变量在多个请求中一直保持它们的值。</p>
+</li>
+<li>
+<p>小脚本中定义的变量局部变量使用之前必须明确赋值。</p>
+<p>对每个请求都创建和销毁一次，因此在小脚本中声明的变量在多个请求中不保持其值，而是在JSP容器每次调用<code>_jspService()</code>时被重新初始化。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<p><strong>JSP组件包含</strong>：在JSP页面中包含另一个Web组件的内容或输出。</p>
+<ul>
+<li>
+<p>静态包含：include指令</p>
+<p>将另一个文件的内容包含到当前JSP页面中，用include指令完成，语法为：<code>&lt;%@ include file=&quot;relativeURL&quot; %></code>。</p>
+<p>文件路径以<code>/</code>开头，是相对于Web应用程序文档根目录的路径，路径不以<code>/</code>开头，相对于当前JSP文件的路径。</p>
+<p>限制：</p>
+<ol>
+<li>在转换阶段不进行任何处理</li>
+<li>不能通过file属性值向被包含的页面传递任何参数</li>
+<li>被包含的页面可能不能单独编译</li>
+</ol>
+</li>
+<li>
+<p>动态包含：include动作</p>
+<p>在请求时将另一个页面的输出包含到主页面的输出中。该动作的格式如下：<code>&lt;jsp:include page=&quot;relativeURL&quot; flush=&quot;true | false&quot; /></code></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;jsp:include page=“copyright.jsp&quot; /></span></span>
+<span data-line><span>// 或者                             </span></span>
+<span data-line><span>&lt;%! String pageURL = &quot;copyright.jsp&quot;; %></span></span>
+<span data-line><span>&lt;jsp:include page=&quot;&lt;%= pageURL %>&quot; />                         </span></span></code></pre></figure>
+</li>
+</ul>
+<p>他们之间有什么区别？</p>
+<hr/>
+<p><strong>JSP作用域对象</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th>作用域名</th><th>对应的对象</th><th>作用域范围</th></tr></thead><tbody><tr><td>应用作用域</td><td>application</td><td>在整个Web应用程序有效</td></tr><tr><td>会话作用域</td><td>session</td><td>在一个用户会话范围内有效</td></tr><tr><td>请求作用域</td><td>request</td><td>在用户的请求和转发的请求内有效</td></tr><tr><td>页面作用域</td><td>pageContext</td><td>只在当前的页面（转换单元）内有效</td></tr></tbody></table></div>
+<ul>
+<li>
+<p>应用作用域</p>
+<p>在Servlet中可以使用<code>ServletContext</code>接口的<code>setAttribute()</code>方法将对象存储在应用作用域中，在JSP页面中就可使用<code>context.setAttribute</code>访问context中数据。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">String username </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getParameter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;username&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">ServletContext context </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getServletContext</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">context.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setAttribute</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;name&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, username);</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;%= application.getAttribute(&quot;name&quot;) %></span></span></code></pre></figure>
+</li>
+<li>
+<p>会话作用域</p>
+<p>使用<code>HttpSession</code>接口的<code>setAttribute()</code>设置属性，在JSP页面中就可使用<code>session.getAttribute</code>访问session中数据。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HttpSession session </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getSession</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">session.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setAttribute</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;name&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, value);</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;%= session.getAttribute(&quot;cart&quot;) %></span></span></code></pre></figure>
+</li>
+<li>
+<p>请求作用域</p>
+<p>在Servlet中使用请求对象的<code>setAttribute()</code>将一个对象存储到请求作用域中，然后将请求转发到JSP页面，在JSP页面中通过脚本或EL取出作用域中的对象。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setAttribute</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;user&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, user);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">RequestDispatcher rd </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getRequestDispatcher</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;/valid.jsp&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">rd.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">forward</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(request,response);</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;% User user = (User) request.getAttribute(&quot;user&quot;); %></span></span></code></pre></figure>
+</li>
+<li>
+<p>页面作用域</p>
+<p>存储在页面作用域的对象只能在它们所定义的转换单元中被访问。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;% Float one = new Float(42.5);%></span></span>
+<span data-line><span>&lt;% pageContext.setAttribute(&quot;foo&quot;, one); %></span></span></code></pre></figure>
+<p>静态包含中另一个页面获得一个页面作用域的属性：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;%= pageContext.getAttribute(&quot;foo&quot; ) %></span></span></code></pre></figure>
+</li>
+</ul>
+<h1 id="java-beans">Java Beans<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#java-beans" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>JavaBeans是Java平台的组件技术，在Java Web开发中常用JavaBeans来存放数据、封装业务逻辑等，从而很好地实现业务逻辑和表示逻辑的分离，使系统具有更好的健壮性和灵活性。</p>
+<p>定义JavaBeans类，需要遵循的规范是：</p>
+<ol>
+<li>JavaBeans应该是public类，且具有无参数的public构造方法。也可以定义带参数构造方法。</li>
+<li>类的成员变量一般称为属性（property）。对每个属性访问权限一般定义为private。注意：属性名必须以小写字母开头。</li>
+<li>每个属性通常定义两个public方法，一个是访问方法（getter），一个是修改方法（setter），使用它们访问和修改JavaBeans的属性值。</li>
+</ol>
+<p>在JSP页面中使用JavaBeans是通过三个JSP标准动作实现，分别是：</p>
+<ul>
+<li>
+<p><code>&lt;jsp:useBean></code>动作</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;jsp:useBean </span></span>
+<span data-line><span>id=&quot;beanName&quot;</span></span>
+<span data-line><span>scope=&quot;page|request|session|application&quot;</span></span>
+<span data-line><span>{ class=&quot;package.class&quot; | type=&quot;package.class&quot; } // class和type至少指定一个或两个同时指定</span></span>
+<span data-line><span>// 其他元素   </span></span>
+<span data-line><span>&lt;/jsp:useBean> </span></span></code></pre></figure>
+<ul>
+<li>id：唯一标识一个bean实例，该属性是必须的。</li>
+<li>scope：指定bean实例的作用域，默认值为page作用域。</li>
+<li>class：指定创建bean实例的Java类</li>
+<li>type：指定由id属性声明的变量的类型</li>
+<li></li>
+</ul>
+</li>
+<li>
+<p><code>&lt;jsp:setProperty</code>>动作</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;jsp:setProperty </span></span>
+<span data-line><span>name=&quot;beanName&quot;</span></span>
+<span data-line><span>{ </span></span>
+<span data-line><span>property = “propertyName” value=&quot;{string | &lt;%=expression%>}&quot; |</span></span>
+<span data-line><span>property = &quot;propertyName&quot; [param=&quot;paramName&quot;]  |</span></span>
+<span data-line><span>property = &quot;*&quot; </span></span>
+<span data-line><span>} </span></span>
+<span data-line><span>/></span></span></code></pre></figure>
+<ul>
+<li>name：标识一个bean实例，该实例必须是前面使用<code>&lt;jsp:useBean></code>动作声明的，并且name属性值必须与<code>&lt;jsp:useBean></code>动作中指定的一个id属性值相同，该属性是必须的。</li>
+<li>property：指定要设置值的bean实例的属性，容器将根据指定的bean的属性调用适当的<code>setXXX()</code>，该属性是必须的。</li>
+<li>value：为bean的属性指定新值，该属性值可以接受请求时属性表达式。</li>
+<li>param：指定请求参数名，如果请求中包含指定的参数，那么使用该参数对应的值来设置bean的属性值。</li>
+</ul>
+<p>value属性和param属性都是可选的并且不能同时使用。</p>
+</li>
+<li>
+<p><code>&lt;jsp:getProperty></code>动作</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;jsp:getProperty name=&quot;beanName&quot; property=&quot;propertyName&quot; /></span></span></code></pre></figure>
+<ul>
+<li>name：指定bean实例名。</li>
+<li>property：指定要输出的属性名。</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<p>如何定义一个JavaBean：</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 属性声明</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    private</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> String name;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 构造方法的定义</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() {}</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(String </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.name </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> name;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">  </span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // getter方法</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> String </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getName</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() { </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">return</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.name; }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // setter方法</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> setName</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(String </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">name</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) { </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.name </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> name; }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<h1 id="mvc设计模型">MVC设计模型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mvc设计模型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>MVC（Model-View-Controller）设计模式，在这种结构中，将Web组件分为模型（Model）、视图（View）和控制器（Controller），每种组件完成各自的任务。</p>
+<p><img src="./assets/6.png" alt/></p>
+<p>所有请求的目标都是Servlet，它充当应用程序的控制器，Servlet分析请求并将响应所需要的数据收集到JavaBeans对象，该对象作为应用程序的模型，最后Servlet控制器将请求转发到JSP页面。这些页面使用存储在JavaBeans中的数据产生响应，该对象作为应用程序的视图。</p>
+<p>优点：将业务逻辑和数据访问从表示层分离出来，JSP页面不需要处理任何复杂的逻辑。节省开发的时间和费用，易于维护。</p>
+<p>实现MVC模式的一般步骤：</p>
+<ol>
+<li>定义JavaBeans存储数据</li>
+<li>编写Servlet处理请求</li>
+<li>数据结果存储在作用域中</li>
+<li>转发请求到JSP页面</li>
+<li>从JavaBeans中提取数据</li>
+</ol>
+<h1 id="会话">会话<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#会话" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>会话（session）是客户与服务器之间的不间断的请求—响应序列。</p>
+<p>Web容器使用<code>HttpSession</code>表示会话对象。</p>
+<p>创建或返回会话使用request对象的<code>HttpSession getSession(boolean create)</code>方法。如果没有与当前请求关联的会话对象，当参数为true时创建一个新的会话对象，当参数为false时返回null。</p>
+<p>HttpSession接口中有以下两个方法：</p>
+<ul>
+<li><code>public void setAttribute (String name, Object value)</code>：将一个指定名称和值的属性存储到会话对象上。</li>
+<li><code>public Object getAttribute(String name)</code>：返回存储到会话上的指定名称的属性值，如果没有指定名称的属性，则返回null。</li>
+</ul>
+<p><strong>当我们关闭客户端浏览器时，Session并没有被销毁</strong>，还保存在服务器端，只不过客户端一旦把浏览器关闭掉以后，再去开一个新的窗口，之前的SessionID就再也访问不到了，因为SessionID是保存在浏览器进程中的，浏览器一旦关掉，所对应的SessionID也就消失了。但服务器里的Session对象依然存在，当重新打开一个窗口时，服务器会针对这个新的页面，发送一个新的SessionID，这个<strong>新的SessionID跟以前那个SessionID是不一样的</strong>，两者之间没有任何关系。这样客户端就会对应一个新的session上，而服务器端原有的那个会话则一直存在，一直等到超时，服务器端的session就销毁掉了。</p>
+<p>如何让会话失效：</p>
+<ol>
+<li>
+<p>在DD文件中设置会话超时时间。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="xml" data-theme="github-light github-dark"><code data-language="xml" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">session-config</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	&lt;</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">session-timeout</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">>10&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">session-timeout</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/</span><span style="--shiki-light:#22863A;--shiki-dark:#85E89D;">session-config</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">></span></span></code></pre></figure>
+<p>以分钟为单位，默认情况下是30分钟。</p>
+</li>
+<li>
+<p>使用会话对象的<code>invalidate()</code>。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HttpSession session </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getSession</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">session.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">invalidate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();   </span></span></code></pre></figure>
+</li>
+</ol>
+<hr/>
+<p>Cookie是客户访问Web服务器时，服务器在客户硬盘上存放的一小段文本信息，客户以后访问同一个Web服务器时浏览器会把它们原样发送给服务器。</p>
+<p>Cookie类的常用方法如下：</p>
+<ul>
+<li><code>public String getName()</code>：返回Cookie名称，名称一旦创建不能改变。</li>
+<li><code>public String getValue()</code>：返回Cookie的值。</li>
+<li><code>public void setValue(String newValue)</code>：在Cookie创建后为它指定一个新值。</li>
+<li><code>public void setMaxAge(int expiry)</code>：设置Cookie在浏览器中的最长存活时间，单位为秒。</li>
+</ul>
+<p>Cookie类的构造方法为：<code>public Cookie(String name, String value)</code></p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// 创建一个Cookie对象</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">Cookie userCookie </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Cookie</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;username&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;value&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">); </span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// 向客户端发送Cookie对象</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">response.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">addCookie</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(userCookie);</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// 从客户端读取Cookie</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">Cookie</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[] cookies </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getCookies</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">for</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> i </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 0</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;i</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">&lt;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">cookies.length;i</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">++</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">){</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	Cookie cookie </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> cookies[i];</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">	if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(cookie.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getName</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">().</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">equals</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(cookieName))</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">		cookieValue </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> cookie.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getValue</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<hr/>
+<p>文件上传是指将客户端的一个或多个文件传输并存储到服务器上。</p>
+<p>上传文件表单的<code>&lt;form></code>标签中，应该</p>
+<ul>
+<li>指定<code>enctype</code>属性，值为<code>multipart/form-data</code>。</li>
+<li>指定<code>method</code>属性，值为<code>post</code>。</li>
+<li>提供一个<code>&lt;input type=&quot;file&quot;></code>的输入域用于指定上传的文件。</li>
+</ul>
+<p>在服务器端使用Servlet就可以得到上传的文件的内容并将其存储到服务器的特定位置。通过请求对象的下面两个方法来处理上传的文件：</p>
+<ul>
+<li><code>Part getPart(String name)</code>：返回用name指定名称的Part对象。</li>
+<li><code>Collection&lt;Part> getParts()</code>：返回所有Part对象的一个集合。</li>
+</ul>
+<p>Part对象除了包含上传来的文件内容、文件名、内容类型等信息，还包含表单域的名称和值。以下是Part接口常用方法：</p>
+<ul>
+<li><code>InputStream getInputStream()</code>：返回Part对象的输入流对象。</li>
+<li><code>String getContentType()</code>：返回Part对象的内容类型。</li>
+<li><code>String getName()</code>：返回Part对象的名称。</li>
+</ul>
+<p>从Part对象中检索上传文件的文件名：调用<code>part</code>对象的<code>String getHeader(String name)</code>方法，参数<code>name</code>为<code>Content-Disposition</code>，得到包含上传文件名的字符串，然后提取该字符串中包含文件名的子字符串，得到上传文件的文件名。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// 从Part对象中检索上传文件的文件名</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">private</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> String </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getFilename</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(Part part){</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	String fname </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	String header </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> part.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getHeader</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;content-disposition&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">	fname </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> header.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">substring</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(header.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">lastIndexOf</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">\\</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">+</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, header.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">length</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">-</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">	return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> fname;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<h1 id="jdbc">JDBC<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#jdbc" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><strong>JDBC</strong>是Java程序访问数据库的标准，由一组Java语言编写的<strong>类和接口</strong>组成，这些类和接口称为JDBC API。</p>
+<p>JDBC的基本功能包括：</p>
+<ol>
+<li>建立与数据库的连接。</li>
+<li>发送SQL语句。</li>
+<li>处理数据库操作结果。</li>
+</ol>
+<p>目前有多种类型的数据库，每种数据库都定义了一套API，因此需要有<strong>在程序收到JDBC请求后，将其转换成适合于数据库系统的方法调用</strong>。把完成这类转换工作的程序叫做<strong>数据库驱动程序</strong>。</p>
+<p><img src="./assets/7.png" alt/></p>
+<p><strong>加载JDBC驱动程序</strong>最常用的方法是使用<strong>Class</strong>类的**forName()**静态方法，该方法的声明格式为：<code>public static Class&lt;?> forName(String className) throws ClassNotFoundException</code></p>
+<ul>
+<li>参数<code>className</code>为一字符串，表示的完整的驱动程序类的名称。对于不同的数据库，驱动程序的类名是不同的。</li>
+<li><code>?</code>可以代表任何类型，<code>Class&lt;?></code>代表这个类型所对应的类对象。</li>
+</ul>
+<hr/>
+<p>语句对象有两种：</p>
+<ol>
+<li>
+<p>Statement对象</p>
+<p>通过Connection对象创建语句(Statement)对象。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">Statement stmt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> conn.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">createStatement</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span></code></pre></figure>
+</li>
+<li>
+<p>PreparedStatement对象</p>
+<p>通过Connection对象创建预编译的语句(prepareStatement)对象。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">String sql </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;SELECT * FROM products WHERE id = ?&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">PreparedStatement pstmt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> conn.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">prepareStatement</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(sql); </span></span></code></pre></figure>
+</li>
+</ol>
+<p>区别：</p>
+<ul>
+<li>Statement对象：在多次执行同一个语句时效率较低</li>
+<li>PreparedStatement对象：如果数据库支持预编译，它可以将SQL语句传给数据库作预编译，以后每次执行这个SQL语句时，速度就可以提高很多。</li>
+</ul>
+<p>语句对象常用的方法有：</p>
+<ol>
+<li>
+<p>执行查询语句</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ResultSet </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">executeQuery</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(String sql) </span></span></code></pre></figure>
+</li>
+<li>
+<p>执行非查询语句</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> int</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> executeUpdate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(String sql) </span></span></code></pre></figure>
+</li>
+<li>
+<p>释放Statement</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">close</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()</span></span></code></pre></figure>
+</li>
+</ol>
+<hr/>
+<p><strong>结果集</strong>对象表示查询结果，即SELECT语句查询得到的记录集合，一般是一个记录表。</p>
+<p>结果集中包含多个记录行和列标题，记录行从1开始，一个Statement对象一个时刻只能打开一个ResultSet对象。</p>
+<p>游标是结果集的一个标志或指针。对新产生的ResultSet对象，游标指向第一行的前面，可以调用ResultSet的<code>next()</code>，使游标定位到下一条记录。</p>
+<hr/>
+<p>数据库连接步骤：</p>
+<ol>
+<li>加载驱动程序。</li>
+<li>建立连接对象。</li>
+<li>创建语句对象。</li>
+<li>执行语句获得结果。</li>
+<li>关闭建立的对象。</li>
+</ol>
+<p>缺点：建立连接比较耗费时间，导致增大请求的响应时间</p>
+<hr/>
+<p>使用数据源连接数据库的<strong>优点</strong>：</p>
+<p>使用数据源的技术访问数据库可以<strong>提高数据库访问效率</strong>，而且应用程序只需在启动时创建少量的连接对象即可，不需要为每个HTTP请求都创建一个连接对象，这会大大<strong>降低请求的响应时间</strong>。</p>
+<p>通过数据源对象<strong>如何获得连接对象</strong>：</p>
+<p>采用<strong>Java命名与目录接口</strong> （Java Naming and Directory Interface，JNDI）技术来获得DataSource对象的引用。首先为要创建的对象指定一个唯一的名字，然后由对象工厂创建对象，并将该对象与唯一的名字绑定，外部程序可以通过名字来获得某个对象的访问。</p>
+<hr/>
+<p>DAO（Data Access Object）称为<strong>数据访问对象</strong>，将数据访问实现（通常使用JDBC技术）封装在DAO类中。</p>
+<p>DAO设计模式可以在使用数据库的应用程序中实现<strong>业务逻辑</strong>和<strong>数据访问逻辑</strong>分离，使应用的维护变得简单。提高应用程序的灵活性。</p>
+<p>如何使用DAO类：</p>
+<ol>
+<li>定义一个DAO接口，它负责建立数据库连接。</li>
+<li>为每种实体的持久化操作定义一个接口。</li>
+<li>定义这些接口的实现类。</li>
+</ol>
+<hr/>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Product</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    private</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Product</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() {}</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Product</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;"> id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> int</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getId</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() { </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id; }</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> setId</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;"> id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) { </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id; }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;%@page contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%></span></span>
+<span data-line><span>&lt;html></span></span>
+<span data-line><span>&lt;head></span></span>
+<span data-line><span>  &lt;title>商品查询&lt;/title></span></span>
+<span data-line><span>&lt;/head></span></span>
+<span data-line><span>&lt;body></span></span>
+<span data-line><span>  &lt;a href=&quot;product-query&quot;>查询所有商品&lt;/a></span></span>
+<span data-line><span>  &lt;form action =&quot;product-query&quot; method=&quot;post&quot;></span></span>
+<span data-line><span>    &lt;input type =&quot;text&quot; name=&quot;productid&quot; size=&quot;15&quot;></span></span>
+<span data-line><span>    &lt;input type =&quot;submit&quot; value =&quot;确定&quot;></span></span>
+<span data-line><span>  &lt;/form></span></span>
+<span data-line><span>&lt;/body></span></span>
+<span data-line><span>&lt;/html></span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">@</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">WebServlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;/product-query&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> ProductQueryServlet</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> HttpServlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    private</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> static</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> final</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> long</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> serialVersionUID </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 1L</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    Connection dbconn </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> init</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String driver </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;com.mysql.cj.jdbc.Driver&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">//驱动程序类名</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String dburl </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;jdbc:mysql://localhost:3306/webstore&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String username </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;root&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String password </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;root&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">      </span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">          	// 加载驱动程序</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            Class.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">forName</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(driver);</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">          	// 创建连接对象</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            dbconn </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (Connection) DriverManager.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getConnection</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;jdbc:mysql://localhost:3306/webstore?serverTimezone=GMT&amp;useSSL=false&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, username, password);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (ClassNotFoundException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">e1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {} </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (SQLException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">e2</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> doGet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(HttpServletRequest </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, HttpServletResponse </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">response</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ServletException, IOException {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            String sql </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;SELECT * FROM products&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            PreparedStatement pstmt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> dbconn.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">prepareStatement</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(sql);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            ResultSet result </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> pstmt.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">executeQuery</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            while</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (result.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">next</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()) {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                result.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getInt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getSession</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">().</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setAttribute</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;product&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, productList);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            response.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">sendRedirect</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;/chapter02/error.jsp&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (SQLException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> doPost</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(HttpServletRequest </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, HttpServletResponse </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">response</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ServletException, IOException {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String productid </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getParameter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;productid&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            String sql </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;SELECT * FROM products WHERE id = ?&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            PreparedStatement pstmt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> dbconn.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">prepareStatement</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(sql);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            pstmt.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setString</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, productid);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            ResultSet rst </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> pstmt.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">executeQuery</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (rst.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">next</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()) {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                Product product </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Product</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                product.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setId</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(rst.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getInt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">));</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getSession</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">().</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setAttribute</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;product&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, product);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (SQLException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> destroy</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            dbconn.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">close</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (Exception </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {}</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Customer</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> implements</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Serializable</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    private</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> int</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getId</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() { </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id; }</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> setId</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;"> id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) { </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.id </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> id; }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> DaoException</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Exception</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    private</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> static</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> final</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> long</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> serialVersionUID </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 19192L</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    private</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> String message;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> DaoException</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() {}</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> DaoException</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(String </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">message</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.message </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> message;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> String </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getMessage</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> message;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> setMessage</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(String </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">message</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span data-line><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">        this</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">.message </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> message;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> String </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">toString</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> message;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line> </span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> interface</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Dao</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 查找并返回数据源对象,静态方法，</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> static</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> DataSource </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getDataSource</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        DataSource dataSource </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            Context context </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> InitialContext</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            dataSource </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (DataSource) context.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">lookup</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;java:comp/env/jdbc/webstoreDS&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (NamingException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">ne</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {}</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> dataSource;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 返回连接对象方法</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> default</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> Connection </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getConnection</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> DaoException {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        DataSource dataSource </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getDataSource</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        Connection conn </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            conn </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> dataSource.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getConnection</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (SQLException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">sqle</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {}</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> conn;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span>
+<span data-line> </span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> interface</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> CustomerDao</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Dao</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    //添加客户方法</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> boolean</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> addCustomer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(Customer </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> DaoException;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 按id查询客户方法</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> Customer </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">findById</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;"> id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> DaoException;</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 查询所有客户方法</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ArrayList&lt;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">Customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">> </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">findAllCustomer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> DaoException;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> CustomerDaoImpl</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> implements</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> CustomerDao</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 插入一条客户记录</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> boolean</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> addCustomer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(Customer </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> DaoException {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String sql </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;INSERT INTO customers VALUES(?)&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (Connection conn </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getConnection</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(); PreparedStatement pstmt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> conn.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">prepareStatement</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(sql)) {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            pstmt.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setInt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, customer.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getId</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">());</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            pstmt.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">executeUpdate</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            return</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (SQLException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">se</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            return</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> false</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 按id查询客户记录</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> Customer </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">findById</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;"> id</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> DaoException {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String sql </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;SELECT id FROM customers WHERE id =?&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        Customer customer </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">        // 对资源的申请</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (Connection conn </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getConnection</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();PreparedStatement pstmt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> conn.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">prepareStatement</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(sql)) {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            pstmt.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setInt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">1</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, id);</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (ResultSet rst </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> pstmt.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">executeQuery</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()) {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">                if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (rst.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">next</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()) customer.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setId</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(rst.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getInt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">));</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (SQLException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">se</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            return</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        }</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> customer;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">    // 查询所有客户信息</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ArrayList&lt;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">Customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">> </span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">findAllCustomer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">() </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> DaoException {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String sql </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;SELECT * FROM customers&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          Connection conn </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getConnection</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          PreparedStatement pstmt </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> conn.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">prepareStatement</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(sql);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">          ResultSet rst </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> pstmt.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">executeQuery</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()) {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            while</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (rst.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">next</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">()) {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                rst.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getInt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            }</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            return</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> custList;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (SQLException </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            return</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> null</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="jsp" data-theme="github-light github-dark"><code data-language="jsp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>&lt;%@page contentType=&quot;text/html; charset=UTF-8&quot;%></span></span>
+<span data-line><span>&lt;html></span></span>
+<span data-line><span>  &lt;head>&lt;title>添加客户&lt;/title></span></span>
+<span data-line><span>&lt;/head></span></span>
+<span data-line><span>&lt;body></span></span>
+<span data-line><span>  &lt;p>请输入一条客户记录&lt;/p></span></span>
+<span data-line><span>  &lt;form action =&quot;addCustomer.do&quot; method =&quot;post&quot;></span></span>
+<span data-line><span>    &lt;input type=&quot;text&quot; name=&quot;id&quot;></span></span>
+<span data-line><span>    &lt;input type=&quot;submit&quot; value=&quot;确定&quot;></span></span>
+<span data-line><span>    &lt;input type=&quot;reset&quot; value=&quot;重置&quot;></span></span>
+<span data-line><span>  &lt;/form></span></span>
+<span data-line><span>&lt;/body></span></span>
+<span data-line><span>&lt;/html></span></span></code></pre></figure>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="java" data-theme="github-light github-dark"><code data-language="java" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">@</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">WebServlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;/addCustomer.do&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> class</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> AddCustomerServlet</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> extends</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> HttpServlet</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">    public</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> void</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> doPost</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(HttpServletRequest </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">request</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, HttpServletResponse </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">response</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">throws</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> ServletException, IOException {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        CustomerDao dao </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> CustomerDaoImpl</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        Customer customer </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Customer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">();</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        String message </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">        try</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">            // parseInt，解析一个字符串，返回一个整数。</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            customer.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setId</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(Integer.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">parseInt</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getParameter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;id&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)));</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">					// 将传递来的字符串重新使用utf-8编码，以免产生乱码</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            customer.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setName</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> String</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getParameter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;cname&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                    .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getBytes</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;iso-8859-1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">), </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;UTF-8&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">));</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            customer.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setEmail</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">new</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> String</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getParameter</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;email&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                    .</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getBytes</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;iso-8859-1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">), </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;UTF-8&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">));</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            boolean</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> success </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> dao.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">addCustomer</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(customer);</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">            if</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (success) {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                message </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;&lt;li>成功插入一条记录！&lt;/li>&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">else</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">                message </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;&lt;li>插入记录错误！&lt;/li>&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        } </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">catch</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (Exception </span><span style="--shiki-light:#E36209;--shiki-dark:#FFAB70;">e</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">) {</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">            message </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> &quot;&lt;li>插入记录错误！&lt;/li>&quot;</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> +</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> e;</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        request.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">setAttribute</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;result&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, message);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        RequestDispatcher rd </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> getServletContext</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">().</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">getRequestDispatcher</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;/addCustomer.jsp&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">        rd.</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">forward</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">(request, response);</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    }</span></span>
+<span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
+<h1 id="表达式语言">表达式语言<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#表达式语言" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>表达式语言（Expression Language, EL）是一种可以在JSP页面中使用的数据访问语言。</p>
+<p>表达式语言的使用形式为：<code>${expression}</code></p>
+<p>EL表达式如何访问</p>
+<ul>
+<li>
+<p>作用域变量：</p>
+<p>在Servlet中使用<code>setAttribute()</code>将一个变量存储到某个作用域对象上，如<code>HttpServletRequest</code>、<code>HttpSession</code>及<code>ServletContext</code>等。在JSP页面中使用变量名即可访问：<code>${variable_name}</code>。</p>
+</li>
+<li>
+<p>JavaBeans对象：</p>
+<p>使用EL，通过点号表示法即可访问JavaBeans的属性：<code>${employee.name}</code></p>
+</li>
+<li>
+<p>集合对象：</p>
+<p>在EL中可以访问各种集合对象的元素，集合可以是数组、List对象或Map对象。格式：<code>${attributeName[entryName]}</code></p>
+</li>
+</ul>
+<p>EL表达式中的隐含变量</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="table-container"><table><thead><tr><th><strong>变量名</strong></th><th><strong>说</strong> <strong>明</strong></th></tr></thead><tbody><tr><td>pageContext</td><td>包含JSP常规隐含对象的PageContext类型对象</td></tr><tr><td>param</td><td>包含请求参数字符串的Map对象</td></tr><tr><td>paramValues</td><td>包含请求参数字符串数组的Map对象</td></tr><tr><td>header</td><td>包含请求头字符串的Map对象</td></tr><tr><td>headerValues</td><td>包含请求头字符串数组的Map对象</td></tr><tr><td>initParam</td><td>包含Servlet上下文参数的参数名和参数值的Map对象</td></tr><tr><td>cookie</td><td>匹配Cookie域和单个对象的Map对象</td></tr><tr><td>pageScope</td><td>包含page作用域属性的Map对象</td></tr><tr><td>requestScope</td><td>包含request作用域属性的Map对象</td></tr><tr><td>sessionScope</td><td>包含session作用域属性的Map对象</td></tr><tr><td>applicationScope</td><td>包含application作用域属性的Map对象</td></tr></tbody></table></div></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>目录</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#urluriurn" data-for="urluriurn">URL、URI、URN</a></li><li class="depth-0"><a href="#html常用标签" data-for="html常用标签">HTML常用标签</a></li><li class="depth-0"><a href="#动态文档技术" data-for="动态文档技术">动态文档技术</a></li><li class="depth-0"><a href="#tomcat" data-for="tomcat">Tomcat</a></li><li class="depth-0"><a href="#servlet" data-for="servlet">Servlet</a></li><li class="depth-0"><a href="#jsp" data-for="jsp">JSP</a></li><li class="depth-0"><a href="#java-beans" data-for="java-beans">Java Beans</a></li><li class="depth-0"><a href="#mvc设计模型" data-for="mvc设计模型">MVC设计模型</a></li><li class="depth-0"><a href="#会话" data-for="会话">会话</a></li><li class="depth-0"><a href="#jdbc" data-for="jdbc">JDBC</a></li><li class="depth-0"><a href="#表达式语言" data-for="表达式语言">表达式语言</a></li></ul></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2025</p><ul><li><a href="https://github.com/KISGP">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script src="../../postscript.js" type="module"></script></html>

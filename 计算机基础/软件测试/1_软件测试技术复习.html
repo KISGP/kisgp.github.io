@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh"><head><title>软件测试技术复习</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Comic_Sans_MS:wght@400;700&amp;family=Comic_Sans_MS:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="🪴 Quartz 4.0"/><meta property="og:title" content="软件测试技术复习"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="软件测试技术复习"/><meta name="twitter:description" content="软件测试基础 IEEE将软件可靠性定义为：系统在特定环境下，在给定的时间内无故障运行的概率。 影响软件可靠性的因素：需求错误，设计错误，编码错误，测试错误，文档错误。 软件缺陷的特征： 缺陷不易看到。 发现了缺陷，但不易找到问题发生的原因所在。 定义 软件测试的定义： 软件测试是为了发现错误而执行程序的过程。 软件测试是根据软件开发各阶段的规格说明和程序的内部结构而精心设计的一批测试用例，并利用这些测试用例运行程序以及发现错误的过程，即执行测试步骤。 ..."/><meta property="og:description" content="软件测试基础 IEEE将软件可靠性定义为：系统在特定环境下，在给定的时间内无故障运行的概率。 影响软件可靠性的因素：需求错误，设计错误，编码错误，测试错误，文档错误。 软件缺陷的特征： 缺陷不易看到。 发现了缺陷，但不易找到问题发生的原因所在。 定义 软件测试的定义： 软件测试是为了发现错误而执行程序的过程。 软件测试是根据软件开发各阶段的规格说明和程序的内部结构而精心设计的一批测试用例，并利用这些测试用例运行程序以及发现错误的过程，即执行测试步骤。 ..."/><meta property="og:image:type" content="image/webp"/><meta property="og:image:alt" content="软件测试基础 IEEE将软件可靠性定义为：系统在特定环境下，在给定的时间内无故障运行的概率。 影响软件可靠性的因素：需求错误，设计错误，编码错误，测试错误，文档错误。 软件缺陷的特征： 缺陷不易看到。 发现了缺陷，但不易找到问题发生的原因所在。 定义 软件测试的定义： 软件测试是为了发现错误而执行程序的过程。 软件测试是根据软件开发各阶段的规格说明和程序的内部结构而精心设计的一批测试用例，并利用这些测试用例运行程序以及发现错误的过程，即执行测试步骤。 ..."/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:url" content="https://kisgp.cn/static/og-image.png"/><meta name="twitter:image" content="https://kisgp.cn/static/og-image.png"/><meta property="og:image" content="https://kisgp.cn/static/og-image.png"/><meta property="twitter:domain" content="kisgp.cn"/><meta property="og:url" content="https://kisgp.cn/计算机基础/软件测试/1_软件测试技术复习"/><meta property="twitter:url" content="https://kisgp.cn/计算机基础/软件测试/1_软件测试技术复习"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="软件测试基础 IEEE将软件可靠性定义为：系统在特定环境下，在给定的时间内无故障运行的概率。 影响软件可靠性的因素：需求错误，设计错误，编码错误，测试错误，文档错误。 软件缺陷的特征： 缺陷不易看到。 发现了缺陷，但不易找到问题发生的原因所在。 定义 软件测试的定义： 软件测试是为了发现错误而执行程序的过程。 软件测试是根据软件开发各阶段的规格说明和程序的内部结构而精心设计的一批测试用例，并利用这些测试用例运行程序以及发现错误的过程，即执行测试步骤。 ..."/><meta name="generator" content="Quartz"/><link href="../../static/font/font-style.css" rel="stylesheet" type="text/css" spa-preserve/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="计算机基础/软件测试/1_软件测试技术复习"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">🪴 Quartz 4.0</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>搜索</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="collapse" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;编程语言&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Java&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/JavaScript&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust/Rust认识&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;服务器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/编译原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机操作系统&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机网络&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机组成原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/软件测试&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据结构和算法&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据库系统概论&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react/react学习&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/rspress&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;数据库&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读/未完成&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Git&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Markdown&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言"><button class="folder-button"><span class="folder-title">编程语言</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Java"><button class="folder-button"><span class="folder-title">Java</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Java"><li><a href="../../编程语言/Java/JavaWeb复习" data-for="编程语言/Java/JavaWeb复习">JavaWeb复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/JavaScript"><button class="folder-button"><span class="folder-title">JavaScript</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/JavaScript"><li><a href="../../编程语言/JavaScript/JS" data-for="编程语言/JavaScript/JS">JS</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust"><button class="folder-button"><span class="folder-title">Rust</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust/Rust认识"><button class="folder-button"><span class="folder-title">Rust认识</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust/Rust认识"><li><a href="../../编程语言/Rust/Rust认识/3_变量" data-for="编程语言/Rust/Rust认识/3_变量">3_变量</a></li><li><a href="../../编程语言/Rust/Rust认识/4_类型" data-for="编程语言/Rust/Rust认识/4_类型">4_类型</a></li><li><a href="../../编程语言/Rust/Rust认识/2_cargo使用" data-for="编程语言/Rust/Rust认识/2_cargo使用">Cargo 使用</a></li><li><a href="../../编程语言/Rust/Rust认识/1_环境配置" data-for="编程语言/Rust/Rust认识/1_环境配置">Rust 环境配置</a></li></ul></div></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="服务器"><button class="folder-button"><span class="folder-title">服务器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="服务器"><li><a href="../../服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问" data-for="服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问">使用 Cloudflare Workers 优化 Github 文件国内访问速度</a></li><li><a href="../../服务器/域名注册" data-for="服务器/域名注册">域名注册</a></li><li><a href="../../服务器/MinIO-使用" data-for="服务器/MinIO-使用">MinIO 使用</a></li><li><a href="../../服务器/OSS-对象存储" data-for="服务器/OSS-对象存储">OSS 对象存储</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础"><button class="folder-button"><span class="folder-title">计算机基础</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/编译原理"><button class="folder-button"><span class="folder-title">编译原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/编译原理"><li><a href="../../计算机基础/编译原理/3_词法分析" data-for="计算机基础/编译原理/3_词法分析">词法分析</a></li><li><a href="../../计算机基础/编译原理/1_开始" data-for="计算机基础/编译原理/1_开始">开始</a></li><li><a href="../../计算机基础/编译原理/2_引论" data-for="计算机基础/编译原理/2_引论">引论</a></li><li><a href="../../计算机基础/编译原理/4_语法分析" data-for="计算机基础/编译原理/4_语法分析">语法分析</a></li><li><a href="../../计算机基础/编译原理/5_语义分析与中间代码生成器" data-for="计算机基础/编译原理/5_语义分析与中间代码生成器">语义分析与中间代码生成器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机操作系统"><button class="folder-button"><span class="folder-title">计算机操作系统</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机操作系统"><li><a href="../../计算机基础/计算机操作系统/1_操作系统概述" data-for="计算机基础/计算机操作系统/1_操作系统概述">操作系统概述</a></li><li><a href="../../计算机基础/计算机操作系统/2_进程与线程" data-for="计算机基础/计算机操作系统/2_进程与线程">进程与线程</a></li><li><a href="../../计算机基础/计算机操作系统/3_内存管理" data-for="计算机基础/计算机操作系统/3_内存管理">内存管理</a></li><li><a href="../../计算机基础/计算机操作系统/4_文件管理" data-for="计算机基础/计算机操作系统/4_文件管理">文件管理</a></li><li><a href="../../计算机基础/计算机操作系统/5_输入输出管理" data-for="计算机基础/计算机操作系统/5_输入输出管理">I/O管理</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机网络"><button class="folder-button"><span class="folder-title">计算机网络</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机网络"><li><a href="../../计算机基础/计算机网络/5_传输层" data-for="计算机基础/计算机网络/5_传输层">传输层</a></li><li><a href="../../计算机基础/计算机网络/1_计算机网络体系结构" data-for="计算机基础/计算机网络/1_计算机网络体系结构">计算机网络体系结构</a></li><li><a href="../../计算机基础/计算机网络/3_数据链路层" data-for="计算机基础/计算机网络/3_数据链路层">数据链路层</a></li><li><a href="../../计算机基础/计算机网络/4_网络层" data-for="计算机基础/计算机网络/4_网络层">网络层</a></li><li><a href="../../计算机基础/计算机网络/2_物理层" data-for="计算机基础/计算机网络/2_物理层">物理层</a></li><li><a href="../../计算机基础/计算机网络/6_应用层" data-for="计算机基础/计算机网络/6_应用层">应用层</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机组成原理"><button class="folder-button"><span class="folder-title">计算机组成原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机组成原理"><li><a href="../../计算机基础/计算机组成原理/3_存储系统" data-for="计算机基础/计算机组成原理/3_存储系统">存储系统</a></li><li><a href="../../计算机基础/计算机组成原理/1_计算机系统概述" data-for="计算机基础/计算机组成原理/1_计算机系统概述">计算机组成原理</a></li><li><a href="../../计算机基础/计算机组成原理/2_数据的表示和运算" data-for="计算机基础/计算机组成原理/2_数据的表示和运算">数据的表示和运算</a></li><li><a href="../../计算机基础/计算机组成原理/4_指令系统" data-for="计算机基础/计算机组成原理/4_指令系统">指令系统</a></li><li><a href="../../计算机基础/计算机组成原理/5_中央处理器" data-for="计算机基础/计算机组成原理/5_中央处理器">中央处理器</a></li><li><a href="../../计算机基础/计算机组成原理/6_总线" data-for="计算机基础/计算机组成原理/6_总线">总线</a></li><li><a href="../../计算机基础/计算机组成原理/7_IO系统" data-for="计算机基础/计算机组成原理/7_IO系统">I/O 系统</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/软件测试"><button class="folder-button"><span class="folder-title">软件测试</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/软件测试"><li><a href="../../计算机基础/软件测试/1_软件测试技术复习" data-for="计算机基础/软件测试/1_软件测试技术复习">软件测试技术复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据结构和算法"><button class="folder-button"><span class="folder-title">数据结构和算法</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据结构和算法"><li><a href="../../计算机基础/数据结构和算法/8_查找" data-for="计算机基础/数据结构和算法/8_查找">查找</a></li><li><a href="../../计算机基础/数据结构和算法/5_串" data-for="计算机基础/数据结构和算法/5_串">串</a></li><li><a href="../../计算机基础/数据结构和算法/9_排序" data-for="计算机基础/数据结构和算法/9_排序">排序</a></li><li><a href="../../计算机基础/数据结构和算法/6_树" data-for="计算机基础/数据结构和算法/6_树">树</a></li><li><a href="../../计算机基础/数据结构和算法/1_数据结构基本概念" data-for="计算机基础/数据结构和算法/1_数据结构基本概念">数据结构的基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/2_算法基本概念" data-for="计算机基础/数据结构和算法/2_算法基本概念">算法基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/7_图" data-for="计算机基础/数据结构和算法/7_图">图</a></li><li><a href="../../计算机基础/数据结构和算法/3_线性表" data-for="计算机基础/数据结构和算法/3_线性表">线性表</a></li><li><a href="../../计算机基础/数据结构和算法/4_栈和队列" data-for="计算机基础/数据结构和算法/4_栈和队列">栈和队列</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据库系统概论"><button class="folder-button"><span class="folder-title">数据库系统概论</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据库系统概论"><li><a href="../../计算机基础/数据库系统概论/11_并发控制" data-for="计算机基础/数据库系统概论/11_并发控制">并发控制</a></li><li><a href="../../计算机基础/数据库系统概论/9_关系查询处理和查询优化" data-for="计算机基础/数据库系统概论/9_关系查询处理和查询优化">关系查询处理和查询优化</a></li><li><a href="../../计算机基础/数据库系统概论/2_关系数据库" data-for="计算机基础/数据库系统概论/2_关系数据库">关系数据库</a></li><li><a href="../../计算机基础/数据库系统概论/6_关系数据理论" data-for="计算机基础/数据库系统概论/6_关系数据理论">关系数据理论</a></li><li><a href="../../计算机基础/数据库系统概论/4_数据库安全性" data-for="计算机基础/数据库系统概论/4_数据库安全性">数据库安全性</a></li><li><a href="../../计算机基础/数据库系统概论/8_数据库编程" data-for="计算机基础/数据库系统概论/8_数据库编程">数据库编程</a></li><li><a href="../../计算机基础/数据库系统概论/10_数据库恢复技术" data-for="计算机基础/数据库系统概论/10_数据库恢复技术">数据库恢复技术</a></li><li><a href="../../计算机基础/数据库系统概论/7_数据库设计" data-for="计算机基础/数据库系统概论/7_数据库设计">数据库设计</a></li><li><a href="../../计算机基础/数据库系统概论/5_数据库完整性" data-for="计算机基础/数据库系统概论/5_数据库完整性">数据库完整性</a></li><li><a href="../../计算机基础/数据库系统概论/1_绪论" data-for="计算机基础/数据库系统概论/1_绪论">绪论</a></li><li><a href="../../计算机基础/数据库系统概论/3_SQL" data-for="计算机基础/数据库系统概论/3_SQL">SQL</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器"><button class="folder-button"><span class="folder-title">浏览器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react"><button class="folder-button"><span class="folder-title">react</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react/react学习"><button class="folder-button"><span class="folder-title">react学习</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react/react学习"><li><a href="../../浏览器/react/react学习/9_Hook" data-for="浏览器/react/react学习/9_Hook">Hook的使用</a></li><li><a href="../../浏览器/react/react学习/2_jsx基本语法" data-for="浏览器/react/react学习/2_jsx基本语法">jsx基本语法</a></li><li><a href="../../浏览器/react/react学习/1_react初体验" data-for="浏览器/react/react学习/1_react初体验">react初体验</a></li><li><a href="../../浏览器/react/react学习/6_react动画" data-for="浏览器/react/react学习/6_react动画">react动画</a></li><li><a href="../../浏览器/react/react学习/3_react脚手架解析" data-for="浏览器/react/react学习/3_react脚手架解析">react脚手架解析</a></li><li><a href="../../浏览器/react/react学习/4_react性能优化" data-for="浏览器/react/react学习/4_react性能优化">react性能优化</a></li><li><a href="../../浏览器/react/react学习/5_react组件化开发" data-for="浏览器/react/react学习/5_react组件化开发">react组件化开发</a></li><li><a href="../../浏览器/react/react学习/7_Redux的使用" data-for="浏览器/react/react学习/7_Redux的使用">Redux的使用</a></li><li><a href="../../浏览器/react/react学习/8_Router的使用" data-for="浏览器/react/react学习/8_Router的使用">Router的使用</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/rspress"><button class="folder-button"><span class="folder-title">rspress</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/rspress"><li><a href="../../浏览器/rspress/LaTeX无法使用$$语法" data-for="浏览器/rspress/LaTeX无法使用$$语法">LaTeX无法使用$$语法</a></li><li><a href="../../浏览器/rspress/自动生成侧边栏" data-for="浏览器/rspress/自动生成侧边栏">rspress 自动生成侧边栏</a></li></ul></div></li><li><a href="../../浏览器/CORS错误" data-for="浏览器/CORS错误">CORS错误</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="数据库"><button class="folder-button"><span class="folder-title">数据库</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="数据库"><li><a href="../../数据库/MongoDB-使用" data-for="数据库/MongoDB-使用">MongoDB 使用</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读"><button class="folder-button"><span class="folder-title">阅读</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读/未完成"><button class="folder-button"><span class="folder-title">未完成</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读/未完成"><li><a href="../../阅读/未完成/解构现代化：温铁军演讲录" data-for="阅读/未完成/解构现代化：温铁军演讲录">解构现代化：温铁军演讲录</a></li><li><a href="../../阅读/未完成/金瓶梅词话（上下）" data-for="阅读/未完成/金瓶梅词话（上下）">金瓶梅词话（上下）</a></li><li><a href="../../阅读/未完成/思想的力量（第9版）" data-for="阅读/未完成/思想的力量（第9版）">思想的力量（第9版）</a></li><li><a href="../../阅读/未完成/乡土中国-生育制度-乡土重建" data-for="阅读/未完成/乡土中国-生育制度-乡土重建">乡土中国 生育制度 乡土重建</a></li><li><a href="../../阅读/未完成/制造消费者：消费主义全球史" data-for="阅读/未完成/制造消费者：消费主义全球史">制造消费者：消费主义全球史</a></li></ul></div></li><li><a href="../../阅读/大清为何轰然倒塌" data-for="阅读/大清为何轰然倒塌">大清为何轰然倒塌</a></li><li><a href="../../阅读/叫魂：1768年中国妖术大恐慌" data-for="阅读/叫魂：1768年中国妖术大恐慌">叫魂：1768年中国妖术大恐慌</a></li><li><a href="../../阅读/菊与刀" data-for="阅读/菊与刀">菊与刀</a></li><li><a href="../../阅读/论语" data-for="阅读/论语">论语</a></li><li><a href="../../阅读/毛泽东选集" data-for="阅读/毛泽东选集">毛泽东选集</a></li><li><a href="../../阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" data-for="阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化">人民公开课：中国共产党与国家治理体系和治理能力现代化</a></li><li><a href="../../阅读/盛唐到底盛在哪儿" data-for="阅读/盛唐到底盛在哪儿">盛唐到底盛在哪儿</a></li><li><a href="../../阅读/伊豆的舞女" data-for="阅读/伊豆的舞女">伊豆的舞女</a></li><li><a href="../../阅读/以利为利：财政关系与地方政府行为" data-for="阅读/以利为利：财政关系与地方政府行为">以利为利：财政关系与地方政府行为</a></li><li><a href="../../阅读/哲学导论讲记" data-for="阅读/哲学导论讲记">哲学导论讲记</a></li><li><a href="../../阅读/治大国若烹小鲜：基层治理与世道人心" data-for="阅读/治大国若烹小鲜：基层治理与世道人心">治大国若烹小鲜：基层治理与世道人心</a></li><li><a href="../../阅读/置身事内：中国政府与经济发展" data-for="阅读/置身事内：中国政府与经济发展">置身事内：中国政府与经济发展</a></li><li><a href="../../阅读/中国是部金融史" data-for="阅读/中国是部金融史">中国是部金融史</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Git"><button class="folder-button"><span class="folder-title">Git</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Git"><li><a href="../../Git/删除分支" data-for="Git/删除分支">删除分支</a></li><li><a href="../../Git/文件.gitkeep是什么" data-for="Git/文件.gitkeep是什么">文件.gitkeep是什么</a></li></ul></div></li><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Markdown"><button class="folder-button"><span class="folder-title">Markdown</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Markdown"><li><a href="../../Markdown/Callouts-标注" data-for="Markdown/Callouts-标注">Callouts 标注</a></li><li><a href="../../Markdown/Obsidian-教程" data-for="Markdown/Obsidian-教程">Obsidian 教程</a></li><li><a href="../../Markdown/Typora-自定义-Callouts-样式" data-for="Markdown/Typora-自定义-Callouts-样式">Typora 自定义 Callouts</a></li><li><a href="../../Markdown/Typora-自定义字体" data-for="Markdown/Typora-自定义字体">Typora 自定义字体</a></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../计算机基础/">计算机基础</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../计算机基础/软件测试/">软件测试</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>软件测试技术复习</a></div></nav><h1 class="article-title">软件测试技术复习</h1><p show-comma="true" class="content-meta"><time datetime="2024-11-16T13:59:31.467Z">2024年11月16日</time><span>41分钟阅读</span></p></div></div><article class="popover-hint"><h1 id="软件测试基础">软件测试基础<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件测试基础" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>IEEE将软件可靠性定义为：<strong>系统在特定环境下，在给定的时间内无故障运行的概率</strong>。</p>
+<p>影响软件可靠性的因素：<strong>需求错误</strong>，<strong>设计错误</strong>，<strong>编码错误</strong>，<strong>测试错误</strong>，<strong>文档错误</strong>。</p>
+<p>软件缺陷的特征：</p>
+<ul>
+<li>缺陷不易看到。</li>
+<li>发现了缺陷，但不易找到问题发生的原因所在。</li>
+</ul>
+<h2 id="定义">定义<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#定义" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>软件测试的定义：</p>
+<ol>
+<li>软件测试是<strong>为了发现错误而执行程序的过程</strong>。</li>
+<li>软件测试是根据<strong>软件开发各阶段的规格说明</strong>和<strong>程序的内部结构</strong>而精心设计的一批<strong>测试用例</strong>，并利用这些测试用例<strong>运行程序以及发现错误的过程</strong>，即执行测试步骤。</li>
+</ol>
+<p>测试：一项活动，在这项活动中某个系统或组成的部分将在<strong>特定的条件下运行，结果将被观察和记录，并对系统或组成部分进行评价</strong>。测试活动有两种结果：找出缺陷和故障，或显示软件执行正确。</p>
+<p>测试用例：所谓测试用例是为特定的目的而设计的一组<strong>测试输入、执行条件和预期的结果</strong>；测试用例是执行测试的最小实体。</p>
+<p>测试步骤：测试步骤详细规定了如何设置、执行、评估特定的测试用例。</p>
+<p>测试是一个或多个测试用例的集合。测试无法说明错误不存在，只能说明软件错误已出现。一个好的测试用例在于发现了还未曾发现的错误；一次成功的测试则是发现了错误的测试。</p>
+<p>设计测试用例的基本准则：<strong>代表性</strong>、<strong>可判定性</strong>、<strong>可再现性</strong></p>
+<p>测试用例特征：</p>
+<ol>
+<li>最有可能抓住错误的；</li>
+<li>不是重复的、多余的；</li>
+<li>一组相似测试用例中最有效的；</li>
+<li>既不是太简单，也不是太复杂。</li>
+</ol>
+<p>软件测试不等于程序测试。软件测试贯串于软件定义和开发的整个过程。</p>
+<p>软件测试的目标：<strong>发现错误</strong>，<strong>检查系统是否满足需求</strong>。</p>
+<p>软件测试的对象：软件开发过程中所产生的<strong>需求规格说明、概要设计规格说明、详细设计规格说明以及源程序</strong>。</p>
+<p>软件测试涉及的关键问题包括四个方面：测试由谁来执行、测试什么、什么时候进行测试、怎样进行测试。</p>
+<p>软件测试八原则：</p>
+<ol>
+<li><strong>尽早地和及时地</strong>测试</li>
+<li>测试用例应当<strong>由测试数据和与之对应的预期结果</strong>组成；</li>
+<li>在程序提交测试后，应当<strong>由专门的测试人员</strong>进行测试；</li>
+<li>测试用例应包括<strong>合理的</strong>输入条件和<strong>不合理的</strong>输入条件；</li>
+<li>严格执行测试计划，排除测试的随意性；</li>
+<li>充分注意测试当中的群体现象；</li>
+<li>应对每一个测试结果做全面的检查；</li>
+<li>保存测试计划、测试用例、出错统计和最终分析报告，为维护工作提供充分的资料。</li>
+</ol>
+<h2 id="分类">分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/1.png" alt/></p>
+<h2 id="周期性">周期性<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#周期性" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>测试<span>→</span>改错<span>→</span>再测试<span>→</span>再改错</p>
+<p><img src="./assets/2.png" alt/></p>
+<h2 id="代价">代价<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#代价" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>随着整个开发过程的时间推移，更正缺陷或修复问题的费用<strong>呈几何级数增长</strong>。</p>
+<p><img src="./assets/3.png" alt/></p>
+<h1 id="软件开发过程">软件开发过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件开发过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="软件产品的组成">软件产品的组成<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件产品的组成" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>客户需求、产品说明、设计文档、测试文档、进度计划、上一版本信息反馈、商业竞争对手的同类软件产品情况、易用性数据、观察与感受说明书。</p>
+<p>设计文档：</p>
+<ul>
+<li><strong>构架</strong>：即产生描述软件整体设计的文档，包括软件所有主要部分的描述以及相互间的交互方式。</li>
+<li><strong>数据流示意图</strong>：表示数据在程序中如何流动的正规示意图。通常由圆圈和线条组成，所以也称为泡泡图。</li>
+<li><strong>状态变化示意图</strong>：将软件分解为基本状态或者条件的另一种正规示意图，表示不同状态之间的变化的方式。</li>
+<li><strong>流程图</strong>：用图形描述程序逻辑的最常用方式之一。根据详细的流程图编写程序代码简单方便。</li>
+<li><strong>注释代码</strong>：代码注释是便于维护代码的程序员掌握代码的内容和执行方式。</li>
+</ul>
+<p>测试文档：</p>
+<ul>
+<li><strong>测试计划</strong>：描述用于验证软件是否符合产品说明书和客户需求的整体方案。</li>
+<li><strong>测试用例</strong>：依据测试的项目，并描述验证软件的详细步骤。</li>
+<li><strong>软件测试报告</strong>：描述依据测试用例找出的问题，通常提交测试报告。</li>
+<li><strong>归纳、统计和总结</strong>：采用图表、表格和报告等形式来描述整个测试过程。</li>
+</ul>
+<h2 id="软件开发模式">软件开发模式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件开发模式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p>大棒开发法</p>
+</li>
+<li>
+<p>边写边改法</p>
+</li>
+<li>
+<p><strong>瀑布法</strong></p>
+<p>瀑布模式是将软件生命周期的各项活动，规定为按照固定顺序相连的若干个阶段性工作，形如瀑布流水，最终得到软件产品。</p>
+<p>优点：易于理解；调研开发的阶段性；强调早期计划及需求调查；确定何时能够交付产品及何时进行评审与测试。</p>
+<p>缺点：需求调查分析只进行一次，不能适应需求变化；顺序的开发流程，使得开发中的经验教训不能反馈到该项目的开发中去；不能反映出软件开发过程的反复与迭代性；没有包含任何类型的风险评估；开发中出现的问题直到开发后期才能够显露，因此失去及早纠正的机会。</p>
+<p><img src="./assets/4.png" alt/></p>
+</li>
+<li>
+<p><strong>快速原型法</strong></p>
+<p>根据客户需求在较短的时间内解决用户最迫切解决的问题，<strong>完成可演示的产品</strong>。这个产品只实现最重要功能，在得到用户的更加明确的需求之后，原型将丢弃。</p>
+<p><img src="./assets/5.png" alt/></p>
+</li>
+<li>
+<p><strong>螺旋模式法</strong></p>
+<p>螺旋模式是瀑布模式与边写边改演化模式相结合，并加入风险评估所建立的软件开发模式。</p>
+<p>主要思想是在开始时不必详细定义所有细节，而是从小开始，定义重要功能，尽量实现，接受客户反馈，进入下一阶段，并重复上述过程，直到获得最终产品。</p>
+<p>优点：严格的全过程风险管理；强调各开发阶段的质量；提供机会评估项目是否有价值继续下去。</p>
+</li>
+<li>
+<p><strong>敏捷开发</strong></p>
+<p>轻量和简单。</p>
+<p>敏捷方法论包含最少的流程和文档，减少正式性。目的是做眼前能做的事情，而不去预测太远的未来，首先完成紧迫的事情。</p>
+<p>开发方法要称之为敏捷，需要具备4个基本特征：增量的、协作的、直接的、适应性强的。</p>
+</li>
+</ol>
+<h2 id="开发与测试的关系">开发与测试的关系<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#开发与测试的关系" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>测试与开发各阶段的关系</p>
+<p><img src="./assets/6.png" alt/></p>
+<p>测试与开发的并行性</p>
+<p><img src="./assets/7.png" alt/></p>
+<p>完整的软件开发流程</p>
+<p><img src="./assets/8.png" alt/></p>
+<h2 id="软件测试模型">软件测试模型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件测试模型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p>V模型</p>
+<p><img src="./assets/9.png" alt/></p>
+</li>
+<li>
+<p>X模型</p>
+<p><img src="./assets/10.png" alt/></p>
+</li>
+<li>
+<p>H模型</p>
+<p><img src="./assets/11.png" alt/></p>
+</li>
+<li>
+<p>W模型</p>
+<p><img src="./assets/12.png" alt/></p>
+</li>
+</ol>
+<h1 id="软件测试过程">软件测试过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件测试过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>制定测试计划</p>
+<ol>
+<li>制定计划</li>
+<li>测试大纲</li>
+<li>软件测试报告</li>
+</ol>
+<p>测试执行过程</p>
+<ol>
+<li>初测期：测试主要功能和关键的执行路径，排除主要障碍。</li>
+<li>细测期：依据测试计划和测试大纲、测试用例，逐一测试大大小小的功能、方方面面的特性、性能、用户界面、兼容性、可用性等等；</li>
+<li>回归测试期：系统已达到稳定，在一轮测试中发现的错误已十分有限；复查已知错误的纠正情况，确认未引发任何新的错误时，终结回归测试。</li>
+</ol>
+<p><img src="./assets/13.png" alt/></p>
+<h1 id="软件测试策略与过程">软件测试策略与过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件测试策略与过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="软件测试的复杂性分析">软件测试的复杂性分析<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件测试的复杂性分析" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>无法对程序进行完全测试</strong></li>
+<li><strong>测试无法显示潜在的软件缺陷和故障</strong></li>
+<li><strong>存在的故障现象与发现的故障数量成正比</strong></li>
+<li><strong>不能修复所有的软件故障</strong></li>
+<li><strong>软件测试的代价</strong></li>
+</ol>
+<p><img src="./assets/14.png" alt/></p>
+<h2 id="软件测试方法与策略">软件测试方法与策略<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#软件测试方法与策略" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>软件测试策略：是为软件工程过程定义的一个软件测试的模板，也就是<strong>把特定的测试用例方法放置进去的一系列步骤</strong>。</p>
+<p>软件测试充分性五原则：</p>
+<ol>
+<li>单调性</li>
+<li>非复合性</li>
+<li>非分解性</li>
+<li>复杂性</li>
+<li>回报递减率</li>
+</ol>
+<h3 id="静态测试">静态测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#静态测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>静态测试不实际运行软件，主要是对软件的编程格式、结构等方面进行评估。</p>
+<p>静态测试包括<strong>代码检查</strong>、<strong>静态结构分析</strong>、<strong>代码质量度量</strong>等。它可以由人工进行，也可以借助软件工具自动进行。</p>
+<p>静态方法常常称为“<strong>分析</strong>”，<strong>静态测试是对被测程序进行特性分析方法的总称</strong>。</p>
+<p>静态测试可以完成以下工作：</p>
+<ol>
+<li>
+<p><strong>发现下列程序的错误</strong></p>
+<p>错用局部变量和全局变量；未定义的变量、不匹配的参数；不适当的循环嵌套或分支嵌套、死循环、不允许的递归；调用不存 在的子程序，遗漏标号或代码。</p>
+</li>
+<li>
+<p><strong>找出以下问题的根源</strong></p>
+<p>从未使用过的变量；不会执行到的代码、从未使用过的标号；潜在的死循环。</p>
+</li>
+<li>
+<p><strong>提供程序缺陷的间接信息</strong></p>
+<p>所用变量和常量的交叉应用表；是否违背编码规则；标识符的使用方法和过程的调用层次。</p>
+</li>
+<li>
+<p><strong>为进一步查找做好准备</strong></p>
+</li>
+<li>
+<p><strong>选择测试用例</strong></p>
+</li>
+<li>
+<p><strong>进行符号测试</strong></p>
+</li>
+</ol>
+<h4 id="代码检查">代码检查<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#代码检查" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>代码检查包括<strong>代码走查</strong>、<strong>桌面检查</strong>、<strong>代码审查</strong>等，主要检查代码和设计的一致性，代码对标准的遵循、可读性，代码的逻辑表达的正确性，代码结构的合理性等方面。</p>
+<h4 id="静态结构分析">静态结构分析<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#静态结构分析" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>静态结构分析主要是<strong>以图形的方式</strong>表现程序的内部结构。</p>
+<h4 id="代码质量度量">代码质量度量<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#代码质量度量" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>软件质量包括六个方面：功能性、可靠性、易用性、效率、可维护性、可移植性</p>
+<p>针对软件的可维护性，目前主要存在三种度量参数：</p>
+<ol>
+<li><strong>Line复杂度</strong>：以代码的行数作为计算的基准。</li>
+<li><strong>Halstead复杂度</strong>：以程序中使用到的运算符与运算元数量作为计数目标，然后可以据以计算出程序容量、工作量等。</li>
+<li><strong>McCabe复杂度</strong>：一般称为圈复杂度，它将软件的流程图转化为有向图，然后以图论来衡量软件的质量。</li>
+</ol>
+<p><img src="./assets/15.png" alt/></p>
+<h3 id="动态测试">动态测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#动态测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>主要特征：计算机必须真正运行被测试的程序，通过输入测试用例，对其运行情况即输入与输出的对应关系进行分析，以达到检测的目的。</p>
+<p>动态测试包括：功能确认与接口测试、覆盖率分析、性能分析、内存分析</p>
+<h4 id="黑盒测试">黑盒测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#黑盒测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>黑盒测试又称为<strong>功能测试</strong>、数据驱动测试和<strong>基于规格说明的测试</strong>。它是一种<strong>从用户观点出发</strong>的测试，一般被用来<strong>确认软件功能的正确性和可操作性</strong>。</p>
+<p>黑盒测试是在程序接口进行测试，它只是检查程序功能是否按照规格说明书的规定正常使用，也被称为用户测试。</p>
+<p>特点：</p>
+<ol>
+<li>与软件的具体实现过程无关，在软件实现的过程发生变化时，测试用例仍然可以使用。</li>
+<li>用例的设计可以和软件实现同时进行，这样能够压缩总的开发时间。</li>
+</ol>
+<p>黑盒测试的具体技术方法：</p>
+<ol>
+<li>边界值分析法</li>
+<li>等价类划分法</li>
+<li>因果图法</li>
+<li>决策表法</li>
+</ol>
+<h4 id="白盒测试">白盒测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#白盒测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>白盒测试又称为<strong>结构测试</strong>、<strong>逻辑驱动测试</strong>或<strong>基于程序的测试</strong>，一般<strong>用来分析程序的内部结构</strong>。</p>
+<p>白盒测试需要完全了解程序结构和处理过程，它按照程序内部逻辑测试程序，检验程序中每条通路是否按预定要求正确工作，也被称为程序员测试。</p>
+<h2 id="单元测试">单元测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#单元测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>单元测试的辅助模块：</p>
+<ul>
+<li>
+<p>驱动模块(Drive)</p>
+<p>用来模拟被测试模块的上一级模块，相当于被测模块的主程序。它接收数据，将相关数据传送给被测模块，启动被测模块，并打印出相应的结果。</p>
+</li>
+<li>
+<p>桩模块(Stub)</p>
+<p>用来模拟被测模块工作过程中所调用的模块。它们一般只进行很少的数据处理。</p>
+</li>
+</ul>
+<p>被测模块、驱动模块和桩模块共同构成了一个如下图所示的单元测试的测试环境</p>
+<p><img src="./assets/16.png" alt/></p>
+<h2 id="集成测试">集成测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#集成测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>集成测试的整个过程由4个步骤完成：</p>
+<ol>
+<li>主控模块作为测试驱动器。</li>
+<li>根据集成的方式（深度或广度），下层的桩模块一次一次地被替换为真正的模块。</li>
+<li>在每个模块被集成时，都必须进行单元测试。</li>
+<li>重复第2步，直到整个系统被测试完成。</li>
+</ol>
+<ul>
+<li>
+<p><strong>非增量式测试</strong></p>
+<p>采用一步到位的方法来构造测试，对所有模块进行个别的单元测试后，按照程序结构图将各模块连接起来，把连接后的程序当作一个整体进行测试。</p>
+<p>缺点：当一次集成的模块较多时，非增量式测试容易出现混乱，因为测试时可能发现了许多故障，在修正一个故障的同时，可能又引入了新的故障，很难判定出错的具体原因和位置。</p>
+</li>
+<li>
+<p><strong>增量式测试</strong></p>
+<p>增量式测试的集成是逐步实现的。逐次将未曾集成测试的模块和已经集成测试的模块结合成程序包，再将这些模块集成为较大系统，在集成的过程中边连接边测试，以发现连接过程中产生的问题。</p>
+<p>按照不同的实施次序可以分为三种不同的方法：</p>
+<ol>
+<li>
+<p>自顶向下增量式测试</p>
+<p>模块集成的顺序是<strong>首先集成主程序，然后依照控制层次结构向下进行集成</strong>。从属于主程序的按深度优先方式或者广度优先方式集成到结构中去。</p>
+<p>深度优先方式的集成：首先集成在结构中的一个主控路径下的所有模块，主控路径的选择是任意的。</p>
+<p>广度优先方式的集成：首先沿着水平方向，把每一层中所有直接隶属于上一层的模块集成起来，直到底层。</p>
+<p>优点：可以自然的做到逐步求精，一开始就能让测试者看到系统的框架。</p>
+<p>缺点：需要提供桩模块。</p>
+</li>
+<li>
+<p>自底向上增量式测试</p>
+<p>程序模块结构的<strong>最底层模块开始集成和测试</strong>。</p>
+<p>优点：生成测试数据简单。</p>
+<p>缺点：直到最后一个模块被加进去之后才能看到整个程序的框架。</p>
+</li>
+<li>
+<p>混合增量式测试</p>
+<p>把自顶向下测试和自底向上测试这两种方式结合起来进行集成和测试。这样可以兼具两者的优点，而摒弃其缺点。</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>回归测试</strong></p>
+<p>用来保证（由于测试或其他原因的）改动不会带来不可预料的行为或另外的错误。</p>
+</li>
+</ul>
+<p>增量式测试要比非增量式测试具有一定的优越性。</p>
+<h2 id="确认测试">确认测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#确认测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>确认测试也称为合格性测试，是检验所开发的软件是否能按用户提出的要求进行。软件确认要通过一系列证明软件功能和要求一致的黑盒测试来完成。</p>
+<h2 id="系统测试">系统测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#系统测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>由于软件只是计算机系统中的一个组成部分，软件开发完成之后，最终还要和系统中的硬件系统、某些支持软件、数据信息等其他部分配套运行。因此，在投入运行前要完成系统测试，以保证各组成部分不仅能单独的得到检验，而且在系统各部分协调工作的环境下也能正常工作。</p>
+<h3 id="恢复测试">恢复测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#恢复测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>恢复测试是通过各种手段，强制性地使软件出错，使其不能正常工作，进而检验系统的恢复能力。</p>
+<h3 id="安全测试">安全测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#安全测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>安全测试的目的在于验证安装在系统内的保护机制能否在实际中保护系统且不受非法入侵，不受各种非法干扰。</p>
+<h3 id="强度测试">强度测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#强度测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>强度测试（压力测试）的目的是要检测非正常的情形，测试是想要破坏程序。</p>
+<h3 id="性能测试">性能测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#性能测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>性能测试用来测试软件在系统集成中的运行性能，特别是针对实时系统和嵌入式系统，仅提供符合功能需求但不符合性能需求的软件是不能被接受的。</p>
+<h3 id="正确性测试">正确性测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#正确性测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>正确性测试检查软件的功能是否符合规格说明。</p>
+<h3 id="可靠性测试">可靠性测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#可靠性测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>可靠性测试是从验证的角度出发 ，检验系统的可靠性是否达到预期的目标，同时给出当前系统可能的可靠性增长情况。</p>
+<h3 id="兼容性测试">兼容性测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#兼容性测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>软件兼容性测试是检测各软件之间能否正确地交互和共享信息，其目标是保证软件按照用户期望的方式进行交互，使用其它软件检查软件操作的过程。</p>
+<h1 id="黑盒测试-1">黑盒测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#黑盒测试-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>黑盒测试被称为<strong>功能测试</strong>或<strong>数据驱动测试</strong>。在测试时，把被测程序视为一个不能打开的黑盒子，在<strong>完全不考虑程序内部结构和内部特性</strong>的情况下进行。</p>
+<p>黑盒测试的目的主要是在已知软件产品所应具有的功能的基础上，进行：</p>
+<ol>
+<li>检查程序功能能否<strong>按需求规格说明书的规定</strong>正常使用，测试<strong>各个功能是否有遗漏</strong>，<strong>检测性能</strong>等特性要求是否满足。</li>
+<li>检测<strong>人机交互</strong>是否错误，检测数据结构或外部数据库访问是否错误，程序是否能适当地<strong>接收输入数据而产生正确的输出结果</strong>，并保持外部信息（如数据库或文件）的完整性。</li>
+<li>检测程序初始化和终止方面的错误。</li>
+</ol>
+<h2 id="等价类划分法">等价类划分法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#等价类划分法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>等价类划分法是一种重要的、常用的黑盒测试方法，它<strong>将不能穷举的测试过程进行合理分类</strong>，从而保证设计出来的测试用例具有完整性和代表性。</p>
+<p>等价类划分法是<strong>把所有可能的输入数据</strong>，即<strong>程序的输入域划分为若干部分</strong>（子集），然后<strong>从每一个子集中选取少数具有代表性的数据</strong>作为测试用例。</p>
+<p><strong>等价类</strong>是指<strong>某个输入域的子集合</strong>。在该子集合中，各个输入数据对于揭露程序中的错误都是等效的，它们具有<strong>等价特性</strong>，即每一类的代表性数据在测试中的作用都等价于这一类中的其它数据。</p>
+<p>采用等价类划分法设计测试用例通常分两步进行：</p>
+<ol>
+<li>确定等价类，列出等价类表。</li>
+<li>确定测试用例。</li>
+</ol>
+<p>划分等价类可分为两种情况：</p>
+<ol>
+<li><strong>有效等价类</strong>：指对软件规格说明而言，是有意义的、合理的输入数据所组成的集合。</li>
+<li><strong>无效等价类</strong>：指对软件规格说明而言，是无意义的、不合理的输入数据所构成的集合。</li>
+</ol>
+<p>等价类划分的依据：</p>
+<ol>
+<li><strong>按照区间划分</strong></li>
+<li><strong>按照数值划分</strong></li>
+<li><strong>按照数值集合划分</strong></li>
+<li><strong>按照限制条件或规则划分</strong></li>
+<li><strong>细分等价类</strong></li>
+</ol>
+<p>在设计测试用例时，应同时考虑有效等价类和无效等价类测试用例的设计。</p>
+<p>针对<strong>是否对无效数据进行测试</strong>，可以将等价类测试分为</p>
+<ul>
+<li><strong>标准等价类测试</strong>：不考虑无效数据值，测试用例使用每个等价类中的一个值。</li>
+<li><strong>健壮等价类测试</strong>：主要的出发点是考虑了无效等价类。对有效输入，测试用例从每个有效等价类中取一个值；对无效输入，一个测试用例有一个无效值，其他值均取有效值。</li>
+</ul>
+<h2 id="边界值分析法">边界值分析法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#边界值分析法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>边界值分析法是<strong>对输入或输出的边界值</strong>进行测试的一种黑盒测试方法。</p>
+<p>通常边界值分析法是<strong>作为对等价类划分法的补充</strong>，这种情况下，其测试用例来自于<strong>等价类的边界</strong>。</p>
+<p>边界值分析法设计测试用例步骤：</p>
+<ol>
+<li><strong>首先确定边界情况</strong>。</li>
+<li><strong>选取正好等于、刚刚大于或刚刚小于边界的值作为测试数据</strong>。</li>
+</ol>
+<p>在测试用例设计过程中，某些边界值条件是不需要呈现给用户的，或者说用户是很难注意到的，但同时确实属于检验范畴内的边界条件，称为<strong>内部边界值条件</strong>或<strong>子边界值条件</strong>。</p>
+<p>在实际的测试用例设计中，需要将<strong>基本的软件设计要求</strong>和<strong>程序定义的要求</strong>结合起来，即结合基本边界值条件和内部边界值条件来设计有效的测试用例。</p>
+<p>采用边界值分析测试的基本思想是：故障往往出现在输入变量的边界值附近。</p>
+<p>边界值分析法是基于可靠性理论中称为“单故障”的假设，即有两个或两个以上故障同时出现而导致软件失效的情况很少，也就是说，<strong>软件失效基本上是由单故障引起的</strong>。</p>
+<blockquote>
+<p>有二元函数f(x,y)，其中x∈[1,12]，y∈[1,31]。</p>
+<p>则采用边界值分析法设计的测试用例是：{ &lt;1,15>, &lt;2,15>, &lt;11,15>, &lt;12,15>, &lt;6,15>, &lt;6,1>, &lt;6,2>, &lt;6,30>, &lt;6,31> }</p>
+</blockquote>
+<p>对于一个含有n个变量的程序，采用边界值分析法测试程序会产生<strong>4n+1</strong>个测试用例。</p>
+<p><img src="./assets/17.png" alt/></p>
+<p>健壮性测试是作为边界值分析的一个简单的扩充，它除了对变量的5个边界值分析取值外，还需要增加一个略大于最大值以及略小于最小值的取值，检查超过极限值时系统的情况。因此，对于有n个变量的函数采用健壮性测试需要<strong>6n+1</strong>个测试用例。</p>
+<p><img src="./assets/18.png" alt/></p>
+<h2 id="因果图法">因果图法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#因果图法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>等价类划分法和边界值分析方法都是着重考虑输入条件，但<strong>没有考虑输入条件的各种组合、输入条件之间的相互制约关系</strong>。这样虽然各种输入条件可能出错的情况已经测试到了，但<strong>多个输入条件组合起来可能出错的情况</strong>却被忽视了。</p>
+<p>因此必须采用一种<strong>适合于描述多种条件的组合</strong>、<strong>相应产生多个动作的形式</strong>来进行测试用例的设计，这就需要利用因果图（逻辑模型）。</p>
+<p>因果图法：一种利用图解法分析输入的各种组合情况，从而设计测试用例的方法。</p>
+<p>因果图法设计测试用例的步骤：</p>
+<ol>
+<li>画出因果图</li>
+<li>因果图转换为判定表</li>
+<li>为判定表中每一列的情况设计一个测试用例。</li>
+</ol>
+<p>因果图法的优点：</p>
+<ol>
+<li>考虑到了输入情况的<strong>各种组合</strong>以及各个输入情况之间的<strong>相互制约关系</strong>。</li>
+<li>能够帮助测试人员按照一定的步骤，高效率的开发测试用例。</li>
+<li>因果图法是将自然语言规格说明转化成<strong>形式语言规格说明</strong>的一种严格的方法，避免不完整性和二义性。</li>
+</ol>
+<p><img src="./assets/19.png" alt/></p>
+<p>图中的左结点c<del>i</del>表示输入状态（或称原因），右结点e<del>i</del>表示输出状态（或称结果）。</p>
+<p>c<del>i</del>与e<del>i</del>取值0或1，0表示某状态不出现，1则表示某状态出现。</p>
+<p>因果图中的约束：在实际问题中输入状态相互之间、输出状态相互之间可能存在某些依赖关系，称为“约束”。</p>
+<p>对于输入条件的约束有E、I、O、R四种约束，对于输出条件的约束只有M约束。</p>
+<ul>
+<li>E约束(异)：a和b中最多有一个可能为1，即a和b不能同时为1。</li>
+<li>I约束(或)：a、b、c中至少有一个必须为1，即a、b、c不能同时为0。</li>
+<li>O约束(唯一)：a和b必须有一个且仅有一个为1。</li>
+<li>R约束(要求)：a是1时，b必须是1，即a为1时，b不能为0。</li>
+<li>M约束(强制)：若结果a为1，则结果b强制为0。</li>
+</ul>
+<p><img src="./assets/20.png" alt/></p>
+<p>因果图生成测试用例的基本步骤如下：</p>
+<ol>
+<li>分析软件规格说明中哪些是原因（即输入条件或输入条件的等价类），哪些是结果（即输出条件），并<strong>给每个原因和结果赋予一个标识符</strong>。</li>
+<li>分析软件规格说明中的语义，找出原因与结果之间、原因与原因之间对应的关系，根据这些关系<strong>画出因果图</strong>。</li>
+<li>在因果图上用一些记号<strong>表明约束或限制条件</strong>。</li>
+<li>把因果图<strong>转换为决策表</strong>。</li>
+<li>根据决策表中的每一列<strong>设计测试用例</strong>。</li>
+</ol>
+<h2 id="决策表法">决策表法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#决策表法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>条件桩：列出了问题的所有条件。</p>
+<p>动作桩：列出了问题规定可能采取的操作。</p>
+<p>条件项：列出针对它所列条件的取值，在所有可能情况下的真假值。</p>
+<p>动作项：列出在条件项的各种取值情况下应该采取的动作。</p>
+<p>规则：由动作项和条件项组成。</p>
+<p>决策表的建立步骤：</p>
+<ol>
+<li>列出所有的条件桩和动作桩；</li>
+<li>填入条件项；</li>
+<li>填入动作项，制定初始判定表；</li>
+<li>简化；合并相似规则或者相同动作。</li>
+</ol>
+<p>决策表测试仅适合对输入域展开分析，不适合对输出域展开测试。</p>
+<p><img src="./assets/21.png" alt/></p>
+<h2 id="错误推测法">错误推测法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#错误推测法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>错误推测法凭借的是测试人员的<strong>直觉和经验</strong>来推测系统中可能出现的各种缺陷。</p>
+<p>常常是列举出系统中所有<strong>可能的缺陷和容易发生缺陷的特殊情况</strong>，以此来设计测试用例。</p>
+<p>优点：充分发挥个人的经验和潜能，命中率高。</p>
+<p>缺点：覆盖率难以保证；过多的依赖于个人的经验。</p>
+<h1 id="白盒测试-1">白盒测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#白盒测试-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>白盒测试也称<strong>结构测试</strong>或<strong>逻辑驱动测试</strong>，是针对被测单元<strong>内部是如何进行工作</strong>的测试。</p>
+<p>根据<strong>程序的控制结构</strong>设计测试用例，主要用于软件或程序验证。</p>
+<p>白盒测试法<strong>检查程序内部逻辑结构</strong>，对<strong>所有逻辑路径</strong>进行测试，是一种<strong>穷举路径</strong>的测试方法。</p>
+<p>即使每条路径都测试过了，仍然可能存在错误。因为：</p>
+<ol>
+<li>穷举路径测试无法检查出程序本身是否违反了设计规范，即<strong>程序是否是一个错误的程序</strong>。</li>
+<li>穷举路径测试不可能查出程序<strong>因遗漏路径</strong>而出错。</li>
+<li>穷举路径测试发现不了一些<strong>与数据相关</strong>的错误。</li>
+</ol>
+<p>白盒测试方法原则：</p>
+<ol>
+<li>保证一个模块中的所有<strong>独立路径</strong>至少被测试一次。</li>
+<li>所有<strong>逻辑值</strong>均需测试真和假两种情况。</li>
+<li>检查程序的<strong>内部数据结构</strong>，保证其结构的有效性。</li>
+<li>在上下边界及可操作范围内运行所有<strong>循环</strong>。</li>
+</ol>
+<p>白盒测试常用测试用例设计方法有：逻辑覆盖法（逻辑驱动测试）、基本路径测试方法</p>
+<h2 id="基本概念">基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="控制流图">控制流图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#控制流图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>控制流图（简称流图）是对程序流程图进行简化后得到的，它可以更加突出的表示程序控制流的结构。</p>
+<p>控制流图中包括两种图形符号：</p>
+<ol>
+<li>
+<p>节点</p>
+<p>由带标号的圆圈表示，可代表一个或多个语句、一个处理框序列和一个条件判定框。</p>
+<p>表示一个或多个无分支的语句或源程序语句。</p>
+</li>
+<li>
+<p>控制流线</p>
+<p>由带箭头的弧或线表示，可称为边。它代表程序中的控制流。</p>
+</li>
+</ol>
+<p><img src="./assets/22.png" alt/></p>
+<p><img src="./assets/23.png" alt/></p>
+<h3 id="环形复杂度">环形复杂度<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#环形复杂度" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>环形复杂度也称为圈复杂度，它是一种为程序逻辑复杂度提供定量尺度的软件度量。</p>
+<p>给定控制流图G的环形复杂度V(G)，计算方法有：</p>
+<ol>
+<li>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathnormal">G</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span>​</p>
+<p>E是控制流图中边的数量，N是控制流图中的节点数量</p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mopen">(</span><span class="mord mathnormal">G</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>​</p>
+<p>P是控制流图G中判定节点的数量</p>
+</li>
+</ol>
+<h2 id="覆盖测试">覆盖测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#覆盖测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="测试覆盖率">测试覆盖率<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#测试覆盖率" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>用于确定<strong>测试所执行到的覆盖项的百分比</strong>。其中的覆盖项是指作为测试基础的一个入口或属性，比如语句、分支、条件等。</p>
+<p>测试覆盖率包括</p>
+<ul>
+<li><strong>功能点覆盖率</strong>：用于表示软件已经实现的功能与软件需要实现的功能之间的比例关系。</li>
+<li><strong>结构覆盖率</strong>：包括语句覆盖率、分支覆盖率、循环覆盖率、路径覆盖率等。</li>
+</ul>
+<h3 id="逻辑覆盖法">逻辑覆盖法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#逻辑覆盖法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>根据覆盖目标的不同，逻辑覆盖可分为：</p>
+<ol>
+<li>语句覆盖：使程序中的<strong>每个可执行语句至少执行一次</strong>。</li>
+<li>判定覆盖：使程序中的每个判定至少都获得一次“真”值和“假”值。</li>
+<li>条件覆盖：使程序中每个判定包含的每个条件的可能取值（真/假）都至少满足一次。</li>
+<li>判定/条件覆盖：使程序中每个判定包含的每个条件的所有情况（真/假）至少出现一次，并且每个判定本身的判定结果（真/假）也至少出现一次。</li>
+<li>组合覆盖：使程序中每个判定的所有可能的条件取值组合都至少出现一次。</li>
+<li>路径覆盖：覆盖程序中所有可能的路径。</li>
+</ol>
+<p><img src="./assets/24.png" alt/></p>
+<h2 id="路径测试">路径测试<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#路径测试" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>路径测试就是<strong>从一个程序的入口开始，执行所经历的各个语句的完整过程</strong>。</p>
+<p><strong>独立路径</strong>是指从程序的入口到出口的多次执行中，每次至少有一个语句是新的，未被重复的，也即每次至少要经历一条从未走过的弧。</p>
+<p>为 了满足路径覆盖，必须首先确定具体的路径以及路径的个数。通常采用控制流图的边序列和节点序列表示某一条具体路径。</p>
+<p>表示方法：</p>
+<ul>
+<li>ab，表明路径是先经历弧a，接着再经历弧b，弧a和弧b是先后相接的。</li>
+<li>a+b，表明两条弧是“或”的关系，是并行的路段。</li>
+</ul>
+<p>路径数的计算：将所有弧均以数值1来代替，再进行表达式的相乘和相加运算，最后得到的数值即为该程序的路径数。</p>
+<h3 id="基本路径测试方法">基本路径测试方法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本路径测试方法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>在不能做到所有路径覆盖的前提下，如果某一程序的每一个独立路径都被测试过，那么可以认为程序中的每个语句都已经检验过了，即达到了语句覆盖。</p>
+<p>基本路径测试方法步骤：</p>
+<ol>
+<li>画出程序的控制流图</li>
+<li>计算程序的环形复杂度</li>
+<li>导出独立路径</li>
+<li>设计测试用例</li>
+</ol>
+<h2 id="最少测试用例数计算">最少测试用例数计算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#最少测试用例数计算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/25.png" alt/></p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>目录</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#软件测试基础" data-for="软件测试基础">软件测试基础</a></li><li class="depth-1"><a href="#定义" data-for="定义">定义</a></li><li class="depth-1"><a href="#分类" data-for="分类">分类</a></li><li class="depth-1"><a href="#周期性" data-for="周期性">周期性</a></li><li class="depth-1"><a href="#代价" data-for="代价">代价</a></li><li class="depth-0"><a href="#软件开发过程" data-for="软件开发过程">软件开发过程</a></li><li class="depth-1"><a href="#软件产品的组成" data-for="软件产品的组成">软件产品的组成</a></li><li class="depth-1"><a href="#软件开发模式" data-for="软件开发模式">软件开发模式</a></li><li class="depth-1"><a href="#开发与测试的关系" data-for="开发与测试的关系">开发与测试的关系</a></li><li class="depth-1"><a href="#软件测试模型" data-for="软件测试模型">软件测试模型</a></li><li class="depth-0"><a href="#软件测试过程" data-for="软件测试过程">软件测试过程</a></li><li class="depth-0"><a href="#软件测试策略与过程" data-for="软件测试策略与过程">软件测试策略与过程</a></li><li class="depth-1"><a href="#软件测试的复杂性分析" data-for="软件测试的复杂性分析">软件测试的复杂性分析</a></li><li class="depth-1"><a href="#软件测试方法与策略" data-for="软件测试方法与策略">软件测试方法与策略</a></li><li class="depth-2"><a href="#静态测试" data-for="静态测试">静态测试</a></li><li class="depth-2"><a href="#动态测试" data-for="动态测试">动态测试</a></li><li class="depth-1"><a href="#单元测试" data-for="单元测试">单元测试</a></li><li class="depth-1"><a href="#集成测试" data-for="集成测试">集成测试</a></li><li class="depth-1"><a href="#确认测试" data-for="确认测试">确认测试</a></li><li class="depth-1"><a href="#系统测试" data-for="系统测试">系统测试</a></li><li class="depth-2"><a href="#恢复测试" data-for="恢复测试">恢复测试</a></li><li class="depth-2"><a href="#安全测试" data-for="安全测试">安全测试</a></li><li class="depth-2"><a href="#强度测试" data-for="强度测试">强度测试</a></li><li class="depth-2"><a href="#性能测试" data-for="性能测试">性能测试</a></li><li class="depth-2"><a href="#正确性测试" data-for="正确性测试">正确性测试</a></li><li class="depth-2"><a href="#可靠性测试" data-for="可靠性测试">可靠性测试</a></li><li class="depth-2"><a href="#兼容性测试" data-for="兼容性测试">兼容性测试</a></li><li class="depth-0"><a href="#黑盒测试" data-for="黑盒测试">黑盒测试</a></li><li class="depth-1"><a href="#等价类划分法" data-for="等价类划分法">等价类划分法</a></li><li class="depth-1"><a href="#边界值分析法" data-for="边界值分析法">边界值分析法</a></li><li class="depth-1"><a href="#因果图法" data-for="因果图法">因果图法</a></li><li class="depth-1"><a href="#决策表法" data-for="决策表法">决策表法</a></li><li class="depth-1"><a href="#错误推测法" data-for="错误推测法">错误推测法</a></li><li class="depth-0"><a href="#白盒测试" data-for="白盒测试">白盒测试</a></li><li class="depth-1"><a href="#基本概念" data-for="基本概念">基本概念</a></li><li class="depth-2"><a href="#控制流图" data-for="控制流图">控制流图</a></li><li class="depth-2"><a href="#环形复杂度" data-for="环形复杂度">环形复杂度</a></li><li class="depth-1"><a href="#覆盖测试" data-for="覆盖测试">覆盖测试</a></li><li class="depth-2"><a href="#测试覆盖率" data-for="测试覆盖率">测试覆盖率</a></li><li class="depth-2"><a href="#逻辑覆盖法" data-for="逻辑覆盖法">逻辑覆盖法</a></li><li class="depth-1"><a href="#路径测试" data-for="路径测试">路径测试</a></li><li class="depth-2"><a href="#基本路径测试方法" data-for="基本路径测试方法">基本路径测试方法</a></li><li class="depth-1"><a href="#最少测试用例数计算" data-for="最少测试用例数计算">最少测试用例数计算</a></li></ul></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2025</p><ul><li><a href="https://github.com/KISGP">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script src="../../postscript.js" type="module"></script></html>

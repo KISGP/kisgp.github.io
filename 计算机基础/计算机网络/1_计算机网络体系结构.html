@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh"><head><title>计算机网络体系结构</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Comic_Sans_MS:wght@400;700&amp;family=Comic_Sans_MS:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="🪴 Quartz 4.0"/><meta property="og:title" content="计算机网络体系结构"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="计算机网络体系结构"/><meta name="twitter:description" content="概念 一般认为，计算机网络是一个将众多分散的、自治的计算机系统，通过通信设备与线路连接起来，由功能完善的软件实现资源共享和信息传递的系统。 计算机网络（简称网络）由若干结点(node)和连接这些结点的链路(link)组成。 网络中的结点可以是计算机、集线器、交换机或路由器等。网络之间还可通过路由器互连，构成一个覆盖范围更广的计算机网络，这样的网络称为互连网(internet)。 ..."/><meta property="og:description" content="概念 一般认为，计算机网络是一个将众多分散的、自治的计算机系统，通过通信设备与线路连接起来，由功能完善的软件实现资源共享和信息传递的系统。 计算机网络（简称网络）由若干结点(node)和连接这些结点的链路(link)组成。 网络中的结点可以是计算机、集线器、交换机或路由器等。网络之间还可通过路由器互连，构成一个覆盖范围更广的计算机网络，这样的网络称为互连网(internet)。 ..."/><meta property="og:image:type" content="image/webp"/><meta property="og:image:alt" content="概念 一般认为，计算机网络是一个将众多分散的、自治的计算机系统，通过通信设备与线路连接起来，由功能完善的软件实现资源共享和信息传递的系统。 计算机网络（简称网络）由若干结点(node)和连接这些结点的链路(link)组成。 网络中的结点可以是计算机、集线器、交换机或路由器等。网络之间还可通过路由器互连，构成一个覆盖范围更广的计算机网络，这样的网络称为互连网(internet)。 ..."/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:url" content="https://kisgp.cn/static/og-image.png"/><meta name="twitter:image" content="https://kisgp.cn/static/og-image.png"/><meta property="og:image" content="https://kisgp.cn/static/og-image.png"/><meta property="twitter:domain" content="kisgp.cn"/><meta property="og:url" content="https://kisgp.cn/计算机基础/计算机网络/1_计算机网络体系结构"/><meta property="twitter:url" content="https://kisgp.cn/计算机基础/计算机网络/1_计算机网络体系结构"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="概念 一般认为，计算机网络是一个将众多分散的、自治的计算机系统，通过通信设备与线路连接起来，由功能完善的软件实现资源共享和信息传递的系统。 计算机网络（简称网络）由若干结点(node)和连接这些结点的链路(link)组成。 网络中的结点可以是计算机、集线器、交换机或路由器等。网络之间还可通过路由器互连，构成一个覆盖范围更广的计算机网络，这样的网络称为互连网(internet)。 ..."/><meta name="generator" content="Quartz"/><link href="../../static/font/font-style.css" rel="stylesheet" type="text/css" spa-preserve/><link href="../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="计算机基础/计算机网络/1_计算机网络体系结构"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">🪴 Quartz 4.0</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>搜索</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="collapse" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;编程语言&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Java&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/JavaScript&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust/Rust认识&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;服务器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/编译原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机操作系统&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机网络&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/计算机组成原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/软件测试&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据结构和算法&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据库系统概论&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/react/react学习&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;浏览器/rspress&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;数据库&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读/未完成&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Git&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Markdown&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言"><button class="folder-button"><span class="folder-title">编程语言</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Java"><button class="folder-button"><span class="folder-title">Java</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Java"><li><a href="../../编程语言/Java/JavaWeb复习" data-for="编程语言/Java/JavaWeb复习">JavaWeb复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/JavaScript"><button class="folder-button"><span class="folder-title">JavaScript</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/JavaScript"><li><a href="../../编程语言/JavaScript/JS" data-for="编程语言/JavaScript/JS">JS</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust"><button class="folder-button"><span class="folder-title">Rust</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust/Rust认识"><button class="folder-button"><span class="folder-title">Rust认识</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust/Rust认识"><li><a href="../../编程语言/Rust/Rust认识/3_变量" data-for="编程语言/Rust/Rust认识/3_变量">3_变量</a></li><li><a href="../../编程语言/Rust/Rust认识/4_类型" data-for="编程语言/Rust/Rust认识/4_类型">4_类型</a></li><li><a href="../../编程语言/Rust/Rust认识/2_cargo使用" data-for="编程语言/Rust/Rust认识/2_cargo使用">Cargo 使用</a></li><li><a href="../../编程语言/Rust/Rust认识/1_环境配置" data-for="编程语言/Rust/Rust认识/1_环境配置">Rust 环境配置</a></li></ul></div></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="服务器"><button class="folder-button"><span class="folder-title">服务器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="服务器"><li><a href="../../服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问" data-for="服务器/使用-Cloudflare-Workers-优化-Github-文件国内访问">使用 Cloudflare Workers 优化 Github 文件国内访问速度</a></li><li><a href="../../服务器/域名注册" data-for="服务器/域名注册">域名注册</a></li><li><a href="../../服务器/MinIO-使用" data-for="服务器/MinIO-使用">MinIO 使用</a></li><li><a href="../../服务器/OSS-对象存储" data-for="服务器/OSS-对象存储">OSS 对象存储</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础"><button class="folder-button"><span class="folder-title">计算机基础</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/编译原理"><button class="folder-button"><span class="folder-title">编译原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/编译原理"><li><a href="../../计算机基础/编译原理/3_词法分析" data-for="计算机基础/编译原理/3_词法分析">词法分析</a></li><li><a href="../../计算机基础/编译原理/1_开始" data-for="计算机基础/编译原理/1_开始">开始</a></li><li><a href="../../计算机基础/编译原理/2_引论" data-for="计算机基础/编译原理/2_引论">引论</a></li><li><a href="../../计算机基础/编译原理/4_语法分析" data-for="计算机基础/编译原理/4_语法分析">语法分析</a></li><li><a href="../../计算机基础/编译原理/5_语义分析与中间代码生成器" data-for="计算机基础/编译原理/5_语义分析与中间代码生成器">语义分析与中间代码生成器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机操作系统"><button class="folder-button"><span class="folder-title">计算机操作系统</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机操作系统"><li><a href="../../计算机基础/计算机操作系统/1_操作系统概述" data-for="计算机基础/计算机操作系统/1_操作系统概述">操作系统概述</a></li><li><a href="../../计算机基础/计算机操作系统/2_进程与线程" data-for="计算机基础/计算机操作系统/2_进程与线程">进程与线程</a></li><li><a href="../../计算机基础/计算机操作系统/3_内存管理" data-for="计算机基础/计算机操作系统/3_内存管理">内存管理</a></li><li><a href="../../计算机基础/计算机操作系统/4_文件管理" data-for="计算机基础/计算机操作系统/4_文件管理">文件管理</a></li><li><a href="../../计算机基础/计算机操作系统/5_输入输出管理" data-for="计算机基础/计算机操作系统/5_输入输出管理">I/O管理</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机网络"><button class="folder-button"><span class="folder-title">计算机网络</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机网络"><li><a href="../../计算机基础/计算机网络/5_传输层" data-for="计算机基础/计算机网络/5_传输层">传输层</a></li><li><a href="../../计算机基础/计算机网络/1_计算机网络体系结构" data-for="计算机基础/计算机网络/1_计算机网络体系结构">计算机网络体系结构</a></li><li><a href="../../计算机基础/计算机网络/3_数据链路层" data-for="计算机基础/计算机网络/3_数据链路层">数据链路层</a></li><li><a href="../../计算机基础/计算机网络/4_网络层" data-for="计算机基础/计算机网络/4_网络层">网络层</a></li><li><a href="../../计算机基础/计算机网络/2_物理层" data-for="计算机基础/计算机网络/2_物理层">物理层</a></li><li><a href="../../计算机基础/计算机网络/6_应用层" data-for="计算机基础/计算机网络/6_应用层">应用层</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/计算机组成原理"><button class="folder-button"><span class="folder-title">计算机组成原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/计算机组成原理"><li><a href="../../计算机基础/计算机组成原理/3_存储系统" data-for="计算机基础/计算机组成原理/3_存储系统">存储系统</a></li><li><a href="../../计算机基础/计算机组成原理/1_计算机系统概述" data-for="计算机基础/计算机组成原理/1_计算机系统概述">计算机组成原理</a></li><li><a href="../../计算机基础/计算机组成原理/2_数据的表示和运算" data-for="计算机基础/计算机组成原理/2_数据的表示和运算">数据的表示和运算</a></li><li><a href="../../计算机基础/计算机组成原理/4_指令系统" data-for="计算机基础/计算机组成原理/4_指令系统">指令系统</a></li><li><a href="../../计算机基础/计算机组成原理/5_中央处理器" data-for="计算机基础/计算机组成原理/5_中央处理器">中央处理器</a></li><li><a href="../../计算机基础/计算机组成原理/6_总线" data-for="计算机基础/计算机组成原理/6_总线">总线</a></li><li><a href="../../计算机基础/计算机组成原理/7_IO系统" data-for="计算机基础/计算机组成原理/7_IO系统">I/O 系统</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/软件测试"><button class="folder-button"><span class="folder-title">软件测试</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/软件测试"><li><a href="../../计算机基础/软件测试/1_软件测试技术复习" data-for="计算机基础/软件测试/1_软件测试技术复习">软件测试技术复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据结构和算法"><button class="folder-button"><span class="folder-title">数据结构和算法</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据结构和算法"><li><a href="../../计算机基础/数据结构和算法/8_查找" data-for="计算机基础/数据结构和算法/8_查找">查找</a></li><li><a href="../../计算机基础/数据结构和算法/5_串" data-for="计算机基础/数据结构和算法/5_串">串</a></li><li><a href="../../计算机基础/数据结构和算法/9_排序" data-for="计算机基础/数据结构和算法/9_排序">排序</a></li><li><a href="../../计算机基础/数据结构和算法/6_树" data-for="计算机基础/数据结构和算法/6_树">树</a></li><li><a href="../../计算机基础/数据结构和算法/1_数据结构基本概念" data-for="计算机基础/数据结构和算法/1_数据结构基本概念">数据结构的基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/2_算法基本概念" data-for="计算机基础/数据结构和算法/2_算法基本概念">算法基本概念</a></li><li><a href="../../计算机基础/数据结构和算法/7_图" data-for="计算机基础/数据结构和算法/7_图">图</a></li><li><a href="../../计算机基础/数据结构和算法/3_线性表" data-for="计算机基础/数据结构和算法/3_线性表">线性表</a></li><li><a href="../../计算机基础/数据结构和算法/4_栈和队列" data-for="计算机基础/数据结构和算法/4_栈和队列">栈和队列</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据库系统概论"><button class="folder-button"><span class="folder-title">数据库系统概论</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据库系统概论"><li><a href="../../计算机基础/数据库系统概论/11_并发控制" data-for="计算机基础/数据库系统概论/11_并发控制">并发控制</a></li><li><a href="../../计算机基础/数据库系统概论/9_关系查询处理和查询优化" data-for="计算机基础/数据库系统概论/9_关系查询处理和查询优化">关系查询处理和查询优化</a></li><li><a href="../../计算机基础/数据库系统概论/2_关系数据库" data-for="计算机基础/数据库系统概论/2_关系数据库">关系数据库</a></li><li><a href="../../计算机基础/数据库系统概论/6_关系数据理论" data-for="计算机基础/数据库系统概论/6_关系数据理论">关系数据理论</a></li><li><a href="../../计算机基础/数据库系统概论/4_数据库安全性" data-for="计算机基础/数据库系统概论/4_数据库安全性">数据库安全性</a></li><li><a href="../../计算机基础/数据库系统概论/8_数据库编程" data-for="计算机基础/数据库系统概论/8_数据库编程">数据库编程</a></li><li><a href="../../计算机基础/数据库系统概论/10_数据库恢复技术" data-for="计算机基础/数据库系统概论/10_数据库恢复技术">数据库恢复技术</a></li><li><a href="../../计算机基础/数据库系统概论/7_数据库设计" data-for="计算机基础/数据库系统概论/7_数据库设计">数据库设计</a></li><li><a href="../../计算机基础/数据库系统概论/5_数据库完整性" data-for="计算机基础/数据库系统概论/5_数据库完整性">数据库完整性</a></li><li><a href="../../计算机基础/数据库系统概论/1_绪论" data-for="计算机基础/数据库系统概论/1_绪论">绪论</a></li><li><a href="../../计算机基础/数据库系统概论/3_SQL" data-for="计算机基础/数据库系统概论/3_SQL">SQL</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器"><button class="folder-button"><span class="folder-title">浏览器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react"><button class="folder-button"><span class="folder-title">react</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/react/react学习"><button class="folder-button"><span class="folder-title">react学习</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/react/react学习"><li><a href="../../浏览器/react/react学习/9_Hook" data-for="浏览器/react/react学习/9_Hook">Hook的使用</a></li><li><a href="../../浏览器/react/react学习/2_jsx基本语法" data-for="浏览器/react/react学习/2_jsx基本语法">jsx基本语法</a></li><li><a href="../../浏览器/react/react学习/1_react初体验" data-for="浏览器/react/react学习/1_react初体验">react初体验</a></li><li><a href="../../浏览器/react/react学习/6_react动画" data-for="浏览器/react/react学习/6_react动画">react动画</a></li><li><a href="../../浏览器/react/react学习/3_react脚手架解析" data-for="浏览器/react/react学习/3_react脚手架解析">react脚手架解析</a></li><li><a href="../../浏览器/react/react学习/4_react性能优化" data-for="浏览器/react/react学习/4_react性能优化">react性能优化</a></li><li><a href="../../浏览器/react/react学习/5_react组件化开发" data-for="浏览器/react/react学习/5_react组件化开发">react组件化开发</a></li><li><a href="../../浏览器/react/react学习/7_Redux的使用" data-for="浏览器/react/react学习/7_Redux的使用">Redux的使用</a></li><li><a href="../../浏览器/react/react学习/8_Router的使用" data-for="浏览器/react/react学习/8_Router的使用">Router的使用</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="浏览器/rspress"><button class="folder-button"><span class="folder-title">rspress</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="浏览器/rspress"><li><a href="../../浏览器/rspress/LaTeX无法使用$$语法" data-for="浏览器/rspress/LaTeX无法使用$$语法">LaTeX无法使用$$语法</a></li><li><a href="../../浏览器/rspress/自动生成侧边栏" data-for="浏览器/rspress/自动生成侧边栏">rspress 自动生成侧边栏</a></li></ul></div></li><li><a href="../../浏览器/CORS错误" data-for="浏览器/CORS错误">CORS错误</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="数据库"><button class="folder-button"><span class="folder-title">数据库</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="数据库"><li><a href="../../数据库/MongoDB-使用" data-for="数据库/MongoDB-使用">MongoDB 使用</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读"><button class="folder-button"><span class="folder-title">阅读</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读/未完成"><button class="folder-button"><span class="folder-title">未完成</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读/未完成"><li><a href="../../阅读/未完成/解构现代化：温铁军演讲录" data-for="阅读/未完成/解构现代化：温铁军演讲录">解构现代化：温铁军演讲录</a></li><li><a href="../../阅读/未完成/金瓶梅词话（上下）" data-for="阅读/未完成/金瓶梅词话（上下）">金瓶梅词话（上下）</a></li><li><a href="../../阅读/未完成/思想的力量（第9版）" data-for="阅读/未完成/思想的力量（第9版）">思想的力量（第9版）</a></li><li><a href="../../阅读/未完成/乡土中国-生育制度-乡土重建" data-for="阅读/未完成/乡土中国-生育制度-乡土重建">乡土中国 生育制度 乡土重建</a></li><li><a href="../../阅读/未完成/制造消费者：消费主义全球史" data-for="阅读/未完成/制造消费者：消费主义全球史">制造消费者：消费主义全球史</a></li></ul></div></li><li><a href="../../阅读/大清为何轰然倒塌" data-for="阅读/大清为何轰然倒塌">大清为何轰然倒塌</a></li><li><a href="../../阅读/叫魂：1768年中国妖术大恐慌" data-for="阅读/叫魂：1768年中国妖术大恐慌">叫魂：1768年中国妖术大恐慌</a></li><li><a href="../../阅读/菊与刀" data-for="阅读/菊与刀">菊与刀</a></li><li><a href="../../阅读/论语" data-for="阅读/论语">论语</a></li><li><a href="../../阅读/毛泽东选集" data-for="阅读/毛泽东选集">毛泽东选集</a></li><li><a href="../../阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" data-for="阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化">人民公开课：中国共产党与国家治理体系和治理能力现代化</a></li><li><a href="../../阅读/盛唐到底盛在哪儿" data-for="阅读/盛唐到底盛在哪儿">盛唐到底盛在哪儿</a></li><li><a href="../../阅读/伊豆的舞女" data-for="阅读/伊豆的舞女">伊豆的舞女</a></li><li><a href="../../阅读/以利为利：财政关系与地方政府行为" data-for="阅读/以利为利：财政关系与地方政府行为">以利为利：财政关系与地方政府行为</a></li><li><a href="../../阅读/哲学导论讲记" data-for="阅读/哲学导论讲记">哲学导论讲记</a></li><li><a href="../../阅读/治大国若烹小鲜：基层治理与世道人心" data-for="阅读/治大国若烹小鲜：基层治理与世道人心">治大国若烹小鲜：基层治理与世道人心</a></li><li><a href="../../阅读/置身事内：中国政府与经济发展" data-for="阅读/置身事内：中国政府与经济发展">置身事内：中国政府与经济发展</a></li><li><a href="../../阅读/中国是部金融史" data-for="阅读/中国是部金融史">中国是部金融史</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Git"><button class="folder-button"><span class="folder-title">Git</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Git"><li><a href="../../Git/删除分支" data-for="Git/删除分支">删除分支</a></li><li><a href="../../Git/文件.gitkeep是什么" data-for="Git/文件.gitkeep是什么">文件.gitkeep是什么</a></li></ul></div></li><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Markdown"><button class="folder-button"><span class="folder-title">Markdown</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Markdown"><li><a href="../../Markdown/Callouts-标注" data-for="Markdown/Callouts-标注">Callouts 标注</a></li><li><a href="../../Markdown/Obsidian-教程" data-for="Markdown/Obsidian-教程">Obsidian 教程</a></li><li><a href="../../Markdown/Typora-自定义-Callouts-样式" data-for="Markdown/Typora-自定义-Callouts-样式">Typora 自定义 Callouts</a></li><li><a href="../../Markdown/Typora-自定义字体" data-for="Markdown/Typora-自定义字体">Typora 自定义字体</a></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../计算机基础/">计算机基础</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../计算机基础/计算机网络/">计算机网络</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>计算机网络体系结构</a></div></nav><h1 class="article-title">计算机网络体系结构</h1><p show-comma="true" class="content-meta"><time datetime="2024-11-16T13:59:30.354Z">2024年11月16日</time><span>47分钟阅读</span></p><ul class="tags"><li><a href="../../tags/计算机网络" class="internal tag-link">计算机网络</a></li></ul></div></div><article class="popover-hint"><h1 id="概念">概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>一般认为，计算机网络是一个将<strong>众多分散的、自治的计算机系统</strong>，通过通信设备与线路<strong>连接起来</strong>，由功能完善的软件<strong>实现资源共享和信息传递的系统</strong>。</p>
+<p>计算机网络（简称网络）由若干结点(node)和连接这些结点的链路(link)组成。</p>
+<p>网络中的<strong>结点</strong>可以是<strong>计算机、集线器、交换机或路由器</strong>等。网络之间还可通过路由器互连，构成一个覆盖范围更广的计算机网络，这样的网络称为互连网(internet)。</p>
+<p><img src="./assets/1.png" alt/></p>
+<p>于是，我们可以这样理解：<strong>网络把许多计算机连在一起，而互连网则把许多网络通过路由器连在一起</strong>。</p>
+<p><img src="./assets/2.png" alt/></p>
+<p><img src="./assets/3.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>internet 和 Internet 的区别 </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li><span class="text-highlight">internet</span>（互连网）：一个<strong>通用名词</strong>，泛指由<strong>多个计算机网络互连而成</strong>的计算机网络。在这些网络之间可以<strong>使用任意的通信协议</strong>作为通信规则，不一定非要使用 TCP/IP 协议。</li>
+<li><span class="text-highlight">Internet</span>（互联网或因特网）：一个<strong>专用名词</strong>，指当前全球最大的、开放的、<strong>由众多网络和路由器互连而成</strong>的特定计算机网络，它采用<strong>TCP/IP 协议族</strong>作为通信规则。</li>
+</ul>
+<p><img src="./assets/4.png" alt/></p>
+</div>
+</blockquote>
+<h2 id="因特网简介-">因特网简介 *<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#因特网简介-" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/5.png" alt/></p>
+<p><img src="./assets/6.png" alt/></p>
+<p><img src="./assets/7.png" alt/></p>
+<p><img src="./assets/8.png" alt/></p>
+<h1 id="组成">组成<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#组成" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>从不同的角度看，可将计算机网络的组成分为如下几类。</p>
+<ol>
+<li>
+<p>从<span class="text-highlight">组成部分</span>看，计算机网络主要由<span class="text-highlight">硬件</span>、<span class="text-highlight">软件</span>、<span class="text-highlight">协议</span>三大部分组成。</p>
+<ul>
+<li><strong>硬件</strong>：主要由<strong>主机</strong>（也称端系统）、<strong>通信链路</strong>（如双绞线、光纤）、<strong>交换设备</strong>（如路由器、交换机等）和<strong>通信处理机</strong>（如网卡）等组成。</li>
+<li><strong>软件</strong>：主要包括各种<strong>实现资源共享的软件</strong>和<strong>方便用户使用的各种工具软件</strong>（如 E-mail 程序、FTP 程序、聊天程序等）。</li>
+<li><strong>协议</strong>：计算机网络的核心，如同交通规则制约汽车驾驶一样，协议<strong>规定了网络传输数据时所遵循的规范</strong>。</li>
+</ul>
+</li>
+<li>
+<p>从<span class="text-highlight">工作方式</span>看，计算机网络可分为<span class="text-highlight">边缘部分</span>和<span class="text-highlight">核心部分</span>。</p>
+<ul>
+<li><strong>边缘部分</strong>：由所有连接到互联网上的供<strong>用户直接使用的主机</strong>组成，用来<strong>进行通信和资源共享</strong>；</li>
+<li><strong>核心部分</strong>：由大量<strong>网络</strong>和连接这些网络的<strong>路由器</strong>组成，它<strong>为边缘部分提供连通性和交换服务</strong>。</li>
+</ul>
+<p><img src="./assets/9.png" alt/></p>
+</li>
+<li>
+<p>从<span class="text-highlight">功能组成</span>看，计算机网络由<span class="text-highlight">通信子网</span>和<span class="text-highlight">资源子网</span>组成。</p>
+<ul>
+<li><strong>通信子网</strong>：由<strong>各种传输介质、通信设备和相应的网络协议组成</strong>，它使网络具有数据传输、交换、控制和存储的能力，实现联网计算机之间的数据通信。</li>
+<li><strong>资源子网</strong>：<strong>实现资源共享功能的设备及其软件的集合</strong>，向网络用户提供共享其他计算机上的硬件资源、软件资源和数据资源的服务。</li>
+</ul>
+</li>
+</ol>
+<h1 id="功能">功能<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#功能" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>主要有以下 5 大功能</p>
+<ol>
+<li>
+<p><strong>数据通信</strong></p>
+<p>数据通信是计算机网络<strong>最基本和最重要的功能</strong>，用来实现联网计算机之间各种信息的传输，并联系分散在不同地理位置的计算机，进行统一的调配、控制和管理。</p>
+</li>
+<li>
+<p><strong>资源共享资源</strong></p>
+<p>共享既可是软件共享、数据共享，又可是硬件共享。它使计算机网络中的资源互通有无、分工协作，从而极大地提高了硬件资源、软件资源和数据资源的利用率。</p>
+</li>
+<li>
+<p><strong>分布式处理</strong></p>
+<p>当计算机网络中的某个计算机系统负荷过重时，可将其处理的某个复杂任务分配给网络中的其他计算机系统，从而利用空闲计算机资源来提高整个系统的利用率。</p>
+</li>
+<li>
+<p><strong>提高可靠性</strong></p>
+<p>计算机网络中的各台计算机可以通过网络互为替代机。</p>
+</li>
+<li>
+<p><strong>负载均衡</strong></p>
+<p>将工作任务均衡地分配给计算机网络中的各台计算机。</p>
+</li>
+</ol>
+<h1 id="数据交换方式">数据交换方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据交换方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>在网络核心部分起重要作用的是路由器（router），它对收到的分组进行存储转发来实现分组交换。要了解分组交换的原理，首先就要学习电路交换的相关概念。</p>
+<h2 id="电路交换">电路交换<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#电路交换" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>最典型的电路交换网是传统电话网。</p>
+<p>从通信资源分配的角度看，交换就是按照某种方式动态地分配传输线路的资源。</p>
+<p>电路交换分为三步：连接建立、数据传输和连接释放。</p>
+<p>在进行数据传输前，两个结点之间必须先建立一条专用（双方独占）的物理通信路径（由通信双方之间的交换设备和链路逐段连接而成），该路径可能经过许多中间结点。在数据传输过程中，这一物理通信路径始终被用户独占，直到通信结束后才被释放。</p>
+<p><img src="./assets/10.png" alt/></p>
+<p>在电路交换的整个通信阶段，比特流连续地从源点直达终点，就好像在一个管道中传送。</p>
+<p>电路交换技术的优 点如下：</p>
+<ol>
+<li>通信时延小：因为通信线路为通信双方专用，数据直达，所以传输时延非常小。</li>
+<li>有序传输：双方通信时按发送顺序传送数据，不存在失序问题。</li>
+<li>没有冲突：不同的通信双方拥有不同的信道，不会出现争用物理信道的问题。</li>
+<li>适用范围广：电路交换既适用于传输模拟信号，又适用于传输数字信号。</li>
+<li>实时性强：通信双方之间的物理通路一旦建立，双方就可随时通信。</li>
+<li>控制简单：电路交换的交换设备（交换机等）及控制均较简单。</li>
+</ol>
+<p>电路交换技术的<strong>缺点</strong>如下：</p>
+<ol>
+<li>建立连接时问长：电路交换的平均连接建立时间对计算机通信来说太长。</li>
+<li>线路利用率低：物理通路被通信双方独占，即使线路空闲，也不能供其他用户使用。</li>
+<li>灵活性差：物理通路中的任何一点出现故障，就必须重新拨号建立新的连接。</li>
+<li>难以规格化：不同类型、不同规格、不同速率的终端很难相互进行通信。</li>
+<li><span class="text-highlight">难以实现差错控制</span>：中间结点不具备存储和检验数据的能力，无法发现并纠正错误。</li>
+</ol>
+<p>注意，在电路交换中，电路建立后，除源结点和目的结点外，电路上的任何结点都采取“直通方式”接收数据和发送数据，即不存在存储转发所耗费的时间。</p>
+<h2 id="报文交换">报文交换<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#报文交换" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>报文交换是分组交换的前身。</p>
+<p>数据交换的单位是报文，用户数据加上源地址、目的地址等信息后，后封装成报文（message）。</p>
+<p>报文交换采用<strong>存储转发技术</strong>，<strong>整个报文</strong>先传送到相邻的结点，<strong>全部存储后查找转发表</strong>，转发到下一个结点，如此重复，直至到达目的结点。</p>
+<p><span class="text-highlight">每个报文都可单独选择到达目的结点的路径</span>。</p>
+<p>报文交换技术的<strong>优点</strong>如下：</p>
+<ol>
+<li>无须建立连接：通信前无须建立连接，没有建立连接时延，用户可随时发送报文。</li>
+<li>动态分配线路：交换设备存储整个报文后，选择一条合适的空闲线路，转发报文。</li>
+<li>线路可靠性高：若某条传输路径发生故障，则可重新选择另一条路径传输数据。</li>
+<li>线路利用率高：报文在哪段链路上传送时才占用这段链路的通信资源。</li>
+<li>提供多目标服务：一个报文可以同时发送给多个目的地址。</li>
+</ol>
+<p>报文交换技术的<strong>缺点</strong>如下：</p>
+<ol>
+<li>转发时延高：交换结点要将报文整体接收完后，才能查找转发表转发到下一个结点。</li>
+<li>缓存开销大：报文的大小没有限制，这就要求交换结点拥有较大的缓存空间。</li>
+<li>错误处理低效：报文较长时，发生错误的概率相对更大，重传整个报文的代价也很大。</li>
+</ol>
+<h2 id="分组交换">分组交换<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#分组交换" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>分组交换也<strong>采用存储转发技术</strong>，但解决了报文交换中报文过长的问题。</p>
+<p>若报文太长，则对交换结点的缓存容量就有很大的需求，在错误处理方面也比较低效。</p>
+<p>源结点在发送之前，<strong>先把较长的报文划分成若干较小的等长数据段，在每个数据段前面添加一些由必要控制信息</strong>（如源地址、目的地址和编号信息等）组成的首部，构成<span class="text-highlight">分组</span>(Packet)。</p>
+<p><img src="./assets/12.png" alt/></p>
+<p>源结点将分组发送到分组交换网中，分组交换网中的分组交换机收到一个分组后，<strong>先将其缓存，然后从其首部中提取目的地址，据此查找自己的转发表，再后将分组转发给下一个分组交换机</strong>。经过多个分组交换机的存储转发后，分组最终到达目的结点。</p>
+<p><img src="./assets/11.png" alt/></p>
+<p>分组交换技术的<strong>优点</strong>如下：</p>
+<ol>
+<li>无建立时延：通信前无须建立连接，没有建立连接时延，用户可随时发送分组。</li>
+<li>线路利用率高：分组在哪段链路上传送时才占用这段链路的通信资源。相比采用电路交换传送突发式的计算机数据，分组交换的通信线路利用率大大提高。</li>
+<li>简化了存储管理（相对于报文交换）：因为分组的长度固定，相应缓冲区的大小也固定，在交换结点中存储器的管理通常被简化为对缓冲区的管理，相对比较容易。</li>
+<li>加速传输：分组是逐个传输的，可以使后一个分组的存储操作与前一个分组的转发操作并行，这种流水线方式减少了报文的传输时间。此外，传输一个分组比传输一次报文所需的缓冲区小得多，这样，因缓冲区不足而等待发送的概率及时间必然也少得多。</li>
+<li>减小了出错概率和重发数据量：因为分组较短，其出错概率必然减小，所以每次重发的数据量也就大大减少，这样不仅提高了可靠性，而且减小了传输时延。</li>
+</ol>
+<p>分组交换技术的<strong>缺点</strong>如下：</p>
+<ol>
+<li>存在存储转发时延：尽管分组交换比报文交换的传输时延小，但相对于电路交换仍存在存储转发时延，且其结点交换机必须具有更强的处理能力。</li>
+<li>需要传输额外的信息量：每个小数据段都要加上控制信息以构成分组，这使得传送的信息量增大了 5%～ 10%，进而使得控制复杂，降低了通信效率，增大了处理的时延。</li>
+<li>当分组交换网采用数据报服务时，可能出现失序、丢失或重复分组的情况，分组到达目的结点时，要对分组按编号进行排序等工作，而这些工作很麻烦。若采用虚电路服务，则虽然没有失序问题，但有呼叫建立、数据传输和虚电路释放三个过程。</li>
+</ol>
+<h2 id="比较">比较<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#比较" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>当要传送的<strong>数据量很大且其传送时间远大于呼叫时间</strong>时，采用<strong>电路交换</strong>较为合适。</p>
+<p>当端到端的通路由多段链路组成时，采用分组交换传送数据较为合适。从提高整个网络的信道利用率看，报文交换和分组交换优于电路交换，其中分组交换比报文交换的时延小，尤其适合计算机之间的突发式数据通信。</p>
+<p><img src="./assets/13.png" alt/></p>
+<h1 id="分类">分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="按分布范围分类">按分布范围分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#按分布范围分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>广域网(WAN)</strong></p>
+<p>广域网的任务是提供长距离通信，运送主机所发送的数据，其覆盖范围通常是直径为几十到几千千米的区域。</p>
+<p>广域网是互联网的核心部分。连接广域网的各结点交换机的链路一般都是高速链路，具有较大的通信容量。</p>
+</li>
+<li>
+<p><strong>城域网(MAN)</strong></p>
+<p>城域网的覆盖范围可以跨越几个街区甚至整个城市，覆盖区域的直径为 5 ～ 50km。</p>
+<p>城域网大多采用以太网技术，因此有时也常并入局域网的范围讨论。</p>
+</li>
+<li>
+<p><strong>局域网(LAN)</strong></p>
+<p>局域网一般用主机通过高速线路相连，覆盖范围较小，通常是直径为几十到几千米的区域。</p>
+<p>传统上，局域网使用广播技术，而广域网使用交换技术。</p>
+</li>
+<li>
+<p><strong>个人区域网(PAN)</strong></p>
+<p>个人区域网是指在个人工作的地方将消费电子设备（如平板电脑、智能手机等）用无线技术连接起来的网络，也称无线个人区域网(WPAN)。</p>
+</li>
+</ol>
+<p><img src="./assets/14.png" alt/></p>
+<h2 id="按传输技术分类">按传输技术分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#按传输技术分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>广播式网络</strong></p>
+<p>所有联网计算机都共享一个公共通信信道。</p>
+<p>当一台计算机利用共享通信信道发送报文分组时，所有其他计算机都会“收听”到这个分组。接收到该分组的计算机将通过检查目的地址来决定是否接收该分组。</p>
+<p>局域网基本上都采用广播式通信技术，广域网中的无线、卫星通信网络也采用广播式通信技术。</p>
+</li>
+<li>
+<p><strong>点对点网络</strong></p>
+<p>每条物理线路连接一对计算机。</p>
+<p>若通信的两台主机之间没有直接连接的线路，则它们之间的分组传输就要通过中间结点进行存储和转发，直至目的结点。</p>
+</li>
+</ol>
+<h2 id="按拓扑结构分类">按拓扑结构分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#按拓扑结构分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>网络拓扑结构是指由网中结点（路由器、主机等）与通信线路之间的几何关系表示的网络结构，<span class="text-highlight">主要指通信子网的拓扑结构</span>。</p>
+<p>按网络的拓扑结构，可分为总线形、星形、环形和网状网络等。星形、总线形和环形网络多用于局域网，网状网络多用于广域网。</p>
+<ol>
+<li>
+<p><strong>总线形网络</strong></p>
+<p>用单根传输线把计算机连接起来。</p>
+<p>优点是建网容易、增/减结点方便、节省线路。</p>
+<p>缺点是重负载时通信效率不高、总线任意一处对故障敏感。</p>
+<p><img src="./assets/15.png" alt/></p>
+</li>
+<li>
+<p><strong>星形网络</strong></p>
+<p>每个终端或计算机都以单独的线路与中央设备相连。中央设备一般是交换机或路由器。</p>
+<p>优点是便于集中控制和管理。</p>
+<p>缺点是成本高、中央设备对故障敏感。</p>
+<p><img src="./assets/16.png" alt/></p>
+</li>
+<li>
+<p><strong>环形网络</strong></p>
+<p>所有计算机接口设备连接成一个环。环形网络最典型的例子是令牌环局域网。环既可以是单环，又可以是双环，环中信号是单向传输的。</p>
+<p><img src="./assets/17.png" alt/></p>
+</li>
+<li>
+<p><strong>网状网络</strong></p>
+<p>一般情况下，每个结点至少有两条路径与其他结点相连，多用在广域网中。其有规则型和非规则型两种。</p>
+<p>优点是可靠性高。</p>
+<p>缺点是控制复杂、线路成本高。</p>
+<p><img src="./assets/18.png" alt/></p>
+</li>
+</ol>
+<p>以上 4 种基本的网络拓扑结构可以互连为更复杂的网络。</p>
+<h2 id="按使用者分类">按使用者分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#按使用者分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p>公用网(PublicNetwork)</p>
+<p>指电信公司出资建造的大型网络。</p>
+<p>“公用”的意思是指所有愿意按电信公司的规定缴纳费用的人都可使用这种网络。</p>
+</li>
+<li>
+<p>专用网(PrivateNetwork)</p>
+<p>指某个部门为满足本单位特殊业务的需要而建造的网络。</p>
+<p>这种网络不向本单位外的人提供服务，如铁路、电力、军队等部门的专用网。</p>
+</li>
+</ol>
+<h2 id="按传输介质分类">按传输介质分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#按传输介质分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>传输介质可分为有线和无线两大类，因此网络可分为有线网络和无线网络。</p>
+<p>有线网络又可分为双绞线网络、同轴电缆网络等，而无线网络又可分为蓝牙、微波、无线电等类型。</p>
+<h1 id="性能指标">性能指标<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#性能指标" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>性能指标从不同方面度量计算机网络的性能。</p>
+<ol>
+<li>
+<p><span class="text-highlight">速率</span>(Speed)</p>
+<p>指连接到网络上的结点在数字信道上<strong>传送数据的速率</strong>，即<strong>每秒传送多少个比特</strong>，也称<strong>数据传输速率、数据传输率、数据率或比特率</strong>，单位为<span class="text-highlight">b/s</span>(比特/秒)或 bits(有时也写为<span class="text-highlight">bps</span>)。</p>
+<p><img src="./assets/20.png" alt/></p>
+<p><img src="./assets/21.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">带宽</span>(Bandwidth)</p>
+<p>带宽原本表示通信线路允许通过的信号频率范围，单位是赫兹(Hz)。</p>
+<p>但在计算机网络中，带宽表示网络的通信线路所能传送数据的能力，是数字信道所能传送的“最高数据传输速率”的同义语，单位是比特/秒(b/s)。</p>
+<p><img src="./assets/22.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">吞吐量</span>(Throughput)</p>
+<p>指单位时间内<strong>通过某个网络（或信道、接口）的实际数据量</strong>。吞吐量常用在对实际网络的测量中，<strong>受网络带宽的限制</strong>。</p>
+<p><img src="./assets/23.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">时延</span>(Delay)</p>
+<p>指数据（一个报文或分组）从网络（或链路）的<strong>一端传送到另一端所需的总时间</strong>，它由 4 部分构成：发送时延、传播时延、处理时延和排队时延。</p>
+<p><img src="./assets/24.png" alt/></p>
+<ul>
+<li>
+<p><span class="text-highlight">发送时延</span>，也称<strong>传输时延</strong></p>
+<p>结点将分组的所有比特推向链路所需的时间，即从发送分组的第一个比特算起，到该分组的最后一个比特发送完毕所需的时间。</p>
+<p>发送时延=分组长度/发送速率</p>
+</li>
+<li>
+<p><span class="text-highlight">传播时延</span></p>
+<p>电磁波在信道（传输介质）中传播一定的距离所花的时间，即一个比特从链路的一端传播到另一端所需的时间。</p>
+<p>传播时延=信道长度/电磁波在信道上的传播速率</p>
+<blockquote>
+<p>传输时延是路由器将分组推出所需的时间，是分组长度和链路传输速率的函数。</p>
+<p>传播时延是一个比特从一台路由器传播至另一台路由器所需的时间，是两台路由器之间距离的函数，而与分组长度或链路传输速率无关。</p>
+</blockquote>
+</li>
+<li>
+<p><span class="text-highlight">处理时延</span></p>
+<p>数据在交换结点为存储转发而进行的一些必要处理所花的时间。</p>
+<p>例如，分析分组的首部、从分组中提取数据、差错检验或查找合适的路由等。</p>
+</li>
+<li>
+<p><span class="text-highlight">排队时延</span></p>
+<p>分组在进入路由器后要先在输入队列中排队等待处理。路由器确定转发端口后，还要在输出队列中排队等待转发。这就产生了排队时延。</p>
+</li>
+</ul>
+<p>因此，数据在网络中经历的总时延就是以上 4 部分时延之和：总时延=发送时延+传播时延+处理时延+排队时延处理时延和排队时延通常可忽略不计（除非另有说明）。</p>
+<p><img src="./assets/25.png" alt/></p>
+<p><img src="./assets/26.png" alt/></p>
+<p><img src="./assets/27.png" alt/></p>
+<p><img src="./assets/28.png" alt/></p>
+<p><img src="./assets/90.png" alt/></p>
+<p><img src="./assets/91.png" alt/></p>
+<p><img src="./assets/92.png" alt/></p>
+<p><img src="./assets/93.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">时延带宽积</span></p>
+<p>指发送端发送的第一个比特即将到达终点时，发送端已发出了多少比特，又称以比特为单位的链路长度，即时延带宽积=传播时延 x 信道带宽。</p>
+<p><img src="./assets/29.png" alt/></p>
+<p>如图所示，考虑一个代表链路的圆柱形管道，其长度表示链路的传播时延，横截面积表示链路带宽，则时延带宽积表示该管道可以容纳的比特数量。</p>
+<p><img src="./assets/30.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">往返时延</span>(Round-TripTime, RTT)</p>
+<p>指从发送端发出一个短分组，到发送端收到来自接收端的确认（接收端收到数据后立即发送确认）总共经历的时延。</p>
+<p>在互联网中，往返时延还包括各中间结点的处理时延、排队时延及转发数据时的发送时延。</p>
+<p><img src="./assets/94.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">信道利用率</span>（链路利用率）</p>
+<p>用以指出某个信道有百分之多少的时间是有数据通过的。</p>
+<p>信道利用率=有数据通过时间/（有+无）数据通过时间</p>
+<p>网络利用率是指网络中所有链路的链路利用率的加权平均。</p>
+<p>根据排队论可知，当某链路的利用率增大时，该链路引起的时延就会迅速增加。当网络的通信量较少时，产生的时延并不大，但在网络通信量不断增大时，分组在交换节点（路由器或交换机）中的排队时延会随之增大，因此网络引起的时延就会增大。</p>
+<p>令<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>表示网络空闲时的时延，<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span>表示网络当前的时延，<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">U</span></span></span></span>表示网络利用率。</p>
+<p><img src="./assets/31.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">丢包率</span></p>
+<p>分组丢失主要有以下两种情况：</p>
+<ul>
+<li>分组在传输过程中出现误码，被传输路径中的节点交换机（例如路由器）或目的主机检测出误码而丢弃。</li>
+<li>节点交换机根据丢弃策略主动丢弃分组。</li>
+</ul>
+<p>丢包率可以反映网络的拥塞情况。</p>
+</li>
+</ol>
+<h1 id="计算机网络体系结构">计算机网络体系结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#计算机网络体系结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="定义">定义<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#定义" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><strong>计算机网络的各层及其协议的集合</strong>称为<strong>网络的体系结构</strong>(Architecture)。换言之，计算机网络的体系结构就是这个计算机网络及其所应完成的功能的精确定义。</p>
+<p>体系结构是抽象的，而实现则是具体的，是真正在运行的计算机硬件和软件。</p>
+<p>计算机网络体系结构通常都具有可分层的特性，它<strong>将复杂的大系统分成若干较容易实现的层次</strong>。</p>
+<p><img src="./assets/35.png" alt/></p>
+<p>分层的基本原则如下：</p>
+<ol>
+<li>每层都实现一种相对独立的功能，降低大系统的复杂度。</li>
+<li>各层之间的接口自然清晰，易于理解，相互交流尽可能少。</li>
+<li>各层功能的精确定义独立于具体的实现方法，可以采用最合适的技术来实现。</li>
+<li>保持下层对上层的独立性，上层单向使用下层提供的服务。</li>
+<li>整个分层结构应能促进标准化工作。</li>
+</ol>
+<h2 id="专业术语">专业术语<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#专业术语" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/37.png" alt/></p>
+<h3 id="实体">实体<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#实体" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>在计算机网络分层结构中，第 n 层中的活动元素通常称为第 n 层<span class="text-highlight">实体</span>。具体来说，实体<strong>指任何可发送或接收信息的硬件或软件进程</strong>，<strong>通常是某个特定的软件模块</strong>。</p>
+<p>不同机器上的同一层称为<span class="text-highlight">对等层</span>，同一层的实体称为<span class="text-highlight">对等实体</span>。</p>
+<p><img src="./assets/38.png" alt/></p>
+<p>第 n 层实体实现的服务为第 n+1 层所用。在这种情况下，第 n 层称为服务提供者，第 n+1 层则服务于用户。</p>
+<p>在计算机网络体系结构中，<strong>对等层之间</strong>传送的<strong>数据单位</strong>称为该层的协<span class="text-highlight">议数据单元(PDU)</span>，第 n 层的 PDU 记为 n-PDU。</p>
+<p>各层的 PDU 都分为数据和控制信息两部分:</p>
+<ul>
+<li>服务数据单元(SDU)：为完成用户所要求的功能而传送的数据。第 n 层的 SDU 记为 n-SDU。</li>
+<li>协议控制信息(PCI)：控制协议操作的信息。第 n 层的 PCI 记为 n-PCI。</li>
+</ul>
+<p>每层的协议数据单元都有一个通俗的名称，如物理层的 PDU 称为比特流，数据链路层的 PDU 称为帧，网络层的 PDU 称为分组，传输层的 PDU 称为报文段。</p>
+<p><img src="./assets/42.png" alt/></p>
+<p>当在各层之间传输数据时，将从第 n+1 层收到的 PDU 作为第 n 层的 SDU，加上第 n 层的 PCI，就封装成了第 n 层的 PDU，交给第 n-1 层后作为 SDU 发送，接收方接收时做相反的处理，因此可知三者的关系为 n-SDU + n-PCI = n-PDU =(n-1)-SDU。</p>
+<p><img src="./assets/39.png" alt/></p>
+<p>具体地，层次结构的含义包括如下几方面：</p>
+<ol>
+<li>第 n 层的实体不仅要使用第 n-1 层的服务来实现自身定义的功能，而且要向第 n+1 层提供本层的服务，该服务是第 n 层及其下面各层提供的服务总和。</li>
+<li>最低层只提供服务，是整个层次结构的基础；最高层面向用户提供服务。</li>
+<li>上一层只能通过相邻层间的接口使用下一层的服务，而不能调用其他层的服务。</li>
+<li>当两台主机通信时，对等层在逻辑上有一个直接信道，表现为能直接将信息传送到对方。</li>
+</ol>
+<h3 id="协议">协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>要在网络中做到有条不紊地交换数据，就必须遵循一些事先约定好的规则，其规定了所交换数据的格式及有关的同步问题。</p>
+<p>为了在网络中进行数据交换而建立的这些规则、标准或约定称为<strong>网络协议</strong>(NetworkProtocol)，是<strong>控制在对等实体之间进行通信的规则的集合</strong>，是水平的。</p>
+<p><img src="./assets/40.png" alt/></p>
+<p>不对等实体之间是没有协议的，如用 TCP/IP 协议栈通信的两个结点 A 和结点 B，结点 A 的传输层和结点 B 的传输层之间存在协议，但结点 A 的传输层和结点 B 的网络层之间不存在协议。</p>
+<p>协议由<strong>语法、语义和同步</strong>三部分组成:</p>
+<ol>
+<li>
+<p><span class="text-highlight">语法</span></p>
+<p>数据与控制信息的<strong>格式</strong>。</p>
+<p>例如，TCP 报文段格式就是由 TCP 协议的语法定义的。</p>
+<p><img src="./assets/44.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">语义</span></p>
+<p>即需要发出何种控制信息、完成何种<strong>动作</strong>及做出何种应答。</p>
+<p>例如，在建立 TCP 连接的<strong>三次握手时所执行的操作</strong>就是由 TCP 协议的语义定义的。</p>
+</li>
+<li>
+<p><span class="text-highlight">同步</span>（或<span class="text-highlight">时序</span>）</p>
+<p>执行各种操作的条件、<strong>时序关系</strong>等，即事件实现顺序的详细说明。</p>
+<p>例如，建立 TCP 连接的<strong>三次握手操作的时序关系</strong>就是由 TCP 协议的同步定义的。</p>
+</li>
+</ol>
+<h3 id="接口">接口<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#接口" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>同一结点内相邻两层的实体交换信息的逻辑接口称为服务访问点（ServiceAccessPoint，SAP)。每层只能为紧邻的层之间定义接口，而不能跨层定义接口。服务是通过 SAP 提供给上层使用的，第 n 层的 SAP 就是第 n+1 层可以访问第 n 层服务的地方。例如，在本书描述的 5 层体系结构中，数据链路层的服务访问点为帧的“类型”字段，网络层的服务访问点为 IP 数据报的“协议”字段，传输层的服务访问点为“端口号”字段。</p>
+<h3 id="服务">服务<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#服务" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>服务是指下层为紧邻的上层提供的功能调用，是垂直的。</p>
+<p>对等实体在协议的控制下，使得本层能为上层提供服务，但要实现本层协议，还需要使用下层提供的服务。</p>
+<p><img src="./assets/41.png" alt/></p>
+<p>当上层使用下层提供的服务时，必须与下层交换一些命令，这些命令称为<strong>服务原语</strong>。</p>
+<p>OSI 参考模型将原语划分为四类：</p>
+<ol>
+<li>请求(Request)：由服务用户发往服务提供者，请求完成某项工作。</li>
+<li>指示(Indication)：由服务提供者发往服务用户，指示用户做某件事情。</li>
+<li>响应(Response)：由服务用户发往服务提供者，作为对指示的响应。</li>
+<li>证实(Confirmation)：由服务提供者发往服务用户，作为对请求的证实。</li>
+</ol>
+<p>这四类原语用于不同的功能，如建立连接、传输数据和断开连接等。有应答服务包括全部四类原语，而无应答服务则只有请求和指示两类原语。</p>
+<p>协议和服务概念上是不一样的。</p>
+<ul>
+<li>首先，只有本层协议的实现才能保证向上一层提供服务。本层的服务用户只能看见服务而无法看见下面的协议，即下面的协议对上层的服务用户是透明的。</li>
+<li>其次，协议是“水平的”，即协议是控制对等实体之间通信的规则。但是，服务是“垂真的”，即服务是由下层通过层间接口向上层提供的。</li>
+<li>另外，并非在一层内完成的全部功能都称为服务，只有那些能够被高一层实体“看得见”的功能才称为服务。</li>
+</ul>
+<p>计算机网络提供的服务可按以下三种方式分类:</p>
+<ol>
+<li>
+<p>面向连接服务与无连接服务</p>
+<ul>
+<li>
+<p>在面向连接服务中，通信前双方必须先建立连接，分配相应的资源（如缓冲区），以保证通信能正常进行，传输结束后释放连接和占用的资源。</p>
+<p>因此这种服务可分为连接建立、数据传输和连接释放三个阶段。例如，TCP 就是一种面向连接服务的协议。</p>
+</li>
+<li>
+<p>在无连接服务中，通信前双方不需要先建立连接，需要发送数据时可直接发送，将每个带有目的地址的包（报文分组）传送到线路上，由系统选定路线进行传输。</p>
+<p>这种服务常被描述为“尽最大努力交付”，是一种不可靠的服务。例如，IP、UDP 就是一种无连接服务的协议。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>可靠服务和不可靠服务</p>
+<ul>
+<li>可靠服务是指网络具有纠错、检错、应答机制，能保证数据正确、可靠地传送到目的地。</li>
+<li>不可靠服务是指网络只是尽量让数据正确、可靠地传送到目的地，是一种尽力而为的服务。</li>
+</ul>
+<p>对于提供不可靠服务的网络，其网络的正确性、可靠性要由应用或用户来保障。例如，用户收到信息后要判断信息的正确性，若不正确，则用户就要把出错信息报告给信息的发送者，以便发送者采取纠正措施。通过用户的这些措施，可将不可靠服务变成可靠服务。</p>
+</li>
+<li>
+<p>有应答服务和无应答服务</p>
+<ul>
+<li>
+<p>有应答服务是指接收方在收到数据后向发送方给出相应的应答，该应答由传输系统内部自动实现，而不由用户实现。发送的应答既可以是肯定应答，又可以是否定应答，通常在接收到的数据有错误时发送否定应答。</p>
+<p>例如，文件传输服务就是一种有应答服务。</p>
+</li>
+<li>
+<p>无应答服务是指接收方收到数据后不自动给出应答。若需要应答，则由高层实现。</p>
+<p>例如，对于 WWW 服务，客户端收到服务器发送的页面文件后不给出应答。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="常见的三种计算机网络体系结构">常见的三种计算机网络体系结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#常见的三种计算机网络体系结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/34.png" alt/></p>
+<h3 id="osi-参考模型">OSI 参考模型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#osi-参考模型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/32.png" alt/></p>
+<p>开放系统互连参考模型（OSI/RM)，通常简称为 OSI 参考模型。</p>
+<p>OSI 参考模型有 7 层，自下而上依次为物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。</p>
+<p>低三层统称通信子网，是为联网而附加的通信设备，完成数据的传输功能；</p>
+<p>高三层统称资源子网，相当于计算机系统，完成数据的处理等功能。</p>
+<p>传输层承上启下。</p>
+<p><img src="./assets/43.png" alt/></p>
+<p>OSI 参考模型不仅<strong>划分了层次结构</strong>，还<strong>定义了各层可能提供的服务</strong>，但并未规定协议的具体实现，而是描述了一些概念和原则，用来协调和组织各层所用的协议。</p>
+<ol>
+<li>
+<p><span class="text-highlight">物理层</span>(PhysicalLayer)</p>
+<p>物理层的<strong>传输单位是比特</strong>。</p>
+<p>实现比特流在传输介质上的透明传输；</p>
+<p><img src="./assets/76.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">数据链路层</span>(DataLinkLayer)</p>
+<p>数据链路层的<strong>传输单位是帧</strong>。</p>
+<p>将有差错的物理线路变成无差错的数据链路，实现相邻结点之间即<strong>点到点</strong>的数据传输，并保证数据正确的顺序和完整性。</p>
+<p>实现了<strong>物理寻址、组帧、流量控制、差错检验、数据重发</strong>等功能。</p>
+<p><img src="./assets/77.png" alt/></p>
+<blockquote>
+<p>网络层和传输层才具有拥塞控制的功能。</p>
+</blockquote>
+</li>
+<li>
+<p><span class="text-highlight">网络层</span>(NetworkLayer)(网际层/IP 层)</p>
+<p>网络层的<strong>传输单位是数据报</strong>。</p>
+<p>控制报文通过网络的<strong>路由选择</strong>。</p>
+<p>实现<strong>流量控制、拥塞控制、差错控制和网际互连</strong>等功能。</p>
+<p><strong>支持无连接和面向连接的通信</strong>。</p>
+<p><img src="./assets/78.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">传输层</span>(TransportLayer)(运输层)</p>
+<p>负责<span class="text-highlight">主机中两个进程之间</span>的通信。</p>
+<p><strong>为端到端连接提供可靠的传输服务</strong>，即<strong>为端到端连接提供流量控制、差错控制、服务质量、数据传输管理等服务</strong>。</p>
+<p><strong>仅支持面向连接的通信</strong>。</p>
+<p>传输层的协议有 TCP、UDP。</p>
+<p><img src="./assets/79.png" alt/></p>
+</li>
+<li>
+<p><span class="text-highlight">会话层</span>(SessionLayer)</p>
+<p>会话层的两个主要服务是<strong>会话管理</strong>和<strong>同步</strong>。</p>
+<p>会话层<strong>使用检验点使通信会话在通信失效时从检验点继续恢复通信，实现数据同步</strong>。</p>
+</li>
+<li>
+<p><span class="text-highlight">表示层</span>(PresentationLayer)</p>
+<p>解决不同主机上信息表示不一致的问题。</p>
+<p><strong>数据压缩、加密和解密、格式转换</strong>。</p>
+</li>
+<li>
+<p><span class="text-highlight">应用层</span>(ApplicationLayer)</p>
+<p>提供用户与网络的接口。</p>
+<p>应用层为特定类型的网络应用提供访问 OSI 参考模型环境的手段。</p>
+<p>用户的实际应用多种多样，这就要求应用层采用不同的应用协议来解决不同类型的应用要求，因此应用层是最复杂的一层，使用的协议也最多。</p>
+<p>典型的协议有用于文件传送的 FTP、用于电子邮件的 SMTP、用于万维网的 HTTP 等。</p>
+</li>
+</ol>
+<p><img src="./assets/80.png" alt/></p>
+<p><img src="./assets/81.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>数据链路层和传输层通信的区别 </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><span class="text-highlight">数据链路层提供的是点到点通信</span>，<span class="text-highlight">传输层提供的是端到端通信</span>，两者不同。</p>
+<ul>
+<li><strong>点到点</strong>可理解为<strong>主机和主机之间的通信</strong>，一个点是指一个硬件地址或 IP 地址，网络中参与通信的主机是通过硬件地址或 IP 地址来标识的；</li>
+<li><strong>端到端</strong>通信是指运行在<strong>不同主机内的两个进程之间的通信</strong>，一个进程由一个端口来标识，所以称为端到端通信。</li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>流量控制 </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>流量控制指的是通过限制发送方发出的数据流量，使得其发送速率不超过接收方接收速率的一种技术。</p>
+<p>流量控制功能<strong>可存在于数据链路层及其之上的各层中</strong>。目前提供流量控制功能的主要是<strong>数据链路层</strong>、<strong>网络层</strong>和<strong>传输层</strong>。</p>
+<p>不过，各层的流量控制对象不一样，各层的流量控制功能是在各层实体之间进行的。数据链路层是相邻结点之间的流量控制，网络层是整个网络中的流量控制，传输层是端到端的流量控制。</p>
+</div>
+</blockquote>
+<h3 id="tcpip-模型">TCP/IP 模型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tcpip-模型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>TCP/IP 模型从低到高依次为网络接口层、网际层、传输层和应用层。</p>
+<p>TCP/IP 因为得到广泛应用而成为事实上的国际标准。</p>
+<p><img src="./assets/33.png" alt/></p>
+<ol>
+<li>
+<p><span class="text-highlight">网络接口层</span></p>
+<p>表示与物理网络的接口，但实际上 TCP/IP 本身并未真正描述这一部分，只是指出主机必须使用某种协议与网络连接，以便在其上传输 IP 分组。网络接口层的作用是从主机或结点接收 IP 分组，并将它们发送到指定的物理网络上。</p>
+</li>
+<li>
+<p><span class="text-highlight">网际层</span></p>
+<p>TCP/IP 体系结构的关键部分。</p>
+<p>向上只提供简单灵活的、无连接的、尽最大努力交付的数据报服务。</p>
+<p>网际层将分组发往任何网络，并为其独立地选择合适的路由，但不保证各个分组有序地到达，各个分组的有序和可靠交付由高层负责。网际层定义了标准的分组格式和协议，即 IP。</p>
+<p><strong>仅有无连接的通信</strong>。</p>
+</li>
+<li>
+<p><span class="text-highlight">传输层</span></p>
+<p>TCP/IP 模型的传输层提供端到端的通信，并且负责差错控制和流量控制，可以提供可靠的面向连接服务或不可靠的无连接服务。</p>
+<p>传输层主要使用以下两种协议：</p>
+<ul>
+<li>传输控制协议(TransmissionControlProtocol, TCP)：它是<strong>面向连接的</strong>，传输数据之前必须先建立连接，能够提供可靠的交付。数据传输的单位是报文段。</li>
+<li>用户数据报协议(UserDatagramProtocol, UDP)：它是<strong>无连接的</strong>，不保证提供可靠的交付，只能提供“尽最大努力交付”。数据传输的单位是用户数据报。</li>
+</ul>
+</li>
+<li>
+<p><span class="text-highlight">应用层</span></p>
+<p>包含所有的高层协议，如虚拟终端协议(Telnet)、文件传输协议(FTP)、域名解析服务(DNS)、电子邮件协议(SMTP)和超文本传输协议(HTTP)。</p>
+</li>
+</ol>
+<p><img src="./assets/36.png" alt/></p>
+<h3 id="区别">区别<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#区别" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/95.png" alt/></p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>目录</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#概念" data-for="概念">概念</a></li><li class="depth-1"><a href="#因特网简介-" data-for="因特网简介-">因特网简介 *</a></li><li class="depth-0"><a href="#组成" data-for="组成">组成</a></li><li class="depth-0"><a href="#功能" data-for="功能">功能</a></li><li class="depth-0"><a href="#数据交换方式" data-for="数据交换方式">数据交换方式</a></li><li class="depth-1"><a href="#电路交换" data-for="电路交换">电路交换</a></li><li class="depth-1"><a href="#报文交换" data-for="报文交换">报文交换</a></li><li class="depth-1"><a href="#分组交换" data-for="分组交换">分组交换</a></li><li class="depth-1"><a href="#比较" data-for="比较">比较</a></li><li class="depth-0"><a href="#分类" data-for="分类">分类</a></li><li class="depth-1"><a href="#按分布范围分类" data-for="按分布范围分类">按分布范围分类</a></li><li class="depth-1"><a href="#按传输技术分类" data-for="按传输技术分类">按传输技术分类</a></li><li class="depth-1"><a href="#按拓扑结构分类" data-for="按拓扑结构分类">按拓扑结构分类</a></li><li class="depth-1"><a href="#按使用者分类" data-for="按使用者分类">按使用者分类</a></li><li class="depth-1"><a href="#按传输介质分类" data-for="按传输介质分类">按传输介质分类</a></li><li class="depth-0"><a href="#性能指标" data-for="性能指标">性能指标</a></li><li class="depth-0"><a href="#计算机网络体系结构" data-for="计算机网络体系结构">计算机网络体系结构</a></li><li class="depth-1"><a href="#定义" data-for="定义">定义</a></li><li class="depth-1"><a href="#专业术语" data-for="专业术语">专业术语</a></li><li class="depth-2"><a href="#实体" data-for="实体">实体</a></li><li class="depth-2"><a href="#协议" data-for="协议">协议</a></li><li class="depth-2"><a href="#接口" data-for="接口">接口</a></li><li class="depth-2"><a href="#服务" data-for="服务">服务</a></li><li class="depth-1"><a href="#常见的三种计算机网络体系结构" data-for="常见的三种计算机网络体系结构">常见的三种计算机网络体系结构</a></li><li class="depth-2"><a href="#osi-参考模型" data-for="osi-参考模型">OSI 参考模型</a></li><li class="depth-2"><a href="#tcpip-模型" data-for="tcpip-模型">TCP/IP 模型</a></li><li class="depth-2"><a href="#区别" data-for="区别">区别</a></li></ul></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2025</p><ul><li><a href="https://github.com/KISGP">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script src="../../postscript.js" type="module"></script></html>
