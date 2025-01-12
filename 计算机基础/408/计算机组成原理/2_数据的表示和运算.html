@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh"><head><title>数据的表示和运算</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Comic_Sans_MS:wght@400;700&amp;family=Comic_Sans_MS:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="😶‍🌫️ Notes"/><meta property="og:title" content="数据的表示和运算"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="数据的表示和运算"/><meta name="twitter:description" content="数制与编码 在计算机系统内部，所有信息都是用二进制进行编码的，这样做的原因有以下几点。 二进制只有两种状态，使用有两个稳定状态的物理器件就可以表示二进制数的每一位，制造成本比较低。 二进制位 1 和 0 正好与逻辑值“真”和“假”相对应，为计算机实现逻辑运算和程序中的逻辑判断提供了便利条件。 二进制的编码和运算规则很简单，通过逻辑门电路能方便地实现算术运算。 ..."/><meta property="og:description" content="数制与编码 在计算机系统内部，所有信息都是用二进制进行编码的，这样做的原因有以下几点。 二进制只有两种状态，使用有两个稳定状态的物理器件就可以表示二进制数的每一位，制造成本比较低。 二进制位 1 和 0 正好与逻辑值“真”和“假”相对应，为计算机实现逻辑运算和程序中的逻辑判断提供了便利条件。 二进制的编码和运算规则很简单，通过逻辑门电路能方便地实现算术运算。 ..."/><meta property="og:image:type" content="image/webp"/><meta property="og:image:alt" content="数制与编码 在计算机系统内部，所有信息都是用二进制进行编码的，这样做的原因有以下几点。 二进制只有两种状态，使用有两个稳定状态的物理器件就可以表示二进制数的每一位，制造成本比较低。 二进制位 1 和 0 正好与逻辑值“真”和“假”相对应，为计算机实现逻辑运算和程序中的逻辑判断提供了便利条件。 二进制的编码和运算规则很简单，通过逻辑门电路能方便地实现算术运算。 ..."/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:url" content="https://kisgp.cn/static/og-image.png"/><meta name="twitter:image" content="https://kisgp.cn/static/og-image.png"/><meta property="og:image" content="https://kisgp.cn/static/og-image.png"/><meta property="twitter:domain" content="kisgp.cn"/><meta property="og:url" content="https://kisgp.cn/计算机基础/408/计算机组成原理/2_数据的表示和运算"/><meta property="twitter:url" content="https://kisgp.cn/计算机基础/408/计算机组成原理/2_数据的表示和运算"/><link rel="icon" href="../../../static/icon.png"/><meta name="description" content="数制与编码 在计算机系统内部，所有信息都是用二进制进行编码的，这样做的原因有以下几点。 二进制只有两种状态，使用有两个稳定状态的物理器件就可以表示二进制数的每一位，制造成本比较低。 二进制位 1 和 0 正好与逻辑值“真”和“假”相对应，为计算机实现逻辑运算和程序中的逻辑判断提供了便利条件。 二进制的编码和运算规则很简单，通过逻辑门电路能方便地实现算术运算。 ..."/><meta name="generator" content="Quartz"/><link href="../../../static/font/font-style.css" rel="stylesheet" type="text/css" spa-preserve/><link href="../../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="计算机基础/408/计算机组成原理/2_数据的表示和运算"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../../..">😶‍🌫️ Notes</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>搜索</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="collapse" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;编程语言&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Java&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/JavaScript&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Node&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust/Rust认识&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;服务器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机操作系统&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机网络&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机组成原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/数据结构和算法&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/编译原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/软件测试&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据库系统概论&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/浏览器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/CSS&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/react&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/react/react学习&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/rspress&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/UI设计&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读/未完成&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Git&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Markdown&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言"><button class="folder-button"><span class="folder-title">编程语言</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Java"><button class="folder-button"><span class="folder-title">Java</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Java"><li><a href="../../../编程语言/Java/JavaWeb复习" data-for="编程语言/Java/JavaWeb复习" title="JavaWeb复习">JavaWeb复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/JavaScript"><button class="folder-button"><span class="folder-title">JavaScript</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/JavaScript"><li><a href="../../../编程语言/JavaScript/JS笔记" data-for="编程语言/JavaScript/JS笔记" title="JS笔记">JS笔记</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Node"><button class="folder-button"><span class="folder-title">Node</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Node"><li><a href="../../../编程语言/Node/Express项目架构" data-for="编程语言/Node/Express项目架构" title="Express项目架构">Express项目架构</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust"><button class="folder-button"><span class="folder-title">Rust</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust/Rust认识"><button class="folder-button"><span class="folder-title">Rust认识</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust/Rust认识"><li><a href="../../../编程语言/Rust/Rust认识/1_环境配置" data-for="编程语言/Rust/Rust认识/1_环境配置" title="Rust 环境配置">Rust 环境配置</a></li><li><a href="../../../编程语言/Rust/Rust认识/2_cargo使用" data-for="编程语言/Rust/Rust认识/2_cargo使用" title="Cargo 使用">Cargo 使用</a></li><li><a href="../../../编程语言/Rust/Rust认识/3_变量" data-for="编程语言/Rust/Rust认识/3_变量" title="变量">变量</a></li><li><a href="../../../编程语言/Rust/Rust认识/4_类型" data-for="编程语言/Rust/Rust认识/4_类型" title="类型">类型</a></li></ul></div></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="服务器"><button class="folder-button"><span class="folder-title">服务器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="服务器"><li><a href="../../../服务器/域名注册" data-for="服务器/域名注册" title="域名注册">域名注册</a></li><li><a href="../../../服务器/Cloudflare-Workers-使用" data-for="服务器/Cloudflare-Workers-使用" title="使用 Cloudflare Workers 优化 Github 文件国内访问速度">使用 Cloudflare Workers 优化 Github 文件国内访问速度</a></li><li><a href="../../../服务器/MinIO-使用" data-for="服务器/MinIO-使用" title="MinIO 使用">MinIO 使用</a></li><li><a href="../../../服务器/MongoDB-使用" data-for="服务器/MongoDB-使用" title="MongoDB 使用">MongoDB 使用</a></li><li><a href="../../../服务器/OSS-对象存储" data-for="服务器/OSS-对象存储" title="OSS 对象存储">OSS 对象存储</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础"><button class="folder-button"><span class="folder-title">计算机基础</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408"><button class="folder-button"><span class="folder-title">408</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机操作系统"><button class="folder-button"><span class="folder-title">计算机操作系统</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机操作系统"><li><a href="../../../计算机基础/408/计算机操作系统/1_操作系统概述" data-for="计算机基础/408/计算机操作系统/1_操作系统概述" title="操作系统概述">操作系统概述</a></li><li><a href="../../../计算机基础/408/计算机操作系统/2_进程与线程" data-for="计算机基础/408/计算机操作系统/2_进程与线程" title="进程与线程">进程与线程</a></li><li><a href="../../../计算机基础/408/计算机操作系统/3_内存管理" data-for="计算机基础/408/计算机操作系统/3_内存管理" title="内存管理">内存管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/4_文件管理" data-for="计算机基础/408/计算机操作系统/4_文件管理" title="文件管理">文件管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/5_输入输出管理" data-for="计算机基础/408/计算机操作系统/5_输入输出管理" title="I/O管理">I/O管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/6_其他" data-for="计算机基础/408/计算机操作系统/6_其他" title="其他文件">其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机网络"><button class="folder-button"><span class="folder-title">计算机网络</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机网络"><li><a href="../../../计算机基础/408/计算机网络/1_计算机网络体系结构" data-for="计算机基础/408/计算机网络/1_计算机网络体系结构" title="计算机网络体系结构">计算机网络体系结构</a></li><li><a href="../../../计算机基础/408/计算机网络/2_物理层" data-for="计算机基础/408/计算机网络/2_物理层" title="物理层">物理层</a></li><li><a href="../../../计算机基础/408/计算机网络/3_数据链路层" data-for="计算机基础/408/计算机网络/3_数据链路层" title="数据链路层">数据链路层</a></li><li><a href="../../../计算机基础/408/计算机网络/4_网络层" data-for="计算机基础/408/计算机网络/4_网络层" title="网络层">网络层</a></li><li><a href="../../../计算机基础/408/计算机网络/5_传输层" data-for="计算机基础/408/计算机网络/5_传输层" title="传输层">传输层</a></li><li><a href="../../../计算机基础/408/计算机网络/6_应用层" data-for="计算机基础/408/计算机网络/6_应用层" title="应用层">应用层</a></li><li><a href="../../../计算机基础/408/计算机网络/7_其他" data-for="计算机基础/408/计算机网络/7_其他" title="其他文件">其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机组成原理"><button class="folder-button"><span class="folder-title">计算机组成原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机组成原理"><li><a href="../../../计算机基础/408/计算机组成原理/1_计算机系统概述" data-for="计算机基础/408/计算机组成原理/1_计算机系统概述" title="计算机组成原理">计算机组成原理</a></li><li><a href="../../../计算机基础/408/计算机组成原理/2_数据的表示和运算" data-for="计算机基础/408/计算机组成原理/2_数据的表示和运算" title="数据的表示和运算">数据的表示和运算</a></li><li><a href="../../../计算机基础/408/计算机组成原理/3_存储系统" data-for="计算机基础/408/计算机组成原理/3_存储系统" title="存储系统">存储系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/4_指令系统" data-for="计算机基础/408/计算机组成原理/4_指令系统" title="指令系统">指令系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/5_中央处理器" data-for="计算机基础/408/计算机组成原理/5_中央处理器" title="中央处理器">中央处理器</a></li><li><a href="../../../计算机基础/408/计算机组成原理/6_总线" data-for="计算机基础/408/计算机组成原理/6_总线" title="总线">总线</a></li><li><a href="../../../计算机基础/408/计算机组成原理/7_IO系统" data-for="计算机基础/408/计算机组成原理/7_IO系统" title="I/O 系统">I/O 系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/8_其他" data-for="计算机基础/408/计算机组成原理/8_其他" title=" 其他文件"> 其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/数据结构和算法"><button class="folder-button"><span class="folder-title">数据结构和算法</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/数据结构和算法"><li><a href="../../../计算机基础/408/数据结构和算法/1_数据结构基本概念" data-for="计算机基础/408/数据结构和算法/1_数据结构基本概念" title="数据结构的基本概念">数据结构的基本概念</a></li><li><a href="../../../计算机基础/408/数据结构和算法/2_算法基本概念" data-for="计算机基础/408/数据结构和算法/2_算法基本概念" title="算法基本概念">算法基本概念</a></li><li><a href="../../../计算机基础/408/数据结构和算法/3_线性表" data-for="计算机基础/408/数据结构和算法/3_线性表" title="线性表">线性表</a></li><li><a href="../../../计算机基础/408/数据结构和算法/4_栈和队列" data-for="计算机基础/408/数据结构和算法/4_栈和队列" title="栈和队列">栈和队列</a></li><li><a href="../../../计算机基础/408/数据结构和算法/5_串" data-for="计算机基础/408/数据结构和算法/5_串" title="串">串</a></li><li><a href="../../../计算机基础/408/数据结构和算法/6_树" data-for="计算机基础/408/数据结构和算法/6_树" title="树">树</a></li><li><a href="../../../计算机基础/408/数据结构和算法/7_图" data-for="计算机基础/408/数据结构和算法/7_图" title="图">图</a></li><li><a href="../../../计算机基础/408/数据结构和算法/8_查找" data-for="计算机基础/408/数据结构和算法/8_查找" title="查找">查找</a></li><li><a href="../../../计算机基础/408/数据结构和算法/9_排序" data-for="计算机基础/408/数据结构和算法/9_排序" title="排序">排序</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/编译原理"><button class="folder-button"><span class="folder-title">编译原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/编译原理"><li><a href="../../../计算机基础/编译原理/1_开始" data-for="计算机基础/编译原理/1_开始" title="开始">开始</a></li><li><a href="../../../计算机基础/编译原理/2_引论" data-for="计算机基础/编译原理/2_引论" title="引论">引论</a></li><li><a href="../../../计算机基础/编译原理/3_词法分析" data-for="计算机基础/编译原理/3_词法分析" title="词法分析">词法分析</a></li><li><a href="../../../计算机基础/编译原理/4_语法分析" data-for="计算机基础/编译原理/4_语法分析" title="语法分析">语法分析</a></li><li><a href="../../../计算机基础/编译原理/5_语义分析与中间代码生成器" data-for="计算机基础/编译原理/5_语义分析与中间代码生成器" title="语义分析与中间代码生成器">语义分析与中间代码生成器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/软件测试"><button class="folder-button"><span class="folder-title">软件测试</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/软件测试"><li><a href="../../../计算机基础/软件测试/1_软件测试技术复习" data-for="计算机基础/软件测试/1_软件测试技术复习" title="软件测试技术复习">软件测试技术复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据库系统概论"><button class="folder-button"><span class="folder-title">数据库系统概论</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据库系统概论"><li><a href="../../../计算机基础/数据库系统概论/1_绪论" data-for="计算机基础/数据库系统概论/1_绪论" title="绪论">绪论</a></li><li><a href="../../../计算机基础/数据库系统概论/2_关系数据库" data-for="计算机基础/数据库系统概论/2_关系数据库" title="关系数据库">关系数据库</a></li><li><a href="../../../计算机基础/数据库系统概论/3_SQL" data-for="计算机基础/数据库系统概论/3_SQL" title="SQL">SQL</a></li><li><a href="../../../计算机基础/数据库系统概论/4_数据库安全性" data-for="计算机基础/数据库系统概论/4_数据库安全性" title="数据库安全性">数据库安全性</a></li><li><a href="../../../计算机基础/数据库系统概论/5_数据库完整性" data-for="计算机基础/数据库系统概论/5_数据库完整性" title="数据库完整性">数据库完整性</a></li><li><a href="../../../计算机基础/数据库系统概论/6_关系数据理论" data-for="计算机基础/数据库系统概论/6_关系数据理论" title="关系数据理论">关系数据理论</a></li><li><a href="../../../计算机基础/数据库系统概论/7_数据库设计" data-for="计算机基础/数据库系统概论/7_数据库设计" title="数据库设计">数据库设计</a></li><li><a href="../../../计算机基础/数据库系统概论/8_数据库编程" data-for="计算机基础/数据库系统概论/8_数据库编程" title="数据库编程">数据库编程</a></li><li><a href="../../../计算机基础/数据库系统概论/9_关系查询处理和查询优化" data-for="计算机基础/数据库系统概论/9_关系查询处理和查询优化" title="关系查询处理和查询优化">关系查询处理和查询优化</a></li><li><a href="../../../计算机基础/数据库系统概论/10_数据库恢复技术" data-for="计算机基础/数据库系统概论/10_数据库恢复技术" title="数据库恢复技术">数据库恢复技术</a></li><li><a href="../../../计算机基础/数据库系统概论/11_并发控制" data-for="计算机基础/数据库系统概论/11_并发控制" title="并发控制">并发控制</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端"><button class="folder-button"><span class="folder-title">前端</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/浏览器"><button class="folder-button"><span class="folder-title">浏览器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/浏览器"><li><a href="../../../前端/浏览器/深入了解现代网络浏览器" data-for="前端/浏览器/深入了解现代网络浏览器" title="深入了解现代网络浏览器">深入了解现代网络浏览器</a></li><li><a href="../../../前端/浏览器/CORS错误" data-for="前端/浏览器/CORS错误" title="CORS错误">CORS错误</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/CSS"><button class="folder-button"><span class="folder-title">CSS</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/CSS"><li><a href="../../../前端/CSS/css选择器" data-for="前端/CSS/css选择器" title="css选择器">css选择器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/react"><button class="folder-button"><span class="folder-title">react</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/react"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/react/react学习"><button class="folder-button"><span class="folder-title">react学习</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/react/react学习"><li><a href="../../../前端/react/react学习/1_react初体验" data-for="前端/react/react学习/1_react初体验" title="react初体验">react初体验</a></li><li><a href="../../../前端/react/react学习/2_jsx基本语法" data-for="前端/react/react学习/2_jsx基本语法" title="jsx基本语法">jsx基本语法</a></li><li><a href="../../../前端/react/react学习/3_react脚手架解析" data-for="前端/react/react学习/3_react脚手架解析" title="react脚手架解析">react脚手架解析</a></li><li><a href="../../../前端/react/react学习/4_react性能优化" data-for="前端/react/react学习/4_react性能优化" title="react性能优化">react性能优化</a></li><li><a href="../../../前端/react/react学习/5_react组件化开发" data-for="前端/react/react学习/5_react组件化开发" title="react组件化开发">react组件化开发</a></li><li><a href="../../../前端/react/react学习/6_react动画" data-for="前端/react/react学习/6_react动画" title="react动画">react动画</a></li><li><a href="../../../前端/react/react学习/7_Redux的使用" data-for="前端/react/react学习/7_Redux的使用" title="Redux的使用">Redux的使用</a></li><li><a href="../../../前端/react/react学习/8_Router的使用" data-for="前端/react/react学习/8_Router的使用" title="Router的使用">Router的使用</a></li><li><a href="../../../前端/react/react学习/9_Hook" data-for="前端/react/react学习/9_Hook" title="Hook的使用">Hook的使用</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/rspress"><button class="folder-button"><span class="folder-title">rspress</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/rspress"><li><a href="../../../前端/rspress/自动生成侧边栏" data-for="前端/rspress/自动生成侧边栏" title="rspress 自动生成侧边栏">rspress 自动生成侧边栏</a></li><li><a href="../../../前端/rspress/LaTeX无法使用$$语法" data-for="前端/rspress/LaTeX无法使用$$语法" title="LaTeX无法使用$$语法">LaTeX无法使用$$语法</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/UI设计"><button class="folder-button"><span class="folder-title">UI设计</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/UI设计"><li><a href="../../../前端/UI设计/RefactoringUI学习" data-for="前端/UI设计/RefactoringUI学习" title="RefactoringUI学习">RefactoringUI学习</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读"><button class="folder-button"><span class="folder-title">阅读</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读/未完成"><button class="folder-button"><span class="folder-title">未完成</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读/未完成"><li><a href="../../../阅读/未完成/解构现代化：温铁军演讲录" data-for="阅读/未完成/解构现代化：温铁军演讲录" title="解构现代化：温铁军演讲录">解构现代化：温铁军演讲录</a></li><li><a href="../../../阅读/未完成/金瓶梅词话（上下）" data-for="阅读/未完成/金瓶梅词话（上下）" title="金瓶梅词话（上下）">金瓶梅词话（上下）</a></li><li><a href="../../../阅读/未完成/思想的力量（第9版）" data-for="阅读/未完成/思想的力量（第9版）" title="思想的力量（第9版）">思想的力量（第9版）</a></li><li><a href="../../../阅读/未完成/乡土中国-生育制度-乡土重建" data-for="阅读/未完成/乡土中国-生育制度-乡土重建" title="乡土中国 生育制度 乡土重建">乡土中国 生育制度 乡土重建</a></li><li><a href="../../../阅读/未完成/制造消费者：消费主义全球史" data-for="阅读/未完成/制造消费者：消费主义全球史" title="制造消费者：消费主义全球史">制造消费者：消费主义全球史</a></li></ul></div></li><li><a href="../../../阅读/大清为何轰然倒塌" data-for="阅读/大清为何轰然倒塌" title="大清为何轰然倒塌">大清为何轰然倒塌</a></li><li><a href="../../../阅读/叫魂：1768年中国妖术大恐慌" data-for="阅读/叫魂：1768年中国妖术大恐慌" title="叫魂：1768年中国妖术大恐慌">叫魂：1768年中国妖术大恐慌</a></li><li><a href="../../../阅读/菊与刀" data-for="阅读/菊与刀" title="菊与刀">菊与刀</a></li><li><a href="../../../阅读/论语" data-for="阅读/论语" title="论语">论语</a></li><li><a href="../../../阅读/毛泽东选集" data-for="阅读/毛泽东选集" title="毛泽东选集">毛泽东选集</a></li><li><a href="../../../阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" data-for="阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" title="人民公开课：中国共产党与国家治理体系和治理能力现代化">人民公开课：中国共产党与国家治理体系和治理能力现代化</a></li><li><a href="../../../阅读/盛唐到底盛在哪儿" data-for="阅读/盛唐到底盛在哪儿" title="盛唐到底盛在哪儿">盛唐到底盛在哪儿</a></li><li><a href="../../../阅读/伊豆的舞女" data-for="阅读/伊豆的舞女" title="伊豆的舞女">伊豆的舞女</a></li><li><a href="../../../阅读/以利为利：财政关系与地方政府行为" data-for="阅读/以利为利：财政关系与地方政府行为" title="以利为利：财政关系与地方政府行为">以利为利：财政关系与地方政府行为</a></li><li><a href="../../../阅读/哲学导论讲记" data-for="阅读/哲学导论讲记" title="哲学导论讲记">哲学导论讲记</a></li><li><a href="../../../阅读/治大国若烹小鲜：基层治理与世道人心" data-for="阅读/治大国若烹小鲜：基层治理与世道人心" title="治大国若烹小鲜：基层治理与世道人心">治大国若烹小鲜：基层治理与世道人心</a></li><li><a href="../../../阅读/置身事内：中国政府与经济发展" data-for="阅读/置身事内：中国政府与经济发展" title="置身事内：中国政府与经济发展">置身事内：中国政府与经济发展</a></li><li><a href="../../../阅读/中国是部金融史" data-for="阅读/中国是部金融史" title="中国是部金融史">中国是部金融史</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Git"><button class="folder-button"><span class="folder-title">Git</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Git"><li><a href="../../../Git/如何删除无用分支" data-for="Git/如何删除无用分支" title="如何删除无用分支">如何删除无用分支</a></li><li><a href="../../../Git/文件.gitkeep是什么" data-for="Git/文件.gitkeep是什么" title="文件.gitkeep是什么">文件.gitkeep是什么</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Markdown"><button class="folder-button"><span class="folder-title">Markdown</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Markdown"><li><a href="../../../Markdown/Callouts-标注" data-for="Markdown/Callouts-标注" title="Callouts 标注">Callouts 标注</a></li><li><a href="../../../Markdown/Obsidian-教程" data-for="Markdown/Obsidian-教程" title="Obsidian 教程">Obsidian 教程</a></li><li><a href="../../../Markdown/Typora-自定义-Callouts-样式" data-for="Markdown/Typora-自定义-Callouts-样式" title="Typora 自定义 Callouts">Typora 自定义 Callouts</a></li><li><a href="../../../Markdown/Typora-自定义字体" data-for="Markdown/Typora-自定义字体" title="Typora 自定义字体">Typora 自定义字体</a></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div><div class="recent-notes desktop-only"><button type="button" id="recent" class aria-controls="recent-content" aria-expanded="true"><h3>最近</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="recent-content" class><ul class="recent-ul"><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../前端/UI设计/RefactoringUI学习" class="internal">RefactoringUI学习</a></h3></div><p class="meta"><time datetime="2025-01-12T08:35:37.000Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机组成原理/8_其他" class="internal"> 其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:15:49.032Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机网络/7_其他" class="internal">其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:11:41.570Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机操作系统/6_其他" class="internal">其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:09:23.163Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../编程语言/Node/Express项目架构" class="internal">Express项目架构</a></h3></div><p class="meta"><time datetime="2025-01-12T07:58:20.245Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../前端/浏览器/深入了解现代网络浏览器" class="internal">深入了解现代网络浏览器</a></h3></div><p class="meta"><time datetime="2025-01-12T07:52:32.258Z">2025/1/12</time></p></div></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/">计算机基础</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/408/">408</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/408/计算机组成原理/">计算机组成原理</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>数据的表示和运算</a></div></nav><h1 class="article-title">数据的表示和运算</h1><p show-comma="true" class="content-meta"><time datetime="2024-11-16T13:59:29.139Z">2024年11月16日</time><span>46分钟阅读</span></p><ul class="tags"><li><a href="../../../tags/计算机组成原理" class="internal tag-link">计算机组成原理</a></li></ul></div></div><article class="popover-hint"><h1 id="数制与编码">数制与编码<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数制与编码" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>在计算机系统内部，所有信息都是用<strong>二进制进行编码</strong>的，这样做的原因有以下几点。</p>
+<ol>
+<li>二进制<strong>只有两种状态</strong>，使用有两个稳定状态的物理器件就可以表示二进制数的每一位，<strong>制造成本比较低</strong>。</li>
+<li>二进制位 1 和 0 正好<strong>与逻辑值“真”和“假”相对应</strong>，为计算机实现逻辑运算和程序中的逻辑判断提供了便利条件。</li>
+<li>二进制的<strong>编码和运算规则很简单</strong>，通过<strong>逻辑门电路</strong>能方便地实现算术运算。</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>在计算机内部，数值数据的表示方法有以下两大类：</p>
+<ol>
+<li>
+<p><strong>直接用二进制数表示</strong>，分为有符号数和无符号数。</p>
+<p>有符号数又分为定点数表示和浮点数表示。无符号数用来表示无符号整数（如地址等信息）。</p>
+</li>
+<li>
+<p><strong>二进制编码的十进制数</strong>，一般采用 BCD 码表示，用来表示整数。</p>
+</li>
+</ol>
+<p>所以，计算机中的数值数据虽然都用二进制表示，但不全是二进制，也有用十进制表示的（在用户界面层或者编程语言中，程序员或用户可以使用十进制或其他进制来输入、显示或读取数据，尽管这些数据在计算机内部仍然是以二进制形式存储和运算）。例如在指令类型中，就分别有二进制加法指令和十进制加法指令（专门用于对 BCD 进行加法操作）。</p>
+</div>
+</blockquote>
+<h2 id="进位计数">进位计数<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#进位计数" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/27.png" alt/></p>
+<p><img src="./assets/20.png" alt/></p>
+<p><img src="./assets/21.png" alt/></p>
+<p><img src="./assets/22.png" alt/></p>
+<p>可以用后缀字母标识一个数的进位计数制</p>
+<ul>
+<li>用 B 表示二进制；</li>
+<li>用 O 表示八进制；</li>
+<li>用 D 表示十进制（通常直接省略）；</li>
+<li>用 H 表示十六进制，有时也用前缀 0x 表示十六进制数；</li>
+</ul>
+<p><img src="./assets/24.png" alt/></p>
+<h2 id="进制转换">进制转换<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#进制转换" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/23.png" alt/></p>
+<p><img src="./assets/25.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>在计算机中，小数和整数不一样，整数可以连续表示，但小数是离散的，所以并不是每个十进制小数都可以准确地用二进制表示。但任意一个二进制小数都可以用十进制小数表示。</p>
+</div>
+</blockquote>
+<h2 id="真值和机器数">真值和机器数<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#真值和机器数" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>种带 <code>+</code> 或 <code>-</code> 符号的数称为真值，真值是机器数所代表的实际值。</p>
+<p>在计算机中，通常将数的符号和数值部分一起编码，将数据的符号数字化，通常用“0”表示“正”，用“1”表示“负”。这种把符号“数字化”的数称为机器数。</p>
+<p><img src="./assets/26.png" alt/></p>
+<h2 id="bcd">BCD<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#bcd" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/30.png" alt/></p>
+<p><img src="./assets/28.png" alt/></p>
+<p><img src="./assets/29.png" alt/></p>
+<h2 id="定点数">定点数<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#定点数" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="原码反码补码">原码、反码、补码<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#原码反码补码" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>原码表示的优点：与真值的对应关系简单、直观，与真值的转换简单；用原码实现乘除运算比较简便。</p>
+<p>原码表示的缺点：0 的表示不唯一，有 ±0 两个编码；原码加减运算比较复杂。</p>
+<p>反码表示存在以下几个方面的不足：0 的表示不唯一，有 ±0 两个编码；表示范围比补码少一个最小负数。</p>
+<blockquote>
+<p>反码在计算机中很少使用，通常用作数码变换的中间表示形式。</p>
+</blockquote>
+<p><img src="./assets/35.png" alt/></p>
+<p><img src="./assets/36.png" alt/></p>
+<p><img src="./assets/37.png" alt/></p>
+<p><img src="./assets/38.png" alt/></p>
+<p><img src="./assets/39.png" alt/></p>
+<p><img src="./assets/40.png" alt/></p>
+<p><img src="./assets/41.png" alt/></p>
+<p><img src="./assets/42.png" alt/></p>
+<p><img src="./assets/43.png" alt/></p>
+<p><img src="./assets/44.png" alt/></p>
+<h3 id="移码">移码<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#移码" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>移码就是在真值 X（用补码表示）上加上一个常数（<strong>偏置值</strong>），相当于 X 在数轴上向正方向偏移了若干单位，这就是“移码”一词的由来。</p>
+<p>移码的定义：[x]<del>移</del>= <strong>2^n^</strong>+x（-2^n^≤x &lt; 2^n^，其中机器字长为 n+1）</p>
+<p>假设字长为 8 位，则正数 x = +10101 的移码表示为 2^7^+10101 = 1000 0000 + 10101 = 1001 0101；x = -10101 的移码表示为 2^7^ + (-10101) = 0110 1011。</p>
+<p>移码具有以下特点：</p>
+<ol>
+<li>移码中零的表示唯一</li>
+<li>一个真值的移码和补码仅差一个符号位</li>
+<li>移码全 0 时，对应真值的最小值-2^n^；移码全 1 时，对应真值的最大值 2^n^-1。</li>
+<li>移码保持了数据原有的大小顺序，移码大真值就大，移码小真值就小。</li>
+</ol>
+<p><img src="./assets/45.png" alt/></p>
+<p><img src="./assets/46.png" alt/></p>
+<p><img src="./assets/47.png" alt/></p>
+<p><img src="./assets/48.png" alt/></p>
+<h3 id="机器数的定点表示">机器数的定点表示<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#机器数的定点表示" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>根据小数点的位置是否固定，在计算机中有两种数据格式：定点表示和浮点表示。</p>
+<p>在现代计算机中，通常用补码整数表示整数，用原码小数表示浮点数的尾数部分，用移码表示浮点数的阶码部分。</p>
+<p>因此，在定点数的编码和运算中不用考虑对应的定点数是小数还是整数，而只需关心它们的符号位和数值位即可。</p>
+<p>定点数的编码表示法主要有 4 种：原码、补码、反码和移码。</p>
+<p><img src="./assets/49.png" alt/></p>
+<p><img src="./assets/50.png" alt/></p>
+<p><img src="./assets/51.png" alt/></p>
+<p><img src="./assets/52.png" alt/></p>
+<p><img src="./assets/53.png" alt/></p>
+<p><img src="./assets/54.png" alt/></p>
+<p><img src="./assets/55.png" alt/></p>
+<h2 id="无符号整数">无符号整数<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#无符号整数" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>当一个编码的<strong>全部二进制位均为数值位而没有符号位</strong>时，该编码表示就是无符号整数，简称<strong>无符号数</strong>。</p>
+<p>此时，<strong>默认数的符号为正</strong>。因为无符号整数省略了一位符号位，所以在字长相同的情况下，它能表示的最大数比有符号整数能表示的大。<strong>一般在全部是正数运算且不出现负值结果的场合下，使用无符号整数表示</strong>，例如在计算机中，通常使用无符号数表示主存地址。</p>
+<p><img src="./assets/31.png" alt/></p>
+<p><img src="./assets/32.png" alt/></p>
+<p><img src="./assets/33.png" alt/></p>
+<p><img src="./assets/34.png" alt/></p>
+<p><strong>无符号整数的“溢出”</strong>：对于无符号定点整数来说，若寄存器位数不够，则计算机运算过程中一般保留低 n 位，舍弃高位。这样，会产生以下两种结果：</p>
+<ol>
+<li>保留的低 n 位数<strong>不能正确表示运算结果</strong>。在这种情况下，意味着运算的结果超出了计算机所能表达的范围，有效数值进到了第 n+1 位，称此时发生了“溢出”现象。</li>
+<li>保留的低 n 位数<strong>能正确表达计算结果</strong>，即高位的舍去并不影响其运算结果。</li>
+</ol>
+<h2 id="有符号整数">有符号整数<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#有符号整数" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>将符号数值化，并将符号位放在有效数字的前面，就组成了有符号整数。</p>
+<p>补码表示有符号整数有其明显的优势：</p>
+<ol>
+<li>与原码和反码相比，0 的补码表示唯一。</li>
+<li>与原码和移码相比，补码运算规则比较简单，且符号位可以和数值位一起参加运算。</li>
+<li>与原码和反码相比，补码比原码和反码多表示一个最小负数。</li>
+</ol>
+<p>计算机中的有符号整数都用补码表示。</p>
+<h2 id="c-语言中的整数类型">C 语言中的整数类型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#c-语言中的整数类型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>C 语言中的整型数据就是定点整数，根据位数的不同，可分为</p>
+<ul>
+<li>字符型（<code>char</code>，8 位）</li>
+<li>短整型（<code>short</code> 或 <code>short int</code>，16 位）</li>
+<li>整型（<code>int</code>，32 位）</li>
+<li>长整型（<code>long</code> 或 <code>long int</code>，在 32 位机器中为 32 位，在 64 位机器中为 64 位）。</li>
+</ul>
+<p>char 是整型数据中比较特殊的一种，其他如 <code>short int</code> / <code>long</code> 等不指定 <code>signed </code>/ <code>unsigned</code> 时都默认是有符号整数，但 <strong>char 默认是无符号整数</strong>。</p>
+<p>无符号整数（<code>unsigned short/int/long</code>）的<strong>全部二进制位均为数值位，没有符号位，相当于数的绝对值</strong>。</p>
+<p><code>signed / unsigned</code> 整型数据<strong>都是按补码形式存储的</strong>。</p>
+<p>signed 型的最高位代表符号位，而在 unsigned 型中表示数值位，因此这两者所表示的数据范围也有所不同。</p>
+<h2 id="c-语言中的类型转换">C 语言中的类型转换<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#c-语言中的类型转换" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/74.png" alt/></p>
+<h3 id="有符号数和无符号数的转换">有符号数和无符号数的转换<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#有符号数和无符号数的转换" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="cpp" data-theme="github-light github-dark"><code data-language="cpp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// short 型强制转换为 unsigned short</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> x </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> -</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4321</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">unsigned</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> y </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">unsigned</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)x;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> // 61225</span></span></code></pre></figure>
+<p><code>short x</code> 在存储中以补码形式存储，存储内容为<code>1,110 1111 0001 1111</code>。当转换成 <code>unsigned short</code> 时，存储的二进制数据不变，因此 y 的二进制也是 <code>1,110 1111 0001 1111</code>，转换成十进制就是 61225。</p>
+<p>因此，有符号数转换为等长的无符号数时，符号位解释为数值的一部分，负数转换为无符号数时数值将发生变化。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>强制类型转换的结果是保持位值不变，仅改变了解释这些位的方式。</strong></p>
+</div>
+</blockquote>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="cpp" data-theme="github-light github-dark"><code data-language="cpp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// unsigned short 型转换到 short 型</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">unsigned</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> x </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 65535</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> // 1111 1111 1111 1111</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> y </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)x;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> // -1</span></span></code></pre></figure>
+<p>同理，无符号数转换为有符号数时最高位解释为符号位，也可能发生数值的变化。</p>
+<h3 id="不同字长整数之间的转换">不同字长整数之间的转换<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#不同字长整数之间的转换" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>大字长变量向小字长变量强制类型转换时，系统<strong>把多余的高位部分直接截断，低位部分直接赋值</strong>。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="cpp" data-theme="github-light github-dark"><code data-language="cpp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> x </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;"> 165537</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> // int 型占用 4B x = 0x000286a1</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> y </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)x;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// short 型占用 2B y = -31071 = 0x86a1</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> u </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> -</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">34991</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> // x = 0xffff7751</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> v </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)u;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> // v = 30545 = 0x7751</span></span></code></pre></figure>
+<p>小字长到大字长的转换时，不仅要使相应的位值相等，还要<strong>对高位部分进行扩展</strong>。</p>
+<ul>
+<li>
+<p>若原数字<strong>是无符号整数</strong>，则进行<strong>零扩展</strong>，扩展后的<strong>高位部分用 0 填充</strong>。</p>
+</li>
+<li>
+<p>若原数字<strong>不是无符号整数</strong>，则进行<strong>符号扩展</strong>，扩展后的<strong>高位部分用原数字符号位填充</strong>。</p>
+<p>例如，补码的扩充只需使用符号位补足即可，也就是说正数补码的扩充只要补 0，负数补码的扩充只需补 1。</p>
+</li>
+</ul>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="cpp" data-theme="github-light github-dark"><code data-language="cpp" data-theme="github-light github-dark" style="display:grid;"><span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> x </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> -</span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">4321</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// x = 0xef1f</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> y </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> x;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// y = -4321 = 0xffffef1f</span></span>
+<span data-line> </span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">unsigned</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> u </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> (</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">unsigned</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> short</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">)x;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"> // u = 0xef1f</span></span>
+<span data-line><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">unsigned</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;"> int</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> v </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;"> u;</span><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;">// v = 61215 = 0x0000ef1f</span></span></code></pre></figure>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>char 型为 8 位无符号整数，其在转换为 int 型时高位补 0 即可。</p>
+</div>
+</blockquote>
+<h1 id="运算方法和运算电路">运算方法和运算电路<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#运算方法和运算电路" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="基本运算部件">基本运算部件<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本运算部件" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="加法器">加法器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#加法器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="一位全加器">一位全加器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#一位全加器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/60.png" alt/></p>
+<h4 id="串行加法器">串行加法器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#串行加法器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/61.png" alt/></p>
+<h4 id="并行加法器">并行加法器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#并行加法器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/62.png" alt/></p>
+<h4 id="并行进位加法器">并行进位加法器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#并行进位加法器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/63.png" alt/></p>
+<p><img src="./assets/64.png" alt/></p>
+<h4 id="带标志位的加法器">带标志位的加法器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#带标志位的加法器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/75.png" alt/></p>
+<p><img src="./assets/136.png" alt/></p>
+<ul>
+<li>
+<p><span class="text-highlight">零标志 ZF</span>：ZF = 1 表示结果 F 为 0。对于无符号数和有符号数的运算，ZF 都有意义。</p>
+</li>
+<li>
+<p><span class="text-highlight">溢出标志 OF</span>：<strong>判断有符号数运算是否溢出</strong>，它是符号位进位与最高数位进位的异或结果。对于无符号数运算，OF 没有意义，通俗地说就是<strong>无法根据 OF 判断无符号数运算是否溢出</strong>。例如，无符号数加法 010+011 = 101，此时 0F = 1，但结果未溢出。</p>
+</li>
+<li>
+<p><span class="text-highlight">符号标志 SF</span>：<strong>表示结果的符号，即 F 的最高位</strong>。对于无符号数运算，SF 没有意义。</p>
+</li>
+<li>
+<p><span class="text-highlight">进/借位标志 CF</span>：表示无符号数运算时的进位/借位，<strong>判断无符号数是否发生溢出</strong>。加法时，CF = 1 表示结果溢出，因此 CF 等于进位输出 C<del>out</del>。减法时，CF = 1 表示有借位，即不够减，故 CF 等于进位输出 C<del>out</del>取反。例如，无符号数加法 110+011 最高位产生进位，无符号数减法 000-111 最高位产生借位，结果均发生溢出（即 CF = 1)。</p>
+<blockquote>
+<p>对于有符号数运算，CF 没有意义，也就是说根据 CF 无法判断有符号数运算是否溢出。但这不代表有符号数运算时 CF 没有值，因为 ALU 运算时不会管运算对象是有符号数还是无符号数。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>假设给定两个数 x 和 y 和对应的 n 位补码 x<del>补</del> 和 y<del>补</del>，执行 x op y</p>
+<ul>
+<li>计算 OF：判断 x op y 的值是否在 n 位补码所能表示的范围，如果不在则发生溢出，OF = 1。</li>
+<li>计算 CF：将 x 和 y 转成对应的补码 x<del>补</del> 和 y<del>补</del>（如果给出了补码则跳过），然后直接将 x<del>补</del> 和 y<del>补</del> 当成无符号整数进行比较或计算。x - y 时，x<del>补</del>&lt;y<del>补</del> 则说明 CF = 1。x + y 时，x<del>补</del>+y<del>补</del> 的值溢出则 CF = 1。</li>
+</ul>
+</div>
+</blockquote>
+<p><img src="./assets/76.png" alt/></p>
+<h3 id="alu">ALU<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#alu" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>ALU 是一种功能较强的<strong>组合逻辑电路</strong>，它<strong>能进行</strong>多种<strong>算术运算</strong>和<strong>逻辑运算</strong>。ALU 的核心是<strong>带标志加法器</strong>。</p>
+<p><img src="./assets/56.png" alt/></p>
+<h2 id="逻辑运算">逻辑运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#逻辑运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/57.png" alt/></p>
+<p><img src="./assets/58.png" alt/></p>
+<p><img src="./assets/59.png" alt/></p>
+<h2 id="移位运算">移位运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#移位运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>当计算机中没有乘/除法运算电路时，可以通过加法和移位相结合的方法来实现乘/除法运算。</p>
+<p>对于任意二进制整数，</p>
+<ul>
+<li><strong>左移一位</strong>，若不产生溢出，相当于<strong>乘以 2</strong>（与十进制数的左移一位相当于乘以 10 类似）；</li>
+<li><strong>右移一位</strong>，若不考虑因移出而舍去的末位尾数，相当于<strong>除以 2</strong>；</li>
+</ul>
+<p><img src="./assets/77.png" alt/></p>
+<h3 id="算术移位">算术移位<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#算术移位" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>算术移位需要<strong>考虑符号位</strong>的问题，即将<strong>操作数视为有符号整数</strong>。</p>
+<p>计算机中的有符号整数都是用补码表示的，因此对于有符号整数的移位操作应采用补码算术移位方式。</p>
+<p>补码算术移位的规则：</p>
+<ul>
+<li>左移时，<strong>高位移出，低位补 0</strong>，若移出的高位不同于移位后的符号位，即<strong>左移前后的符号位不同，则发生溢出</strong>。</li>
+<li>右移时，<strong>低位移出，高位补符号位</strong>，若<strong>低位的 1 移出，则影响精度</strong>。</li>
+</ul>
+<p><img src="./assets/78.png" alt/></p>
+<p><img src="./assets/79.png" alt/></p>
+<p><img src="./assets/80.png" alt/></p>
+<p><img src="./assets/81.png" alt/></p>
+<h3 id="逻辑移位">逻辑移位<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#逻辑移位" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>无符号数</strong>逻辑左移时，若最高位移出的是 1，则发生溢出。</p>
+<p><img src="./assets/82.png" alt/></p>
+<p><img src="./assets/83.png" alt/></p>
+<p><img src="./assets/84.png" alt/></p>
+<h2 id="溢出判断">溢出判断<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#溢出判断" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>计算机发生溢出的的<strong>根本原因</strong>是<strong>计算机的字长有限，不能表示超过一定范围的数据</strong>。</p>
+<p>仅当<strong>两个符号相同的数相加</strong>或<strong>两个符号相异的数相减</strong>才可能产生溢出，如两个正数相加，而结果的符号位却为 1；一个负数减去一个正数，结果的符号位却为 0（结果为正）。</p>
+<p><img src="./assets/70.png" alt/></p>
+<h3 id="采用一位符号位">采用一位符号位<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#采用一位符号位" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/71.png" alt/></p>
+<h3 id="采用一位符号位根据数值位进位情况">采用一位符号位根据数值位进位情况<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#采用一位符号位根据数值位进位情况" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/72.png" alt/></p>
+<h3 id="采用双符号位">采用双符号位<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#采用双符号位" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>采用双符号位时，<strong>第一符号位表示最终结果的符号</strong>，<strong>第二符号位表示运算结果是否溢出</strong>。</p>
+<ul>
+<li>若第二位和第一位符号相同，则未溢出。</li>
+<li>若第二位和第一位符号不同，则溢出。
+<ul>
+<li>若发生正溢出，则双符号位为 01</li>
+<li>若发生负溢出，则双符号位为 10</li>
+</ul>
+</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>模 4 补码具有模 2 补码的全部优点且<strong>更易检查加减运算中的溢出问题</strong>。</p>
+</div>
+</blockquote>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>变形补码，即用两个二进制位来表示数字的符号位，其余与补码相同。</p>
+</div>
+</blockquote>
+<p><strong>存储模 4 补码仅需一个符号位</strong>，因为任何一个正确的数值，模 4 补码的两个符号位总是相同的。只在把两个模 4 补码的数送往 ALU 完成加减运算时，才把每个数的符号位的值同时送到 ALU 的双符号位中，即<strong>只在 ALU 中采用双符号位</strong>。</p>
+<p><img src="./assets/73.png" alt/></p>
+<h2 id="定点数的加减运算">定点数的加减运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#定点数的加减运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="原码的加减运算">原码的加减运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#原码的加减运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>在原码加减运算中，将<strong>符号位和数值位分开处理</strong>，具体的规则如下：</p>
+<ul>
+<li>
+<p>加法规则：遵循“同号求和，异号求差”的原则，先判断两个操作数的符号位。</p>
+<p>具体来说，</p>
+<ul>
+<li>符号位相同，则数值位相加，结果符号位不变，若最高数值位相加产生进位，则发生溢出；</li>
+<li>符号位不同，则做减法，绝对值大的数减去绝对值小的数，结果符号位与绝对值大的数相同。</li>
+</ul>
+</li>
+<li>
+<p>减法规则：先将减数的符号取反，然后将被减数与符号取反后的减数按原码加法进行运算。</p>
+</li>
+</ul>
+<p><img src="./assets/68.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>原码的加减运算规则比较复杂，因此 <strong>计算机采用的大多是补码加减运算</strong>。</p>
+</div>
+</blockquote>
+<h3 id="补码的加减运算">补码的加减运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#补码的加减运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>补码运算的特点：</p>
+<ol>
+<li>按二进制运算规则运算，逢二进一。</li>
+<li>若做加法，两个数的补码直接相加；若做减法，则将被减数与减数的负数补码相加。</li>
+<li><strong>符号位与数值位一起参与运算</strong>，加、减运算结果的符号位也在运算中直接得出。</li>
+<li>最终运算结果的高位丢弃，保留 n+1 位，<strong>运算结果亦为补码</strong>。</li>
+</ol>
+<p><img src="./assets/69.png" alt/></p>
+<h3 id="补码加减运算器">补码加减运算器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#补码加减运算器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/65.png" alt/></p>
+<p><img src="./assets/66.png" alt/></p>
+<p><img src="./assets/67.png" alt/></p>
+<p>运算器本身 <strong>无法识别所处理的二进制串是有符号数还是无符号数</strong>，但我们可以 <strong>通过标志信息来区分有符号整数运算结果和无符号整数运算结果</strong>。</p>
+<h4 id="无符号数大小的比较">无符号数大小的比较<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#无符号数大小的比较" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>对于无符号数的运算，零标志 ZF、进/借位标志 CF 才有意义。</p>
+<p>假设有两个无符号数 A 和 B，下面以执行 A-B 为例来说明 ZF、CF 标志的几种可能情况：</p>
+<ol>
+<li>若 A = B，如 A - B = 011 - 011 = 000，此时结果为零 ZF = 1，无借位 CF = 0。</li>
+<li>若 A > B，如 A - B = 010 - 001 = 001，此时结果非零 ZF = 0，无借位 CF = 0。</li>
+<li>若 A &lt; B，如 A - B = 000 - 001 = (1)000 - 001 = 111，此时 ZF = 0，有借位 CF = 1。</li>
+</ol>
+<p>可以得出结论：</p>
+<ol>
+<li>当 ZF = 1 时，说明 A = B。</li>
+<li>当 ZF = 0 且 CF = 0 时，说明 A > B。</li>
+<li>当 CF = 1 时，说明 A &lt; B。</li>
+</ol>
+<h4 id="有符号数大小的比较">有符号数大小的比较<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#有符号数大小的比较" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>对于有符号数的运算，零标志 ZF、溢出标志 OF、符号标志 SF 才有意义。</p>
+<p>假设两个有符号数 A 和 B，用补码表示，以执行 [A]<del>补</del> - [B]<del>补</del>为例来说明 ZF、OF、SF 标志的几种可能情况。</p>
+<ol>
+<li>若 A = B，如 [A]<del>补</del> - [B]<del>补</del> = 011 - 011 = [A]<del>补</del> + [-B]<del>补</del> = 011 + 101 = (1)000，此时结果为零 ZF = 1，最高位进位与次高位进位的异或结果 OF = 0，结果的最高位 SF = 0。</li>
+<li>若 A > B，如 [A]<del>补</del> - [B]<del>补</del> = 010 - 001 = 010 + 111 = (1)001，此时 ZF = 0，OF = 0，SF = 0；又如 [A]<del>补</del> - [B]<del>补</del> = 011 - 101 = 011 + 011 = 110，此时 ZF = 0，OF = 1，SF = 1。</li>
+<li>若 A &lt; B，如 [A]<del>补</del> - [B]<del>补</del> = 000 - 001 = 000 + 111 = 111，此时 ZF = 0，OF = 0，SF = 1。又如 [A]<del>补</del> - [B]<del>补</del> = 101 - 011 = 101 + 101 = (1)010，此时 ZF = 0，OF = 1，SF = 0。</li>
+</ol>
+<p>可以得出结论：</p>
+<ol>
+<li>当 ZF = 1 时，说明 A = B。</li>
+<li>当 ZF = 0 时，且
+<ul>
+<li>未发生溢出时，即 OF = 0 时，
+<ol>
+<li>若 SF = 0，则表示结果非负，说明 A > B。</li>
+<li>若 SF = 1，则表示结果为负，说明 A &lt; B；</li>
+</ol>
+</li>
+<li>发生溢出时，即 OF = 1 时，
+<ol>
+<li>若 SF = 1，则必然是 <strong>正数减去负数</strong> 发生 <strong>溢出导致结果为负</strong>，因此，当 OF = SF（或 OF ⊕ SF = O）且 ZF = O 时，说明 A > B。</li>
+<li>若 SF = 0，则必然是 <strong>负数减去正数</strong> 发生 <strong>溢出导致结果为正</strong>，因此，当 OF ≠ SF（或 OF ⊕ SF = 1）且 ZF = 0 时，说明 A &lt; B。</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="定点数的乘除运算">定点数的乘除运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#定点数的乘除运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="手算乘法运算">手算乘法运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#手算乘法运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/85.png" alt/></p>
+<p><img src="./assets/86.png" alt/></p>
+<h3 id="原码乘法运算">原码乘法运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#原码乘法运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>原码乘法的特点是<strong>符号位与数值位是分开求的</strong>。</p>
+<p>原码乘法运算分为两步：</p>
+<ol>
+<li>乘积的符号位由**两个乘数的符号位“异或”**得到。</li>
+<li>乘积的数值位是<strong>两个乘数的绝对值之积</strong>。两个定点数的数值部分之积可视为两个无符号数的乘积。</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>在原码一位乘法中，符号位不参与运算，符号位单独处理。</p>
+</div>
+</blockquote>
+<p><img src="./assets/87.png" alt/></p>
+<p><img src="./assets/88.png" alt/></p>
+<p><img src="./assets/89.png" alt/></p>
+<p><img src="./assets/90.png" alt/></p>
+<p><img src="./assets/91.png" alt/></p>
+<p><img src="./assets/92.png" alt/></p>
+<p><img src="./assets/93.png" alt/></p>
+<p><img src="./assets/94.png" alt/></p>
+<p><img src="./assets/95.png" alt/></p>
+<p><img src="./assets/96.png" alt/></p>
+<h3 id="补码乘法运算">补码乘法运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#补码乘法运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/97.png" alt/></p>
+<p><img src="./assets/98.png" alt/></p>
+<p><img src="./assets/99.png" alt/></p>
+<h3 id="原码除法运算">原码除法运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#原码除法运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/100.png" alt/></p>
+<p><img src="./assets/101.png" alt/></p>
+<h4 id="恢复余数法">恢复余数法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#恢复余数法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/102.png" alt/></p>
+<p><img src="./assets/103.png" alt/></p>
+<p><img src="./assets/112.png" alt/></p>
+<p><img src="./assets/104.png" alt/></p>
+<p><img src="./assets/105.png" alt/></p>
+<p><img src="./assets/106.png" alt/></p>
+<p><img src="./assets/107.png" alt/></p>
+<p><img src="./assets/108.png" alt/></p>
+<p><img src="./assets/109.png" alt/></p>
+<p><img src="./assets/110.png" alt/></p>
+<p><img src="./assets/111.png" alt/></p>
+<p><img src="./assets/113.png" alt/></p>
+<p><img src="./assets/114.png" alt/></p>
+<h4 id="加减交替法不恢复余数法">加减交替法（不恢复余数法）<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#加减交替法不恢复余数法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/115.png" alt/></p>
+<p><img src="./assets/116.png" alt/></p>
+<h3 id="补码除法运算">补码除法运算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#补码除法运算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/117.png" alt/></p>
+<p><img src="./assets/118.png" alt/></p>
+<h1 id="浮点数">浮点数<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#浮点数" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>定点数可表示的数字范围有限，但我们不能无限制地增加数据的长度。</p>
+<p><img src="./assets/122.png" alt/></p>
+<h2 id="格式">格式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#格式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>浮点数表示法是指以适当的形式将比例因子表示在数据中，让小数点的位置根据需要而浮动。这样，在位数有限的情况下，既扩大了数的表示范围，又保持了数的有效精度。</p>
+<p><img src="./assets/123.png" alt/></p>
+<ul>
+<li><code>S</code>：取值 0 或 1，用来决定浮点数的符号；</li>
+<li><code>M</code>：<strong>尾数</strong>，二进制定点小数，一般用<strong>定点原码小数表示</strong>；</li>
+<li><code>E</code>：<strong>阶码</strong> 或指数，二进制定点整数，<strong>用移码表示</strong>。</li>
+<li><code>R</code>：<strong>基数</strong>（隐含），可以约定为 2、4、16 等。</li>
+</ul>
+<p>可见 <strong>浮点数由符号、尾数和阶码三部分组成</strong>。</p>
+<p><img src="./assets/137.png" alt/></p>
+<p>其中，</p>
+<ul>
+<li>第 0 位为符号 S；</li>
+<li>第 1 ～ 7 位为移码表示的阶码 E（偏置值为 64）；</li>
+<li>第 8 ～ 31 位为 24 位二进制原码小数表示的尾数 M；</li>
+<li>基数 R 为 2。</li>
+</ul>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<ol>
+<li><strong>阶码的值反映浮点数的小数点的实际位置</strong>；</li>
+<li><strong>阶码的位数反映浮点数的表示范围</strong>；</li>
+<li><strong>尾数的位数反映浮点数的精度</strong>；<strong>在浮点数总位数不变的情况下，阶码位数越多，尾数位数越少；即表示的数的范围越大，精度越差（数变稀疏）</strong>；</li>
+</ol>
+</div>
+</blockquote>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>基数是浮点数的进制，决定了阶码变化的权重。<strong>基数越大</strong>，阶码每变化一位，尾数小数点需要移动的位数越多，<strong>表示的数的绝对值就越大，范围就越大</strong>。</p>
+<p>但是，在浮点数的总位数不变的情况下，能表示的不同状态个数是一定的。<strong>若范围增大</strong>，则意味着浮点数的离散程度增大，相邻两个浮点数之间的间隔就越大，<strong>精度就越低</strong>。</p>
+<p>例如，假设符号为 S、尾数为 M、阶码为 E，则基数为 2 时的浮点数表示形式为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span>，基数为 4 时的浮点数表示形式为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6644em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8413em;"></span><span class="mord"><span class="mord">4</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span></span></span></span>，显然基数为 4 时的表示范围大，但数据的离散程度也增大，精度降低。</p>
+</div>
+</blockquote>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>用移码表示浮点数的阶码的好处 </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ol>
+<li>浮点数进行加减运算时，要比较阶码的大小，移码<strong>比较大小更方便</strong>。</li>
+<li>检验<strong>移码的特殊值（0 和 max）时比较容易</strong>。</li>
+</ol>
+</div>
+</blockquote>
+<p><img src="./assets/124.png" alt/></p>
+<h2 id="表示范围">表示范围<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#表示范围" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>原码是关于原点对称的，故浮点数的范围也是关于原点对称的。</p>
+<p>运算结果大于最大正数时称为<strong>正上溢</strong>，小于绝对值最大负数时称为<strong>负上溢</strong>，正上溢和负上溢<strong>统称上溢</strong>。数据<strong>一旦产生上溢，计算机必须中断运算操作，进行溢出处理</strong>。</p>
+<p>当运算结果在 0 至最小正数之间时称为<strong>正下溢</strong>，在 0 至绝对值最小负数之间时称为<strong>负下溢</strong>，正下溢和负下溢<strong>统称下溢</strong>。数据<strong>下溢时，浮点数值趋于零，计算机将其当作机器零处理</strong>。</p>
+<p><img src="./assets/126.png" alt/></p>
+<h2 id="规格化">规格化<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#规格化" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>为了在浮点数运算过程中<strong>尽可能多地保留有效数字的位数</strong>，<strong>使有效数字尽量占满尾数数位</strong>，必须在运算过程中对浮点数进行规格化操作。</p>
+<p><strong>规格化操作</strong>，是指通过<strong>调整一个非规格化浮点数的尾数和阶码的大小</strong>，使<strong>非零浮点数在尾数的最高数位上保证是一个有效值</strong>。</p>
+<p><img src="./assets/125.png" alt/></p>
+<p><img src="./assets/138.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>基数不同，浮点数的规格化形式也不同</strong>。</p>
+<ul>
+<li><strong>当基数为 2 时，原码规格化数的尾数最高位一定是 1</strong>。</li>
+<li><strong>当基数为 4 时，原码规格化数的尾数最高两位不全为 0</strong>。</li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>规格化浮点数的尾数小数点后的第一位一定是个非零数。</p>
+<p>因此，对于原码编码的尾数来说，只要看尾数的第一位是否为 1 就行；对于补码表示的尾数，只要看符号位和尾数最高位是否相反。</p>
+<p>需要注意的是，IEEE754 标准的浮点数尾数是用原码编码的。</p>
+</div>
+</blockquote>
+<h2 id="ieee-754-标准">IEEE 754 标准<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#ieee-754-标准" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="格式-1">格式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#格式-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/127.png" alt/></p>
+<p>基数隐含为 2；</p>
+<p>对于<strong>规格化的二进制浮点数，尾数的最高位总是 1</strong>，为了能使尾数多表示一位有效位，将这个 1 隐藏，称为<strong>隐藏位</strong>。因此 23 位尾数实际表示了 24 位有效数字。</p>
+<p>IEEE 754 规定隐藏位 1 的位置在小数点之前，例如，（12)<del>10</del>=(1100)<del>2</del>，将它规格化后结果为 1.1×2^3^，其中整数部分的“1”将不存储在 23 位尾数内。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>单精度与双精度浮点数都采用隐藏尾数最高位的方法，因而使浮点数的精度更高。</p>
+</div>
+</blockquote>
+<p>在 IEEE754 标准中，<strong>指数用移码表示</strong>，但偏置值并不是通常 n 位移码所用的 2^n-1^，而是 <strong>2^n-1^-1</strong>。因此，<span class="text-highlight">单精度和双精度浮点数的偏置值分别为 127 和 1023</span>。</p>
+<p><strong>在存储浮点数阶码之前，偏置值要先加到阶码真值上</strong>。</p>
+<p><img src="./assets/142.jpg" alt/></p>
+<p><img src="./assets/128.png" alt/></p>
+<p><img src="./assets/129.png" alt/></p>
+<h3 id="表示范围-1">表示范围<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#表示范围-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/130.png" alt/></p>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>对于<strong>位数相同</strong>的定点数和浮点数，<strong>可表示的浮点数个数和定点数</strong>的<strong>个数</strong>应该<strong>一样多</strong>（有时可能因为一个值有两个或多个编码对应，编码个数会有少量差异）。</p>
+<p>因为<strong>可表示的数据个数取决于编码所采用的位数</strong>。编码位数一定，编码出来的数据个数就是一定的。n 位编码只能表示 2^n^个数，所以对于相同位数的定点数和浮点数来说，可表示的数据个数应该一样多。</p>
+</div>
+</blockquote>
+<h3 id="阶码全-1-或全-0-的意义">阶码全 1 或全 0 的意义<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#阶码全-1-或全-0-的意义" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/131.png" alt/></p>
+<p><img src="./assets/141.png" alt/></p>
+<p><img src="./assets/142.jpg" alt/></p>
+<p><strong>引入无穷大数的目的是，在计算过程出现异常的情况下使得程序能继续进行下去。</strong></p>
+<p>规规格化数的特点是阶码为全 0，尾数高位有一个或几个连续的 0，但不全为 0。因此，<strong>非规格化数的隐藏位为 0</strong>，且单精度和双精度浮点数的指数分别为-126 或-1022。<strong>非规格化数可以用于处理阶码下溢</strong>。</p>
+<h2 id="定点和浮点表示的区别">定点和浮点表示的区别<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#定点和浮点表示的区别" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>数值的表示范围</strong></p>
+<p>若定点数和浮点数的<strong>字长相同</strong>，则浮点表示法所能表示的数值范围远大于定点表示法。（<strong>浮点表示法的数值范围更大</strong>）</p>
+</li>
+<li>
+<p><strong>精度</strong></p>
+<p>对于<strong>字长相同</strong> 的定点数和浮点数来说，浮点数虽然扩大了数的表示范围，但精度降低了。（<strong>浮点数精度低</strong>）</p>
+</li>
+<li>
+<p><strong>数的运算</strong></p>
+<p>浮点数包括阶码和尾数两部分，运算时不仅要做尾数的运算，还要做阶码的运算，而且运算结果要求规格化，所以浮点运算比定点运算复杂。（<strong>浮点运算更复杂</strong>）</p>
+</li>
+<li>
+<p><strong>溢出问题</strong></p>
+<p>在定点运算中，当运算结果超出数的表示范围时，发生溢出；在<strong>浮点运算中</strong>，运算结果超出尾数表示范围却不一定溢出，<strong>只有规格化后阶码超出所能表示的范围时，才发生溢出</strong>。</p>
+</li>
+</ol>
+<h2 id="浮点数运算步骤">浮点数运算步骤<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#浮点数运算步骤" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>现代计算机</strong>中的浮点数采用 IEEE754 标准，所以在进行两个浮点数的加减运算时，<strong>必须考虑原码的加减运算</strong>，因为 IEEE754 标准的浮点数尾数都采用原码表示。</p>
+<p>原码的加减运算可以有以下两种实现方式：</p>
+<ol>
+<li>转换为补码后，用补码加减法实现，结果再转换为原码。</li>
+<li>直接用原码进行加减运算，符号位和数值位分开处理。</li>
+</ol>
+</div>
+</blockquote>
+<p>浮点数运算的特点是<strong>阶码运算和尾数运算分开进行</strong>。</p>
+<p><img src="./assets/132.png" alt/></p>
+<p><img src="./assets/133.png" alt/></p>
+<h3 id="对阶">对阶<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#对阶" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>对阶的目的是<strong>使两个操作数的小数点位置对齐，即使得两个数的阶码相等</strong>。</p>
+<p>为此，先求阶码差，然后以<strong>小阶码向大阶码看齐</strong>的原则，将阶码小的尾数右移一位（基数为 2），阶码加 1，直到两个数的阶码相等为止。</p>
+<p>尾数右移时，若舍弃有效位会产生误差，影响精度。为了保证运算的精度，<strong>尾数右移时，低位移出的位不要丢掉，应保留并参加尾数部分的运算</strong>。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>若采用大阶码向小阶码看齐的原则，则尾数需要左移，最高有效位被移出，导致结果出错。</p>
+</div>
+</blockquote>
+<h3 id="尾数加减">尾数加减<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#尾数加减" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>将对阶后的尾数<strong>按定点原码小数的加（减）运算规则进行运算</strong>。</p>
+<p>因为 IEEE754 浮点数尾数中有一个隐藏位，因此在进行尾数加减时，必须将隐藏位还原到尾数部分。</p>
+<p>运算后的尾数不一定是规格化的，因此，浮点数的加减运算需要进一步进行规格化处理。</p>
+<h3 id="尾数规格化">尾数规格化<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#尾数规格化" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>IEEE754 规格化尾数的形式为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">1.</span><span class="mord mathnormal">x</span><span class="mord">..</span><span class="mord mathnormal">x</span></span></span></span>。尾数相加减后会得到各种可能结果，例如：<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">1</span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal">x</span><span class="mpunct">⋅⋅⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span></span></span></span> 和 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">0.0</span><span class="mpunct">⋅⋅⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">01</span><span class="mord mathnormal">x</span><span class="mpunct">⋅⋅⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span></span></span></span>。</p>
+<ol>
+<li><strong>右规</strong>：当结果为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">1</span><span class="mord mathnormal">x</span><span class="mord">.</span><span class="mord mathnormal">x</span><span class="mpunct">⋅⋅⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span></span></span></span> 时，需要进行右规。尾数右移一位，阶码加 1。尾数右移时，最高位 1 被移到小数点前一位作为隐藏位，最后一位移出时，要考虑舍入。</li>
+<li><strong>左规</strong>：当结果为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">±</span><span class="mord">0.0</span><span class="mpunct">⋅⋅⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">01</span><span class="mord mathnormal">x</span><span class="mpunct">⋅⋅⋅</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">x</span></span></span></span> 时，需要进行左规。尾数每左移一位，阶码减 1。可能需要左规多次，直到将第一位 1 移到小数点左边。</li>
+</ol>
+<h3 id="舍入">舍入<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#舍入" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/134.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>舍入是浮点数的概念，定点数没有舍入的概念。</p>
+<p><strong>舍入不一定产生误差</strong>，如向下舍入 11.00 到 11.0 时是没有误差的。</p>
+</div>
+</blockquote>
+<p>在<strong>对阶</strong>和<strong>尾数右规</strong>时，可能会对尾数进行右移，<strong>为保证运算精度</strong>，一般<strong>将移出的部分低位保留下来，参加中间过程的运算，最后再将运算结果进行舍入</strong>，还原表示成 IEEE754 格式。</p>
+<p>IEEE754 提供了以下 4 种可选的舍入模式：</p>
+<ol>
+<li>
+<p><strong>就近舍入</strong></p>
+<p>舍入为最近的可表示数。</p>
+<ul>
+<li>当运算结果是两个可表示数的非中间值时，实际上是“0 舍 1 入”方式（类似于十进制的“四舍五入”法）;</li>
+<li>当运算结果正好在两个可表示数的中间时，则选择结果为偶数。</li>
+</ul>
+<p>例如，计算 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.24</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">5.04</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span>（假定科学记数法的精度保留两位小数）</p>
+<ul>
+<li>若只采用 2 位保留位，则结果是 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.2400</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0.0050</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.2450</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>，这个结果在两个可表示数 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.24</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span> 和 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.25</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span> 的中间，采用就近舍入方式到偶数，则结果应该是 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.24</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>；</li>
+<li>若采用 3 位保留位，则结果是 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.24000</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">0.00504</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.24504</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>，这个结果就不在 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.24</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span> 和 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.25</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span> 的中间，而更接近于 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.25</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>，采用就近舍入方式，则结果应该是 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1.25</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>。</li>
+</ul>
+</li>
+<li>
+<p><strong>正向舍入</strong></p>
+<p>朝数轴 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span> 方向舍入，即取右边最近的可表示数。</p>
+</li>
+<li>
+<p><strong>负向舍入</strong></p>
+<p>朝数轴 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">∞</span></span></span></span> 方向舍入，即取左边最近的可表示数。</p>
+</li>
+<li>
+<p><strong>截断法</strong></p>
+<p>直接截取所需位数，丢弃后面的所有位，这种舍入处理最简单。对正数或负数来说，都是取更接近原点的那个可表示数，是一种趋向原点的舍入。</p>
+</li>
+</ol>
+<h3 id="溢出判断-1">溢出判断<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#溢出判断-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>判断规格化后的阶码是否超出所能表示的范围</strong>。</p>
+<p>若一个<strong>正指数超过了最大允许值（127 或 1023），则发生指数上溢</strong>，产生<strong>异常</strong>。若一个<strong>负指数超过了最小允许值（-149 或-1074），则发生指数下溢</strong>，通常<strong>把结果按机器零处理</strong>。</p>
+<ol>
+<li>
+<p>右规和尾数舍入</p>
+<p>数值很大的尾数舍入时，可能因为末位加 1 而发生尾数溢出，此时需要通过右规来调整尾数和阶码。</p>
+<p>右规时阶码加 1，导致<strong>阶码增大</strong>，因此需要判断<strong>是否发生了指数上溢</strong>。</p>
+</li>
+<li>
+<p>左规</p>
+<p>左规时阶码减 1，导致<strong>阶码减小</strong>，因此需要判断<strong>是否发生了指数下溢</strong>。</p>
+<p>其判断规则与指数上溢类似，左规一次，阶码减 1，然后判断阶码是否为全 0 来确定指数是否下溢。</p>
+</li>
+</ol>
+<p>由此可见，浮点数的溢出并<strong>不是以尾数溢出来判断的</strong>，<strong>尾数溢出可以通过右规操作得到纠正</strong>。<strong>运算结果是否溢出主要看结果的指数是否发生了上溢</strong>，因此<strong>是由指数上溢来判断的</strong>。</p>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>某些题目中可能会指定尾数或阶码采用补码表示。</p>
+<p>通常可以采用双符号位，当尾数求和结果溢出（如尾数为 10.xxx 或 01.xxx）时，需右规一次；当结果出现 00.0xxx 或 11.1xxx 时，需要左规，直到尾数变为 00.1xxx 或 11.0×××。</p>
+</div>
+</blockquote>
+<h2 id="c-语言中的浮点数类型">C 语言中的浮点数类型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#c-语言中的浮点数类型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>C 语言中的 <code>float</code> 型和 <code>double</code> 型分别对应于 IEEE754 单精度浮点数和双精度浮点数。<code>long double</code> 型对应于扩展双精度浮点数，但 <code>long double</code> 型的长度和格式随编译器和处理器类型的不同而有所不同。</p>
+<p>在 C 程序中，等式的赋值和判断会导致强制类型转换，以 <strong>char→int→long→double</strong> 和 <strong>float→double</strong> 最为常见，从前到后<strong>范围和精度都从小到大，转换过程没有损失</strong>。</p>
+<p>不同类型数的混合运算时，遵循的原则是“<strong>类型提升</strong>”，即<strong>较低类型转换为较高类型</strong>。例如：</p>
+<ul>
+<li><code>long</code> 型与 <code>int</code> 型一起运算时，需先将 <code>int</code> 型转换为 <code>long</code> 型，然后进行运算，结果为 <code>long</code> 型。</li>
+<li><code>float</code> 型和 <code>double</code> 型一起运算，虽然两者同为浮点型，但精度不同，则仍需先将 <code>float</code> 型转换为 <code>double</code> 型后再进行运算，结果亦为 <code>double</code> 型。</li>
+</ul>
+<p>所有这些转换都是系统自动进行的，这种转换称为<strong>隐式类型转换</strong>。</p>
+<p><img src="./assets/135.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<ol>
+<li>int 型转换为 float 型时，虽然不会发生溢出，但 float 型尾数连隐藏位共 24 位，当 int 型数的第 24 ～ 31 位非 0 时，无法精确转换成 24 位浮点数的尾数，需舍入处理，影响精度。</li>
+<li>int 型或 float 型转换为 double 型时，因 double 型的有效位数更多，因此能保留精确值。</li>
+<li>double 型转换为 float 型时，因 float 型的表示范围更小，因此大数转换时可能会发生溢出。此外，由于尾数有效位数变少，因此高精度数转换时会发生舍入。</li>
+<li>float 型或 double 型转换为 int 型时，因 int 型没有小数部分，因此数据会向 0 方向截断（仅保留整数部分），发生舍入。另外，因 int 型的表示范围更小，因此大数转换时可能会溢出。</li>
+</ol>
+</div>
+</blockquote>
+<h1 id="数据的存储和排列">数据的存储和排列<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据的存储和排列" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="大小端模式">大小端模式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#大小端模式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>在存储数据时，数据从低位到高位可以按从左到右排列，也可以按从右到左排列。因此，<strong>无法用最左或最右来表征数据的最高位或最低位</strong>，通常用<strong>最低有效字节(LSB)</strong> 和 <strong>最高有效字节(MSB)</strong> 来分别表示数据的低位和高位。</p>
+<p><img src="./assets/120.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>大端：低位放大地址</p>
+<p>小端：低位放小地址</p>
+</div>
+</blockquote>
+<h2 id="边界对齐">边界对齐<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#边界对齐" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>现代计算机都是按字节编址的，假设字长为 32 位，数据按边界对齐方式存放<strong>要求其存储地址是自身大小的整数倍，半字地址一定是 2 的整数倍，字地址一定是 4 的整数倍</strong>，这样无论所取的数据是字节、半字还是字，均<strong>可一次访存取出</strong>。</p>
+<p>当所存数据不满足上述要求时，可通过填充空白字节使其符合要求。这样做虽然会浪费一些存储空间，但可以提高存取数据的速度。</p>
+<p>当数据不按边界对齐方式存储时，半字长或字长的数据可能在两个存储字中，此时需要两次访存，并对高低字节的位置进行调整后才能得到所需数据，从而影响了系统的效率。</p>
+<p><img src="./assets/121.png" alt/></p>
+<h2 id="结构体的小端边界对齐存储">结构体的小端、边界对齐存储<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#结构体的小端边界对齐存储" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>在 C 语言的 struct 类型中，“边界对齐”有两个重要要求：</p>
+<ol>
+<li>每个成员按其类型的大小对齐，char 型的对齐值为 1，short 型的对齐值为 2，int 型的对齐值为 4，单位为字节；</li>
+<li>struct 的长度必须是成员中最大对齐值的整数倍（不够就补空字节）。</li>
+</ol>
+<p>这样就能保证 struct 数组的每项都满足边界对齐的条件。</p>
+<p><img src="./assets/139.png" alt/></p>
+<p>之所以出现上面的结果，是因为<strong>编译器要使结构体成员在空间上对齐必须满足</strong>：</p>
+<ol>
+<li>每个成员存储的“<strong>起始地址%该成员的长度 = 0</strong>”，而<strong>结构体中的成员都是按定义的先后顺序排放的</strong>。</li>
+<li><strong>结构体的长度也必须是最大成员长度的整数倍</strong>，即结构体也要对齐排放。</li>
+</ol>
+<p><img src="./assets/140.png" alt/></p>
+<p><strong>边界对齐方式</strong>相对边界不对齐方式是<strong>一种空间换时间的思想</strong>。精简指令系统计算机 RISC 通常采用边界对齐方式，因为边界对齐方式取指令时间相同，因此能适应指令流水。</p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:60,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>目录</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#数制与编码" data-for="数制与编码">数制与编码</a></li><li class="depth-1"><a href="#进位计数" data-for="进位计数">进位计数</a></li><li class="depth-1"><a href="#进制转换" data-for="进制转换">进制转换</a></li><li class="depth-1"><a href="#真值和机器数" data-for="真值和机器数">真值和机器数</a></li><li class="depth-1"><a href="#bcd" data-for="bcd">BCD</a></li><li class="depth-1"><a href="#定点数" data-for="定点数">定点数</a></li><li class="depth-2"><a href="#原码反码补码" data-for="原码反码补码">原码、反码、补码</a></li><li class="depth-2"><a href="#移码" data-for="移码">移码</a></li><li class="depth-2"><a href="#机器数的定点表示" data-for="机器数的定点表示">机器数的定点表示</a></li><li class="depth-1"><a href="#无符号整数" data-for="无符号整数">无符号整数</a></li><li class="depth-1"><a href="#有符号整数" data-for="有符号整数">有符号整数</a></li><li class="depth-1"><a href="#c-语言中的整数类型" data-for="c-语言中的整数类型">C 语言中的整数类型</a></li><li class="depth-1"><a href="#c-语言中的类型转换" data-for="c-语言中的类型转换">C 语言中的类型转换</a></li><li class="depth-2"><a href="#有符号数和无符号数的转换" data-for="有符号数和无符号数的转换">有符号数和无符号数的转换</a></li><li class="depth-2"><a href="#不同字长整数之间的转换" data-for="不同字长整数之间的转换">不同字长整数之间的转换</a></li><li class="depth-0"><a href="#运算方法和运算电路" data-for="运算方法和运算电路">运算方法和运算电路</a></li><li class="depth-1"><a href="#基本运算部件" data-for="基本运算部件">基本运算部件</a></li><li class="depth-2"><a href="#加法器" data-for="加法器">加法器</a></li><li class="depth-2"><a href="#alu" data-for="alu">ALU</a></li><li class="depth-1"><a href="#逻辑运算" data-for="逻辑运算">逻辑运算</a></li><li class="depth-1"><a href="#移位运算" data-for="移位运算">移位运算</a></li><li class="depth-2"><a href="#算术移位" data-for="算术移位">算术移位</a></li><li class="depth-2"><a href="#逻辑移位" data-for="逻辑移位">逻辑移位</a></li><li class="depth-1"><a href="#溢出判断" data-for="溢出判断">溢出判断</a></li><li class="depth-2"><a href="#采用一位符号位" data-for="采用一位符号位">采用一位符号位</a></li><li class="depth-2"><a href="#采用一位符号位根据数值位进位情况" data-for="采用一位符号位根据数值位进位情况">采用一位符号位根据数值位进位情况</a></li><li class="depth-2"><a href="#采用双符号位" data-for="采用双符号位">采用双符号位</a></li><li class="depth-1"><a href="#定点数的加减运算" data-for="定点数的加减运算">定点数的加减运算</a></li><li class="depth-2"><a href="#原码的加减运算" data-for="原码的加减运算">原码的加减运算</a></li><li class="depth-2"><a href="#补码的加减运算" data-for="补码的加减运算">补码的加减运算</a></li><li class="depth-2"><a href="#补码加减运算器" data-for="补码加减运算器">补码加减运算器</a></li><li class="depth-1"><a href="#定点数的乘除运算" data-for="定点数的乘除运算">定点数的乘除运算</a></li><li class="depth-2"><a href="#手算乘法运算" data-for="手算乘法运算">手算乘法运算</a></li><li class="depth-2"><a href="#原码乘法运算" data-for="原码乘法运算">原码乘法运算</a></li><li class="depth-2"><a href="#补码乘法运算" data-for="补码乘法运算">补码乘法运算</a></li><li class="depth-2"><a href="#原码除法运算" data-for="原码除法运算">原码除法运算</a></li><li class="depth-2"><a href="#补码除法运算" data-for="补码除法运算">补码除法运算</a></li><li class="depth-0"><a href="#浮点数" data-for="浮点数">浮点数</a></li><li class="depth-1"><a href="#格式" data-for="格式">格式</a></li><li class="depth-1"><a href="#表示范围" data-for="表示范围">表示范围</a></li><li class="depth-1"><a href="#规格化" data-for="规格化">规格化</a></li><li class="depth-1"><a href="#ieee-754-标准" data-for="ieee-754-标准">IEEE 754 标准</a></li><li class="depth-2"><a href="#格式-1" data-for="格式-1">格式</a></li><li class="depth-2"><a href="#表示范围-1" data-for="表示范围-1">表示范围</a></li><li class="depth-2"><a href="#阶码全-1-或全-0-的意义" data-for="阶码全-1-或全-0-的意义">阶码全 1 或全 0 的意义</a></li><li class="depth-1"><a href="#定点和浮点表示的区别" data-for="定点和浮点表示的区别">定点和浮点表示的区别</a></li><li class="depth-1"><a href="#浮点数运算步骤" data-for="浮点数运算步骤">浮点数运算步骤</a></li><li class="depth-2"><a href="#对阶" data-for="对阶">对阶</a></li><li class="depth-2"><a href="#尾数加减" data-for="尾数加减">尾数加减</a></li><li class="depth-2"><a href="#尾数规格化" data-for="尾数规格化">尾数规格化</a></li><li class="depth-2"><a href="#舍入" data-for="舍入">舍入</a></li><li class="depth-2"><a href="#溢出判断-1" data-for="溢出判断-1">溢出判断</a></li><li class="depth-1"><a href="#c-语言中的浮点数类型" data-for="c-语言中的浮点数类型">C 语言中的浮点数类型</a></li><li class="depth-0"><a href="#数据的存储和排列" data-for="数据的存储和排列">数据的存储和排列</a></li><li class="depth-1"><a href="#大小端模式" data-for="大小端模式">大小端模式</a></li><li class="depth-1"><a href="#边界对齐" data-for="边界对齐">边界对齐</a></li><li class="depth-1"><a href="#结构体的小端边界对齐存储" data-for="结构体的小端边界对齐存储">结构体的小端、边界对齐存储</a></li></ul></div></div><div class="backlinks"><h3>反向链接</h3><ul class="overflow"><li><a href="../../../编程语言/Rust/Rust认识/4_类型" class="internal">类型</a></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2025</p><ul><li><a href="https://github.com/KISGP">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script type="application/javascript">
+        const socket = new WebSocket('ws://localhost:3001')
+        // reload(true) ensures resources like images and scripts are fetched again in firefox
+        socket.addEventListener('message', () => document.location.reload(true))
+      </script><script src="../../../postscript.js" type="module"></script></html>

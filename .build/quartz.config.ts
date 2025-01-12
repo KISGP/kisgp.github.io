@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "🪴 Quartz 4.0",
+    pageTitle: "😶‍🌫️ Notes",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -17,7 +17,7 @@ const config: QuartzConfig = {
     },
     locale: "zh-CN",
     baseUrl: "kisgp.cn",
-    ignorePatterns: ["private", "templates", ".obsidian", ".canvas", ".build"],
+    ignorePatterns: ["private", "templates", ".obsidian", ".build"],
     defaultDateType: "created",
     generateSocialImages: false,
     theme: {
@@ -39,6 +39,8 @@ const config: QuartzConfig = {
           tertiary: "#84a59d",
           highlight: "rgba(143, 159, 169, 0.15)",
           textHighlight: "#fff23688",
+          scrollTrack:"#00000014",
+          scrollThumb:"#0000001f",
         },
         darkMode: {
           light: "#161618",
@@ -50,6 +52,8 @@ const config: QuartzConfig = {
           tertiary: "#84a59d",
           highlight: "rgba(143, 159, 169, 0.15)",
           textHighlight: "#b3aa0288",
+          scrollTrack:"#ffffff0f",
+          scrollThumb:"#ffffff59",
         },
       },
     },

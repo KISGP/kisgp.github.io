@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh"><head><title>I/O 系统</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Comic_Sans_MS:wght@400;700&amp;family=Comic_Sans_MS:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="😶‍🌫️ Notes"/><meta property="og:title" content="I/O 系统"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="I/O 系统"/><meta name="twitter:description" content="I/O 系统基本概念 * 输入/输出系统 输入/输出是以主机为中心而言的，将信息从外部设备传送到主机称为输入，反之称为输出。 输入/输出系统解决的主要问题是对各种形式的信息进行输入和输出的控制。 I/O 控制方式 程序查询方式：由 CPU 通过程序不断查询 I/O 设备是否已做好准备，从而控制 I/O 设备与主机交换信息。 程序中断方式：只在 ..."/><meta property="og:description" content="I/O 系统基本概念 * 输入/输出系统 输入/输出是以主机为中心而言的，将信息从外部设备传送到主机称为输入，反之称为输出。 输入/输出系统解决的主要问题是对各种形式的信息进行输入和输出的控制。 I/O 控制方式 程序查询方式：由 CPU 通过程序不断查询 I/O 设备是否已做好准备，从而控制 I/O 设备与主机交换信息。 程序中断方式：只在 ..."/><meta property="og:image:type" content="image/webp"/><meta property="og:image:alt" content="I/O 系统基本概念 * 输入/输出系统 输入/输出是以主机为中心而言的，将信息从外部设备传送到主机称为输入，反之称为输出。 输入/输出系统解决的主要问题是对各种形式的信息进行输入和输出的控制。 I/O 控制方式 程序查询方式：由 CPU 通过程序不断查询 I/O 设备是否已做好准备，从而控制 I/O 设备与主机交换信息。 程序中断方式：只在 ..."/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:url" content="https://kisgp.cn/static/og-image.png"/><meta name="twitter:image" content="https://kisgp.cn/static/og-image.png"/><meta property="og:image" content="https://kisgp.cn/static/og-image.png"/><meta property="twitter:domain" content="kisgp.cn"/><meta property="og:url" content="https://kisgp.cn/计算机基础/408/计算机组成原理/7_IO系统"/><meta property="twitter:url" content="https://kisgp.cn/计算机基础/408/计算机组成原理/7_IO系统"/><link rel="icon" href="../../../static/icon.png"/><meta name="description" content="I/O 系统基本概念 * 输入/输出系统 输入/输出是以主机为中心而言的，将信息从外部设备传送到主机称为输入，反之称为输出。 输入/输出系统解决的主要问题是对各种形式的信息进行输入和输出的控制。 I/O 控制方式 程序查询方式：由 CPU 通过程序不断查询 I/O 设备是否已做好准备，从而控制 I/O 设备与主机交换信息。 程序中断方式：只在 ..."/><meta name="generator" content="Quartz"/><link href="../../../static/font/font-style.css" rel="stylesheet" type="text/css" spa-preserve/><link href="../../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="计算机基础/408/计算机组成原理/7_IO系统"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../../..">😶‍🌫️ Notes</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>搜索</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="collapse" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;编程语言&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Java&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/JavaScript&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Node&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust/Rust认识&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;服务器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机操作系统&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机网络&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机组成原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/数据结构和算法&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/编译原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/软件测试&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据库系统概论&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/浏览器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/CSS&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/react&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/react/react学习&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/rspress&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/UI设计&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读/未完成&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Git&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Markdown&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言"><button class="folder-button"><span class="folder-title">编程语言</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Java"><button class="folder-button"><span class="folder-title">Java</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Java"><li><a href="../../../编程语言/Java/JavaWeb复习" data-for="编程语言/Java/JavaWeb复习" title="JavaWeb复习">JavaWeb复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/JavaScript"><button class="folder-button"><span class="folder-title">JavaScript</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/JavaScript"><li><a href="../../../编程语言/JavaScript/JS笔记" data-for="编程语言/JavaScript/JS笔记" title="JS笔记">JS笔记</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Node"><button class="folder-button"><span class="folder-title">Node</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Node"><li><a href="../../../编程语言/Node/Express项目架构" data-for="编程语言/Node/Express项目架构" title="Express项目架构">Express项目架构</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust"><button class="folder-button"><span class="folder-title">Rust</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust/Rust认识"><button class="folder-button"><span class="folder-title">Rust认识</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust/Rust认识"><li><a href="../../../编程语言/Rust/Rust认识/1_环境配置" data-for="编程语言/Rust/Rust认识/1_环境配置" title="Rust 环境配置">Rust 环境配置</a></li><li><a href="../../../编程语言/Rust/Rust认识/2_cargo使用" data-for="编程语言/Rust/Rust认识/2_cargo使用" title="Cargo 使用">Cargo 使用</a></li><li><a href="../../../编程语言/Rust/Rust认识/3_变量" data-for="编程语言/Rust/Rust认识/3_变量" title="变量">变量</a></li><li><a href="../../../编程语言/Rust/Rust认识/4_类型" data-for="编程语言/Rust/Rust认识/4_类型" title="类型">类型</a></li></ul></div></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="服务器"><button class="folder-button"><span class="folder-title">服务器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="服务器"><li><a href="../../../服务器/域名注册" data-for="服务器/域名注册" title="域名注册">域名注册</a></li><li><a href="../../../服务器/Cloudflare-Workers-使用" data-for="服务器/Cloudflare-Workers-使用" title="使用 Cloudflare Workers 优化 Github 文件国内访问速度">使用 Cloudflare Workers 优化 Github 文件国内访问速度</a></li><li><a href="../../../服务器/MinIO-使用" data-for="服务器/MinIO-使用" title="MinIO 使用">MinIO 使用</a></li><li><a href="../../../服务器/MongoDB-使用" data-for="服务器/MongoDB-使用" title="MongoDB 使用">MongoDB 使用</a></li><li><a href="../../../服务器/OSS-对象存储" data-for="服务器/OSS-对象存储" title="OSS 对象存储">OSS 对象存储</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础"><button class="folder-button"><span class="folder-title">计算机基础</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408"><button class="folder-button"><span class="folder-title">408</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机操作系统"><button class="folder-button"><span class="folder-title">计算机操作系统</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机操作系统"><li><a href="../../../计算机基础/408/计算机操作系统/1_操作系统概述" data-for="计算机基础/408/计算机操作系统/1_操作系统概述" title="操作系统概述">操作系统概述</a></li><li><a href="../../../计算机基础/408/计算机操作系统/2_进程与线程" data-for="计算机基础/408/计算机操作系统/2_进程与线程" title="进程与线程">进程与线程</a></li><li><a href="../../../计算机基础/408/计算机操作系统/3_内存管理" data-for="计算机基础/408/计算机操作系统/3_内存管理" title="内存管理">内存管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/4_文件管理" data-for="计算机基础/408/计算机操作系统/4_文件管理" title="文件管理">文件管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/5_输入输出管理" data-for="计算机基础/408/计算机操作系统/5_输入输出管理" title="I/O管理">I/O管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/6_其他" data-for="计算机基础/408/计算机操作系统/6_其他" title="其他文件">其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机网络"><button class="folder-button"><span class="folder-title">计算机网络</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机网络"><li><a href="../../../计算机基础/408/计算机网络/1_计算机网络体系结构" data-for="计算机基础/408/计算机网络/1_计算机网络体系结构" title="计算机网络体系结构">计算机网络体系结构</a></li><li><a href="../../../计算机基础/408/计算机网络/2_物理层" data-for="计算机基础/408/计算机网络/2_物理层" title="物理层">物理层</a></li><li><a href="../../../计算机基础/408/计算机网络/3_数据链路层" data-for="计算机基础/408/计算机网络/3_数据链路层" title="数据链路层">数据链路层</a></li><li><a href="../../../计算机基础/408/计算机网络/4_网络层" data-for="计算机基础/408/计算机网络/4_网络层" title="网络层">网络层</a></li><li><a href="../../../计算机基础/408/计算机网络/5_传输层" data-for="计算机基础/408/计算机网络/5_传输层" title="传输层">传输层</a></li><li><a href="../../../计算机基础/408/计算机网络/6_应用层" data-for="计算机基础/408/计算机网络/6_应用层" title="应用层">应用层</a></li><li><a href="../../../计算机基础/408/计算机网络/7_其他" data-for="计算机基础/408/计算机网络/7_其他" title="其他文件">其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机组成原理"><button class="folder-button"><span class="folder-title">计算机组成原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机组成原理"><li><a href="../../../计算机基础/408/计算机组成原理/1_计算机系统概述" data-for="计算机基础/408/计算机组成原理/1_计算机系统概述" title="计算机组成原理">计算机组成原理</a></li><li><a href="../../../计算机基础/408/计算机组成原理/2_数据的表示和运算" data-for="计算机基础/408/计算机组成原理/2_数据的表示和运算" title="数据的表示和运算">数据的表示和运算</a></li><li><a href="../../../计算机基础/408/计算机组成原理/3_存储系统" data-for="计算机基础/408/计算机组成原理/3_存储系统" title="存储系统">存储系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/4_指令系统" data-for="计算机基础/408/计算机组成原理/4_指令系统" title="指令系统">指令系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/5_中央处理器" data-for="计算机基础/408/计算机组成原理/5_中央处理器" title="中央处理器">中央处理器</a></li><li><a href="../../../计算机基础/408/计算机组成原理/6_总线" data-for="计算机基础/408/计算机组成原理/6_总线" title="总线">总线</a></li><li><a href="../../../计算机基础/408/计算机组成原理/7_IO系统" data-for="计算机基础/408/计算机组成原理/7_IO系统" title="I/O 系统">I/O 系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/8_其他" data-for="计算机基础/408/计算机组成原理/8_其他" title=" 其他文件"> 其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/数据结构和算法"><button class="folder-button"><span class="folder-title">数据结构和算法</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/数据结构和算法"><li><a href="../../../计算机基础/408/数据结构和算法/1_数据结构基本概念" data-for="计算机基础/408/数据结构和算法/1_数据结构基本概念" title="数据结构的基本概念">数据结构的基本概念</a></li><li><a href="../../../计算机基础/408/数据结构和算法/2_算法基本概念" data-for="计算机基础/408/数据结构和算法/2_算法基本概念" title="算法基本概念">算法基本概念</a></li><li><a href="../../../计算机基础/408/数据结构和算法/3_线性表" data-for="计算机基础/408/数据结构和算法/3_线性表" title="线性表">线性表</a></li><li><a href="../../../计算机基础/408/数据结构和算法/4_栈和队列" data-for="计算机基础/408/数据结构和算法/4_栈和队列" title="栈和队列">栈和队列</a></li><li><a href="../../../计算机基础/408/数据结构和算法/5_串" data-for="计算机基础/408/数据结构和算法/5_串" title="串">串</a></li><li><a href="../../../计算机基础/408/数据结构和算法/6_树" data-for="计算机基础/408/数据结构和算法/6_树" title="树">树</a></li><li><a href="../../../计算机基础/408/数据结构和算法/7_图" data-for="计算机基础/408/数据结构和算法/7_图" title="图">图</a></li><li><a href="../../../计算机基础/408/数据结构和算法/8_查找" data-for="计算机基础/408/数据结构和算法/8_查找" title="查找">查找</a></li><li><a href="../../../计算机基础/408/数据结构和算法/9_排序" data-for="计算机基础/408/数据结构和算法/9_排序" title="排序">排序</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/编译原理"><button class="folder-button"><span class="folder-title">编译原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/编译原理"><li><a href="../../../计算机基础/编译原理/1_开始" data-for="计算机基础/编译原理/1_开始" title="开始">开始</a></li><li><a href="../../../计算机基础/编译原理/2_引论" data-for="计算机基础/编译原理/2_引论" title="引论">引论</a></li><li><a href="../../../计算机基础/编译原理/3_词法分析" data-for="计算机基础/编译原理/3_词法分析" title="词法分析">词法分析</a></li><li><a href="../../../计算机基础/编译原理/4_语法分析" data-for="计算机基础/编译原理/4_语法分析" title="语法分析">语法分析</a></li><li><a href="../../../计算机基础/编译原理/5_语义分析与中间代码生成器" data-for="计算机基础/编译原理/5_语义分析与中间代码生成器" title="语义分析与中间代码生成器">语义分析与中间代码生成器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/软件测试"><button class="folder-button"><span class="folder-title">软件测试</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/软件测试"><li><a href="../../../计算机基础/软件测试/1_软件测试技术复习" data-for="计算机基础/软件测试/1_软件测试技术复习" title="软件测试技术复习">软件测试技术复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据库系统概论"><button class="folder-button"><span class="folder-title">数据库系统概论</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据库系统概论"><li><a href="../../../计算机基础/数据库系统概论/1_绪论" data-for="计算机基础/数据库系统概论/1_绪论" title="绪论">绪论</a></li><li><a href="../../../计算机基础/数据库系统概论/2_关系数据库" data-for="计算机基础/数据库系统概论/2_关系数据库" title="关系数据库">关系数据库</a></li><li><a href="../../../计算机基础/数据库系统概论/3_SQL" data-for="计算机基础/数据库系统概论/3_SQL" title="SQL">SQL</a></li><li><a href="../../../计算机基础/数据库系统概论/4_数据库安全性" data-for="计算机基础/数据库系统概论/4_数据库安全性" title="数据库安全性">数据库安全性</a></li><li><a href="../../../计算机基础/数据库系统概论/5_数据库完整性" data-for="计算机基础/数据库系统概论/5_数据库完整性" title="数据库完整性">数据库完整性</a></li><li><a href="../../../计算机基础/数据库系统概论/6_关系数据理论" data-for="计算机基础/数据库系统概论/6_关系数据理论" title="关系数据理论">关系数据理论</a></li><li><a href="../../../计算机基础/数据库系统概论/7_数据库设计" data-for="计算机基础/数据库系统概论/7_数据库设计" title="数据库设计">数据库设计</a></li><li><a href="../../../计算机基础/数据库系统概论/8_数据库编程" data-for="计算机基础/数据库系统概论/8_数据库编程" title="数据库编程">数据库编程</a></li><li><a href="../../../计算机基础/数据库系统概论/9_关系查询处理和查询优化" data-for="计算机基础/数据库系统概论/9_关系查询处理和查询优化" title="关系查询处理和查询优化">关系查询处理和查询优化</a></li><li><a href="../../../计算机基础/数据库系统概论/10_数据库恢复技术" data-for="计算机基础/数据库系统概论/10_数据库恢复技术" title="数据库恢复技术">数据库恢复技术</a></li><li><a href="../../../计算机基础/数据库系统概论/11_并发控制" data-for="计算机基础/数据库系统概论/11_并发控制" title="并发控制">并发控制</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端"><button class="folder-button"><span class="folder-title">前端</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/浏览器"><button class="folder-button"><span class="folder-title">浏览器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/浏览器"><li><a href="../../../前端/浏览器/深入了解现代网络浏览器" data-for="前端/浏览器/深入了解现代网络浏览器" title="深入了解现代网络浏览器">深入了解现代网络浏览器</a></li><li><a href="../../../前端/浏览器/CORS错误" data-for="前端/浏览器/CORS错误" title="CORS错误">CORS错误</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/CSS"><button class="folder-button"><span class="folder-title">CSS</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/CSS"><li><a href="../../../前端/CSS/css选择器" data-for="前端/CSS/css选择器" title="css选择器">css选择器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/react"><button class="folder-button"><span class="folder-title">react</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/react"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/react/react学习"><button class="folder-button"><span class="folder-title">react学习</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/react/react学习"><li><a href="../../../前端/react/react学习/1_react初体验" data-for="前端/react/react学习/1_react初体验" title="react初体验">react初体验</a></li><li><a href="../../../前端/react/react学习/2_jsx基本语法" data-for="前端/react/react学习/2_jsx基本语法" title="jsx基本语法">jsx基本语法</a></li><li><a href="../../../前端/react/react学习/3_react脚手架解析" data-for="前端/react/react学习/3_react脚手架解析" title="react脚手架解析">react脚手架解析</a></li><li><a href="../../../前端/react/react学习/4_react性能优化" data-for="前端/react/react学习/4_react性能优化" title="react性能优化">react性能优化</a></li><li><a href="../../../前端/react/react学习/5_react组件化开发" data-for="前端/react/react学习/5_react组件化开发" title="react组件化开发">react组件化开发</a></li><li><a href="../../../前端/react/react学习/6_react动画" data-for="前端/react/react学习/6_react动画" title="react动画">react动画</a></li><li><a href="../../../前端/react/react学习/7_Redux的使用" data-for="前端/react/react学习/7_Redux的使用" title="Redux的使用">Redux的使用</a></li><li><a href="../../../前端/react/react学习/8_Router的使用" data-for="前端/react/react学习/8_Router的使用" title="Router的使用">Router的使用</a></li><li><a href="../../../前端/react/react学习/9_Hook" data-for="前端/react/react学习/9_Hook" title="Hook的使用">Hook的使用</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/rspress"><button class="folder-button"><span class="folder-title">rspress</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/rspress"><li><a href="../../../前端/rspress/自动生成侧边栏" data-for="前端/rspress/自动生成侧边栏" title="rspress 自动生成侧边栏">rspress 自动生成侧边栏</a></li><li><a href="../../../前端/rspress/LaTeX无法使用$$语法" data-for="前端/rspress/LaTeX无法使用$$语法" title="LaTeX无法使用$$语法">LaTeX无法使用$$语法</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/UI设计"><button class="folder-button"><span class="folder-title">UI设计</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/UI设计"><li><a href="../../../前端/UI设计/RefactoringUI学习" data-for="前端/UI设计/RefactoringUI学习" title="RefactoringUI学习">RefactoringUI学习</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读"><button class="folder-button"><span class="folder-title">阅读</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读/未完成"><button class="folder-button"><span class="folder-title">未完成</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读/未完成"><li><a href="../../../阅读/未完成/解构现代化：温铁军演讲录" data-for="阅读/未完成/解构现代化：温铁军演讲录" title="解构现代化：温铁军演讲录">解构现代化：温铁军演讲录</a></li><li><a href="../../../阅读/未完成/金瓶梅词话（上下）" data-for="阅读/未完成/金瓶梅词话（上下）" title="金瓶梅词话（上下）">金瓶梅词话（上下）</a></li><li><a href="../../../阅读/未完成/思想的力量（第9版）" data-for="阅读/未完成/思想的力量（第9版）" title="思想的力量（第9版）">思想的力量（第9版）</a></li><li><a href="../../../阅读/未完成/乡土中国-生育制度-乡土重建" data-for="阅读/未完成/乡土中国-生育制度-乡土重建" title="乡土中国 生育制度 乡土重建">乡土中国 生育制度 乡土重建</a></li><li><a href="../../../阅读/未完成/制造消费者：消费主义全球史" data-for="阅读/未完成/制造消费者：消费主义全球史" title="制造消费者：消费主义全球史">制造消费者：消费主义全球史</a></li></ul></div></li><li><a href="../../../阅读/大清为何轰然倒塌" data-for="阅读/大清为何轰然倒塌" title="大清为何轰然倒塌">大清为何轰然倒塌</a></li><li><a href="../../../阅读/叫魂：1768年中国妖术大恐慌" data-for="阅读/叫魂：1768年中国妖术大恐慌" title="叫魂：1768年中国妖术大恐慌">叫魂：1768年中国妖术大恐慌</a></li><li><a href="../../../阅读/菊与刀" data-for="阅读/菊与刀" title="菊与刀">菊与刀</a></li><li><a href="../../../阅读/论语" data-for="阅读/论语" title="论语">论语</a></li><li><a href="../../../阅读/毛泽东选集" data-for="阅读/毛泽东选集" title="毛泽东选集">毛泽东选集</a></li><li><a href="../../../阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" data-for="阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" title="人民公开课：中国共产党与国家治理体系和治理能力现代化">人民公开课：中国共产党与国家治理体系和治理能力现代化</a></li><li><a href="../../../阅读/盛唐到底盛在哪儿" data-for="阅读/盛唐到底盛在哪儿" title="盛唐到底盛在哪儿">盛唐到底盛在哪儿</a></li><li><a href="../../../阅读/伊豆的舞女" data-for="阅读/伊豆的舞女" title="伊豆的舞女">伊豆的舞女</a></li><li><a href="../../../阅读/以利为利：财政关系与地方政府行为" data-for="阅读/以利为利：财政关系与地方政府行为" title="以利为利：财政关系与地方政府行为">以利为利：财政关系与地方政府行为</a></li><li><a href="../../../阅读/哲学导论讲记" data-for="阅读/哲学导论讲记" title="哲学导论讲记">哲学导论讲记</a></li><li><a href="../../../阅读/治大国若烹小鲜：基层治理与世道人心" data-for="阅读/治大国若烹小鲜：基层治理与世道人心" title="治大国若烹小鲜：基层治理与世道人心">治大国若烹小鲜：基层治理与世道人心</a></li><li><a href="../../../阅读/置身事内：中国政府与经济发展" data-for="阅读/置身事内：中国政府与经济发展" title="置身事内：中国政府与经济发展">置身事内：中国政府与经济发展</a></li><li><a href="../../../阅读/中国是部金融史" data-for="阅读/中国是部金融史" title="中国是部金融史">中国是部金融史</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Git"><button class="folder-button"><span class="folder-title">Git</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Git"><li><a href="../../../Git/如何删除无用分支" data-for="Git/如何删除无用分支" title="如何删除无用分支">如何删除无用分支</a></li><li><a href="../../../Git/文件.gitkeep是什么" data-for="Git/文件.gitkeep是什么" title="文件.gitkeep是什么">文件.gitkeep是什么</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Markdown"><button class="folder-button"><span class="folder-title">Markdown</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Markdown"><li><a href="../../../Markdown/Callouts-标注" data-for="Markdown/Callouts-标注" title="Callouts 标注">Callouts 标注</a></li><li><a href="../../../Markdown/Obsidian-教程" data-for="Markdown/Obsidian-教程" title="Obsidian 教程">Obsidian 教程</a></li><li><a href="../../../Markdown/Typora-自定义-Callouts-样式" data-for="Markdown/Typora-自定义-Callouts-样式" title="Typora 自定义 Callouts">Typora 自定义 Callouts</a></li><li><a href="../../../Markdown/Typora-自定义字体" data-for="Markdown/Typora-自定义字体" title="Typora 自定义字体">Typora 自定义字体</a></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div><div class="recent-notes desktop-only"><button type="button" id="recent" class aria-controls="recent-content" aria-expanded="true"><h3>最近</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="recent-content" class><ul class="recent-ul"><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../前端/UI设计/RefactoringUI学习" class="internal">RefactoringUI学习</a></h3></div><p class="meta"><time datetime="2025-01-12T08:35:37.000Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机组成原理/8_其他" class="internal"> 其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:15:49.032Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机网络/7_其他" class="internal">其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:11:41.570Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机操作系统/6_其他" class="internal">其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:09:23.163Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../编程语言/Node/Express项目架构" class="internal">Express项目架构</a></h3></div><p class="meta"><time datetime="2025-01-12T07:58:20.245Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../前端/浏览器/深入了解现代网络浏览器" class="internal">深入了解现代网络浏览器</a></h3></div><p class="meta"><time datetime="2025-01-12T07:52:32.258Z">2025/1/12</time></p></div></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/">计算机基础</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/408/">408</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/408/计算机组成原理/">计算机组成原理</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>I/O 系统</a></div></nav><h1 class="article-title">I/O 系统</h1><p show-comma="true" class="content-meta"><time datetime="2024-11-16T13:59:29.150Z">2024年11月16日</time><span>40分钟阅读</span></p><ul class="tags"><li><a href="../../../tags/计算机组成原理" class="internal tag-link">计算机组成原理</a></li></ul></div></div><article class="popover-hint"><h1 id="io-系统基本概念-">I/O 系统基本概念 *<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#io-系统基本概念-" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<ul>
+<li>
+<p>输入/输出系统</p>
+<p>输入/输出是以主机为中心而言的，将信息从外部设备传送到主机称为输入，反之称为输出。</p>
+<p>输入/输出系统解决的主要问题是对各种形式的信息进行输入和输出的控制。</p>
+</li>
+<li>
+<p>I/O 控制方式</p>
+<ol>
+<li>程序查询方式：由 CPU 通过程序不断查询 I/O 设备是否已做好准备，从而控制 I/O 设备与主机交换信息。</li>
+<li>程序中断方式：只在 I/O 设备准备就绪并向 CPU 发出中断请求时才予以响应。</li>
+<li>DMA 方式：主存和 I/O 设备之间有一条直接数据通路，当主存和 I/O 设备交换信息时，无须调用中断服务程序</li>
+<li>通道方式：在系统中设有通道控制部件，每个通道都挂接若干外设，主机在执行 I/O 命令时，只需启动有关通道，通道将执行通道程序，从而完成 I/O 操作。</li>
+</ol>
+</li>
+<li>
+<p>外部设备</p>
+<ol>
+<li>输入设备</li>
+<li>输出设备</li>
+<li>外部存储器（辅存）</li>
+</ol>
+</li>
+</ul>
+<h1 id="io-接口">I/O 接口<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#io-接口" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>I/O 接口：也称<strong>I/O 控制器</strong>、<strong>设备控制器</strong>，是主机和外设之间的交接界面，可以通过接收主机发送的 I/O 控制信号实现主机和外设之间的信息交换。</p>
+<blockquote>
+<p>打印机适配器、网络控制器、可编程中断控制器等属于 I/O 接口。</p>
+</blockquote>
+<h2 id="功能">功能<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#功能" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>I/O 接口的主要功能如下：</p>
+<ol>
+<li>
+<p>进行<span class="text-highlight">地址译码和设备选择</span>：CPU 送来选择外设的地址码后，接口必须对地址进行译码以产生设备选择信息，使主机能和指定外设交换信息。</p>
+</li>
+<li>
+<p>实现<span class="text-highlight">主机和外设的通信联络控制</span>：解决主机与外设时序配合问题，协调不同工作速度的外设和主机之间交换信息，以保证整个计算机系统能统一、协调地工作。</p>
+</li>
+<li>
+<p>实现<span class="text-highlight">数据缓冲</span>：CPU 与外设之间的速度往往不匹配，为消除速度差异，接口必须设置数据缓冲寄存器，用于数据的暂存，以避免因速度不一致而丢失数据。</p>
+</li>
+<li>
+<p><span class="text-highlight">信号格式的转换</span>：外设与主机两者的电平、数据格式都可能存在差异，接口应提供主机与外设的信号格式的转换功能，如电平转换、并/串或串/并转换、模/数或数/模转换等。</p>
+</li>
+<li>
+<p><span class="text-highlight">传送控制命令和状态信息</span>：CPU 要启动某外设时，通过接口中的命令寄存器向外设发出启动命令；外设准备就绪时，则将“准备好”状态信息送回接口中的状态寄存器，并反馈给 CPU。外设向 CPU 提出中断请求时，CPU 也应有相应的响应信号反馈给外设。</p>
+</li>
+</ol>
+<h2 id="基本结构">基本结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/391.png" alt/></p>
+<ul>
+<li><strong>数据缓冲寄存器</strong>：用来暂存与 CPU 或内存之间传送的数据信息;</li>
+<li><strong>状态寄存器</strong>：用来记录接口和设备的状态信息;</li>
+<li><strong>控制寄存器</strong>：用来保存 CPU 对外设的控制信息;</li>
+<li><strong>数据线</strong>：传送读/写数据、状态信息、控制信息和中断类型号。</li>
+<li><strong>地址线</strong>：传送要访问 I/O 接口中的寄存器的地址。</li>
+<li><strong>控制线</strong>：传送读/写控制信号，以确认是读寄存器还是写寄存器，此外控制线还会传送中断请求和响应信号、仲裁信号和握手信号。</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>状态寄存器和控制寄存器<strong>传送方向相反，访问时间错开</strong>，因此可将它们合二为一。换句话说，<span class="text-highlight">状态端口和控制端口可以共用同一个寄存器</span>。</p>
+</div>
+</blockquote>
+<p>I/O 接口中的<strong>I/O 控制逻辑的任务</strong>：</p>
+<ul>
+<li>对控制寄存器中的命令字进行译码，并将译码得到的控制信号通过外设界面控制逻辑送到外设；</li>
+<li>将数据缓冲寄存器的数据发送到外设或从外设接收数据到数据缓冲寄存器；</li>
+<li>收集外设状态到状态寄存器；</li>
+</ul>
+<p>对数据缓冲寄存器、状态/控制寄存器的访问操作是通过相应的指令来完成的，通常称这类指令为 I/O 指令，<span class="text-highlight">I/O 指令</span>只能在操作系统内核的底层 I/O 软件中使用，它们<span class="text-highlight">是一种特权指令</span>。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>主机和外设之间的连接通路是：CPU 和主存——I/O 总线——I/O 接口——通信总线（电缆）——I/O 接口——外设。</p>
+</div>
+</blockquote>
+<h2 id="工作原理">工作原理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#工作原理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/392.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>对打印机的中断控制过程通常是：</p>
+<p>CPU 先将需要打印的字符编码送到打印控制接口（也称打印适配器）中，打印控制接口再将字符编码转换为点阵信息，然后通过电缆传送到打印机，以控制打印针头在何处进行打印。</p>
+<p>同时，打印控制接口需要将“初始化”“选通”“自动走纸”等控制信息通过电缆传送到打印机，并通过电缆把打印机的“联机”“忙”“缺纸”等状态信号取到打印控制接口，以供 CPU 读取。</p>
+<p><strong>中断请求信号</strong>是打印控制接口通过中断控制器发送给 CPU 的，因此<strong>不在打印控制接口和打印机之间进行交换</strong>。</p>
+</div>
+</blockquote>
+<h2 id="io-端口编址">I/O 端口编址<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#io-端口编址" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>I/O 端口是指 <strong>I/O 接口电路中可<span class="text-highlight">被 CPU 直接访问</span>的<span class="text-highlight">寄存器</span></strong>，主要有<strong>数据端口</strong>、<strong>状态端口</strong>和<strong>控制端口</strong>。</p>
+<p>通常，CPU 能够对<strong>数据端口</strong>中的数据进行<strong>读/写</strong>操作；但对<strong>状态端口</strong>中的外设状态只能进行<strong>读</strong>操作，对<strong>控制端口</strong>中的各种控制命令只能进行<strong>写</strong>操作。I/O 端口要想能够被 CPU 访问，就必须要对各个端口进行编址，<strong>每个端口对应一个端口地址</strong>。</p>
+<p>编址方式：</p>
+<ol>
+<li>
+<p><span class="text-highlight">独立编址</span></p>
+<p>独立编址也称 I/O 映射方式，是指对所有的 I/O 端口单独进行编址。</p>
+<p>I/O 端口的地址空间与主存地址空间是两个独立的地址空间，它们的范围可以重叠，相同地址可能属于不同的地址空间。因此<strong>需设置专门的 I/O 指令</strong>来表明访问的是 I/O 地址空间，I/O <strong>指令的地址码给出 I/O 端口号</strong>。</p>
+<p>优点：I/O 端口数比主存单元数少得多，只需少量地址线，使得 I/O 端口<strong>译码简单</strong>，<strong>寻址速度更快</strong>。使用专用 I/O 指令，可使得<strong>程序更加清晰，便于理解和检查</strong>。</p>
+<p>缺点：I/O 指令少，只提供简单的传输操作，所以<strong>程序设计的灵活性较差</strong>。CPU 需要提供存储器读/写、I/O 设备读/写两组控制信号，<strong>增大了控制的复杂性</strong>。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>I/O 指令是指令系统的一部分，是机器指令的一类，但其为了反映与 I/O 设备交互的特点，格式和其他通用指令相比有所不同。</strong></p>
+</div>
+</blockquote>
+</li>
+<li>
+<p><span class="text-highlight">统一编址</span></p>
+<p>统一编址也称存储器映射方式，是指把主存地址空间分出一部分给 I/O 端口进行编址，I/O 端口和主存单元在同一地址空间的不同分段中，根据<span class="text-highlight">地址范围</span>就能区分访问的是 I/O 端口还是主存单元，因此<strong>无须设置专门的 I/O 指令</strong>，用<span class="text-highlight">统一的访存指令</span>就可访问 I/O 端口，并靠指令<strong>不同的地址码</strong>区分不同的 I/O 设备和存储单元。</p>
+<p>优点：不需要专门的 IO 指令，使得 CPU<strong>访问 I/O 的操作更加灵活和方便</strong>，还使<strong>端口有较大的编址空间</strong>。I/O 访问的<strong>保护机制可由虚拟存储管理系统来实现</strong>，无须专门设置。</p>
+<p>缺点：端口地址占用了部分主存地址空间，<strong>使主存可用容量变小</strong>。由于在识别 I/O 端口时全部地址线都需要参加译码，使得<strong>译码电路变得更复杂</strong>，<strong>降低了译码速度</strong>。</p>
+</li>
+</ol>
+<p><img src="./assets/393.png" alt/></p>
+<h2 id="io-接口类型">I/O 接口类型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#io-接口类型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>从不同的角度看，I/O 接口可以分为不同的类型。</p>
+<ol>
+<li>按<span class="text-highlight">数据传送方式</span>，可分为<strong>并行接口</strong>（一字节或一个字的所有位同时传送）和<strong>串行接口</strong>（一位一位地有序传送），接口要完成数据格式的转换。</li>
+<li>按<span class="text-highlight">主机访问 I/O 设备的控制方式</span>，可分为<strong>程序查询接口</strong>、<strong>中断接口</strong>和<strong>DMA 接口</strong>等。</li>
+<li>按<span class="text-highlight">功能选择的灵活性</span>，可分为<strong>可编程接口</strong>（通过编程改变接口功能）和<strong>不可编程接口</strong>。</li>
+</ol>
+<h1 id="io-方式">I/O 方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#io-方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>输入/输出系统实现主机与 I/O 设备之间的数据传送，可以采用不同的控制方式，各种方式在代价、性能、解决问题的着重点等方面各不相同，常用的 I/O 方式有程序查询、程序中断和 DMA 等。</p>
+<p><img src="./assets/394.png" alt/></p>
+<h2 id="程序查询方式">程序查询方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#程序查询方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1ps4y1d73V?t=101.2&amp;p=83" class="external">https://www.bilibili.com/video/BV1ps4y1d73V?t=101.2&amp;p=83<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</blockquote>
+<p>信息交换的控制直接由 CPU 执行程序实现。程序查询方式接口中设置一个数据缓冲寄存器（数据端口）和一个设备状态寄存器（状态端口）。</p>
+<p>主机进行 IO 操作时，先读取设备的状态并根据设备状态决定下一步操作究竞是进行数据传送还是等待。</p>
+<p>在程序查询方式中，<span class="text-highlight">CPU 与外设串行工作，传送与主程序串行工作</span>。</p>
+<p><img src="./assets/395.png" alt/></p>
+<p><img src="./assets/396.png" alt/></p>
+<p>程序查询方式可分为如下两类：</p>
+<ol>
+<li><strong>独占查询</strong>：一旦设备被启动，CPU 就一直持续查询接口状态，CPU 花费 100%的时间用于 I/O 操作，此时外设和 CPU 完全串行工作。</li>
+<li><strong>定时查询</strong>：CPU 周期性地查询接口状态，每次总是等到条件满足才进行一个数据的传送，传送完成后返回到用户程序。定时查询的时间间隔与设备的数据传输速率有关。</li>
+</ol>
+<h2 id="程序中断方式">程序中断方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#程序中断方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="程序中断基本概念">程序中断基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#程序中断基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>程序中断是指在计算机执行程序的过程中，出现某些急需处理的异常情况或特殊请求，CPU 暂时中止现行程序，而转去对这些异常情况或特殊请求进行处理，处理完毕后再返回到原程序的断点处，继续执行原程序。</p>
+<p>中断技术主要功能有：</p>
+<ol>
+<li>实现 CPU 与 I/O 设备的并行工作。</li>
+<li>处理硬件故障和软件错误。</li>
+<li>实现人机交互，用户干预机器需要用到中断系统。</li>
+<li>实现多道程序、分时操作，多道程序的切换需借助于中断系统。</li>
+<li>实时处理需要借助中断系统来实现快速响应。</li>
+<li>实现应用程序和操作系统（管态程序）的切换，称为软中断。</li>
+<li>多处理器系统中各处理器之间的信息交流和任务切换。</li>
+</ol>
+<hr/>
+<p>程序中断方式的思想：</p>
+<p>CPU 在程序中安排好在某个时机启动某台外设，然后 CPU 继续执行当前的程序，不需要像查询方式那样一直等待外设准备就绪。</p>
+<p>一旦<strong>外设</strong>完成数据传送的准备工作，就<strong>主动向 CPU 发出中断请求</strong>。在可以响应中断的条件下，CPU 暂时中止正在执行的程序，转去执行中断服务程序为外设服务，在中断服务程序中完成一次主机与外设之间的数据传送，实现 <strong>CPU 的通用寄存器和外设接口中的寄存器之间的直接数据交换</strong>。</p>
+<p>传送完成后，CPU 返回原来的程序。此时，外设和 CPU 又开始并行工作。</p>
+<p><img src="./assets/397.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>通常<span class="text-highlight">外设准备数据的时间 > 中断处理时间</span>。</p>
+<p>以输入设备为例，设备为进程准备的数据会先写入设备控制器的缓冲区（缓冲区的大小是有限的），缓冲区没写满一次就向 CPU 发送一次中断请求，CPU 响应并处理中断的过程就是将缓冲区的数据“取走”的过程，因此若是若外设准备数据的时间小于中断处理时间，则可能导致外设往缓冲区写入数据的速度快于 CPU 从缓冲区中取走数据的速度，从而导致缓冲区的数据被覆盖，进而导致数据丢失。</p>
+</div>
+</blockquote>
+<p>从宏观上看，虽然程序中断方式克服了程序查询方式中 CPU 的等待现象，提高了 CPU 的利用率。</p>
+<p>但从微观操作分析，CPU 在处理中断时，仍需暂停原程序的运行，尤其是当高速设备频紧成批地与主存交换信息时，需要不断打断 CPU 执行现行程序而去执行中断服务程序。</p>
+<p>总的来说，在中断方式中，<span class="text-highlight">CPU 与外设并行工作</span>，<span class="text-highlight">传送与主程序是串行工作</span>的。</p>
+<p><img src="./assets/398.png" alt/></p>
+<h3 id="程序中断的工作流程">程序中断的工作流程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#程序中断的工作流程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1ps4y1d73V?p=84" class="external">https://www.bilibili.com/video/BV1ps4y1d73V?p=84<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</blockquote>
+<h4 id="中断请求">中断请求<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断请求" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>中断源是请求 CPU 中断的设备或事件，一台计算机允许有多个中断源。每个中断源向 CPU 发出中断请求的时间是随机的。</p>
+<p>为记录中断事件并区分不同的中断源，中断系统需对每个中断源设置中断请求标记触发器，当其状态为“1”时，表示该中断源有请求。这些触发器可组成中断请求标记寄存器，该寄存器可集中在 CPU 中，也可分散在各个中断源中。</p>
+<p>通过 INTR 线发出的是可屏蔽中断，通过 NMI 线发出的是不可屏蔽中断。</p>
+<p>可屏蔽中断的优先级最低，在关中断模式下不被响应。不可屏蔽中断用于处理紧急和重要的事件，如时钟中断、电源掉电等，其优先级最高，其次是内部异常，即使在关中断模式下也被响应。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>因为 <strong>CPU 无法对发生的中断请求立即进行处理</strong>，因此需要在 I/O 接口中设置<strong>中断触发器</strong>，以保存是哪些外设发出了中断请求，等 CPU 当前的指令周期结束后，响应中断并进行处理。</p>
+</div>
+</blockquote>
+<h4 id="中断响应过程">中断响应过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断响应过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="cpu-响应中断的条件">CPU 响应中断的条件<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cpu-响应中断的条件" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>CPU 在满足一定的条件下响应中断源发出的中断请求，并经过一些特定的操作，转去执行中断服务程序。</p>
+<p>CPU 响应中断必须满足以下 3 个条件：</p>
+<ol>
+<li><strong>中断源有中断请求</strong>。</li>
+<li><strong>CPU 允许中断及开中断</strong>（异常和不可屏蔽中断不受此限制）。</li>
+<li><strong>一条指令执行完毕</strong>（异常不受此限制），且没有更紧迫的任务。</li>
+</ol>
+<p>I/O 设备的就绪时间是随机的，而 CPU 在统一的时刻即每条指令执行结束时，采样中断请求信号（开中断的情况下），以获取 I/O 的中断请求，也就是说，<span class="text-highlight">CPU 响应中断的时间是在每条指令执行阶段的结束时刻</span>。</p>
+<p>因此在每条指令执行结束时（而不是执行过程中），CPU 统一扫描各个中断源，检查有无中断请求。</p>
+<blockquote class="callout warning" data-callout="warning">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Warning</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>这里说的中断仅指 I/O 中断，异常不属于此类情况。异常是在指令执行过程中检测的。</p>
+</div>
+</blockquote>
+<h5 id="中断响应判优">中断响应判优<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断响应判优" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>由于许多中断源提出中断请求的时间都是随机的，因此当多个中断源同时提出请求时，需通过中断判优逻辑来<span class="text-highlight">确定响应哪个中断源的请求</span>，中断响应的判优通常是通过<strong>硬件排队器</strong>（或<strong>中断查询程序</strong>）实现的。</p>
+<p><img src="./assets/399.png" alt/></p>
+<ul>
+<li>一般来说，不可屏蔽中断 > 内部异常 > 可屏蔽中断；</li>
+<li>在内部异常中，硬件故障 > 软件中断；DMA 中断请求 > I/O 设备的中断请求；</li>
+<li>在 IO 传送类中断请求中，高速设备 > 低速设备；输入设备 > 输出设备；实时设备 > 普通设备。</li>
+</ul>
+<hr/>
+<p><strong>中断优先级</strong>包括</p>
+<ol>
+<li>
+<p><span class="text-highlight">响应优先级</span>：<strong>CPU 响应中断请求的先后顺序，由硬件线路或查询程序的查询顺序决定，不可动态改变</strong>。它反映的是多个中断同时请求时哪个先被响应，即<span class="text-highlight">中断服务程序开始执行的顺序</span>。</p>
+</li>
+<li>
+<p><span class="text-highlight">处理优先级</span>：<strong>多重中断的实际优先级处理次序</strong>，可以利用中断屏蔽技术动态调整，从而可以灵活地调整中断服务程序的优先级，使中断处理更加灵活。在多重中断系统中，中断处理优先级决定了<strong>本中断是否能打断正在执行的中断服务程序</strong>，决定了多个<span class="text-highlight">中断服务程序执行完的次序</span>。</p>
+</li>
+</ol>
+<blockquote>
+<p><span class="text-highlight">若不使用中断屏蔽技术，则处理优先级和响应优先级相同</span>。</p>
+</blockquote>
+<p>现代计算机一般使用中断屏蔽技术，每个中断源都有一个屏蔽触发器(MASK)，1 表示屏蔽该中断源的请求，0 表示可以正常请求，所有屏蔽触发器组合在一起便构成一个屏蔽字寄存器，屏蔽字寄存器的内容称为屏蔽字。</p>
+<p><img src="./assets/403.png" alt/></p>
+<blockquote>
+<p>图中所指的优先级是处理优先级而不是响应优先级。</p>
+</blockquote>
+<p><img src="./assets/404.png" alt/></p>
+<h5 id="中断响应处理过程">中断响应处理过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断响应处理过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>CPU 响应中断后，经过某些操作，转去执行中断服务程序。</p>
+<p>这些操作是由硬件直接实现的，我们将它称为<strong>中断隐指令</strong>。<strong>中断隐指令并不是指令系统中的一条真正的指令</strong>，只是一种虚拟的说法，<strong>本质上是<span class="text-highlight">硬件</span>的一系列自动操作</strong>。</p>
+<p>它所完成的操作如下：</p>
+<ol>
+<li>
+<p><span class="text-highlight">关中断</span>：CPU 响应中断后，首先要保护程序的断点和现场信息，在保护断点和现场的过程中，CPU 不能响应更高级中断源的中断请求。否则，若断点或现场保存不完整，在中断服务程序结束后，就不能正确地恢复并继续执行现行程序。</p>
+</li>
+<li>
+<p><span class="text-highlight">保存断点</span>：为保证在中断服务程序执行完后能正确地返回到原来的程序，必须将原程序的<span class="text-highlight">断点</span>（指令无法直接读取的<span class="text-highlight">PC</span>和<span class="text-highlight">PSW</span>的内容）保存在栈或特定寄存器中。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>异常指令通常并没有执行成功，异常处理后要重新执行，所以<strong>异常断点通常是当前指令的地址</strong>，<strong>中断的断点则是下一条指令的地址</strong>。</p>
+</div>
+</blockquote>
+</li>
+<li>
+<p><span class="text-highlight">引出中断服务程序</span>：识别中断源，<strong>将对应的服务程序入口地址送入程序计数器 PC</strong>。有两种方法识别中断源：<strong>硬件向量法</strong>、<strong>软件查询法</strong>。</p>
+</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>在中断响应周期中，采用硬件方法保护并更新 PC 内容，而不由软件完成，这样可以避免因为软件保存和恢复 PC 内容而造成的时间开销和错误风险，提高中断处理的效率和正确性。</p>
+</div>
+</blockquote>
+<h4 id="中断向量">中断向量<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断向量" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>中断识别分为<strong>向量中断</strong>和<strong>非向量中断</strong>两种。</p>
+<p>每个中断源都有一个唯一的类型号，每个中断类型号都对应一个中断服务程序，<strong>每个中断服务程序都有一个入口地址，即中断向量</strong>，CPU 必须找到入口地址。</p>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>把系统中的全部中断向量集中存放到存储器的某个区域内，这个存放中断向量的存储区就称为<strong>中断向量表</strong>，<span class="text-highlight">中断向量表由操作系统初始化</span>。</p>
+</div>
+</blockquote>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>中断服务程序</strong>是处理器处理的紧急事件，可理解为一种服务，是事先编好的某些特定的程序，<span class="text-highlight">一般属于操作系统的模块</span>，以供调用执行。</p>
+</div>
+</blockquote>
+<p>CPU 响应中断后，通过识别中断源获得中断类型号，然后据此计算出对应中断向量的地址；再根据该地址从中断向量表中取出中断服务程序的入口地址，并送入程序计数器 PC，以转去执行中断服务程序，这种方法被称为<strong>中断向量法</strong>，<strong>采用中断向量法的中断被称为向量中断</strong>。</p>
+<p><span class="text-highlight">中断向量由硬件产生</span>，并且不同的中断源对应不同的中断服务程序，因此通过该方法，<strong>可以较快速地识别中断源</strong>。</p>
+<p><img src="./assets/400.png" alt/></p>
+<p>中断请求和响应信号是在 I/O 总线的控制线上传送的。CPU 响应某一中断后，就从数据线上获取该中断源的中断类型号，并据此计算对应中断向量在中断向量表中的位置。</p>
+<h4 id="中断完整处理过程">中断完整处理过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断完整处理过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>程序中断过程是由硬件（称中断隐指令）和中断服务程序共同完成的。</p>
+<p><img src="./assets/401.png" alt/></p>
+<p>中断处理流程如下：</p>
+<ol>
+<li>
+<p>关中断</p>
+</li>
+<li>
+<p>保存断点：<strong>保存 PC 和 PCW 寄存器</strong></p>
+</li>
+<li>
+<p>中断服务程序寻址</p>
+</li>
+<li>
+<p>保存现场和屏蔽字：进入中断服务程序后首先要保存现场和中断屏蔽字，现场信息是指用户可见的工作寄存器（通常就是<span class="text-highlight">通用寄存器</span>）的内容，它存放程序执行到断点处的现行值。</p>
+</li>
+<li>
+<p>开中断：允许更高级中断请求得到响应，以实现中断嵌套。</p>
+</li>
+<li>
+<p>执行中断服务程序：这是中断请求的目的。</p>
+</li>
+<li>
+<p>关中断：保证在恢复现场和屏蔽字时不被中断。</p>
+</li>
+<li>
+<p>恢复现场和屏蔽：将现场和屏蔽字恢复到原来的状态。</p>
+</li>
+<li>
+<p>开中断、中断返回：中断服务程序的最后一条指令通常是一条中断返回指令，使其返回到原程序的断点处，以便继续执行原程序。但与无条件转移指令不同的是，它<span class="text-highlight">不仅要修改 PC 值，而且要将 CPU 中的所有寄存器都恢复到中断前的状态</span>。</p>
+</li>
+</ol>
+<p>其中，1 ～ 3 由中断隐指令（硬件自动）完成；4 ～ 9 由中断服务程序完成。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>现场和断点，这两类信息都不能被中断服务程序破坏。</p>
+<ul>
+<li>由于现场信息用指令可直接访问，因此通常在中断服务程序中通过指令把它们保存到栈中，即由软件实现。换句话说，在 CPU 响应中断的时候，通用寄存器的内容由中断服务程序保存。</li>
+<li>断点信息由 CPU 在中断响应时自动保存到栈或指定的寄存器中，即由硬件实现。</li>
+</ul>
+</div>
+</blockquote>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>若是单重中断（或称单级中断），则在上述流程中去掉 5 和 7 即可。</p>
+</div>
+</blockquote>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>允许中断触发器置 0 表示关中断，在中断响应周期由硬件自动完成，即中断隐指令完成。</p>
+<p>虽然关中断指令也能实现关中断的功能，但在<strong>中断响应周期，关中断是由中断隐指令完成的</strong>。在<strong>恢复现场和屏蔽字的时候则由关中断指令来完成的</strong>。</p>
+</div>
+</blockquote>
+<h3 id="多重中断">多重中断<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多重中断" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>在 CPU 执行中断服务程序的过程中，若又出现了新的优先级更高的中断请求，而 CPU 对新的中断请求不予响应，则称这种中断为单重中断。</p>
+<p>若 CPU 暂停现行的中断服务程序，转去处理新的中断请求，则称这种中断为多重中断，也称中断嵌套。</p>
+<p>CPU 要具备多重中断的功能，必须满足下列条件：</p>
+<ol>
+<li>在中断服务程序中提前设置开中断指令。</li>
+<li>优先级别高的中断源有权中断优先级别低的中断源。</li>
+</ol>
+<p><img src="./assets/402.png" alt/></p>
+<h2 id="dma-方式">DMA 方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dma-方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1ps4y1d73V?p=87" class="external">https://www.bilibili.com/video/BV1ps4y1d73V?p=87<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</blockquote>
+<p>DMA(Direct Memory Access) 方式是一种完全由硬件进行成组信息传送的控制方式，它具有程序中断方式的优点，即在数据准备阶段，CPU 与外设并行工作。</p>
+<p>DMA 方式在外设与内存之间开辟了一条“直接数据通路”，信息传送不再经过 CPU，降低了 CPU 在传送数据时的开销，因此称为<strong>直接存储器存取方式</strong>。</p>
+<p>由于数据传送不经过 CPU，因此<strong>不需要保护、恢复 CPU 现场等操作</strong>。这种方式<strong>适用于磁盘、显卡、声卡、网卡等高速设备大批量数据的传送</strong>，它的硬件开销比较大。</p>
+<p>在 DMA 方式中，<strong>中断的作用</strong>仅限于<strong>故障和正常传送结束时的处理</strong>。</p>
+<h3 id="特点">特点<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#特点" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>主存和 DMA 接口之间有一条直接数据通路。由于 DMA 方式传送数据不需要经过 CPU，因此<strong>不必中断现行程序</strong>，<span class="text-highlight">I/O 与主机并行工作，程序和传送并行工作</span>。</p>
+<p>DMA 方式具有下列特点：</p>
+<ol>
+<li>它使主存与 CPU 的固定联系脱钩，<strong>主存既可被 CPU 访问，又可被外设访问</strong>。</li>
+<li>在数据块传送时，<strong>主存地址的确定、传送数据的计数</strong>等都由<strong>硬件电路直接实现</strong>。</li>
+<li>主存中要开辟专用缓冲区，以及时提供和接收外设的数据。</li>
+<li>DMA 传送速度快，CPU 和外设并行工作，提高了系统效率。</li>
+<li>DMA 在传送开始前要通过程序进行预处理，结束后要通过中断方式进行后处理。</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>只有具有 DMA 接口的设备才能产生 DMA 请求，即使当前设备是高速设备或需要与主机批量交换数据，若没有 DMA 接口的话，也不能产生 DMA 请求。</p>
+</div>
+</blockquote>
+<h3 id="dma-控制器的组成">DMA 控制器的组成<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dma-控制器的组成" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/405.png" alt/></p>
+<p>在 DMA 方式中，对数据传送过程进行控制的硬件称为 DMA 控制器（DMA 接口）。</p>
+<p>当 I/O 设备需要进行数据传送时，通过 DMA 控制器向 CPU 提出 DMA 传送请求，CPU 响应之后将让出系统总线，由 DMA 控制器接管总线进行数据传送。</p>
+<p>主要功能如下：</p>
+<ol>
+<li>接受<span class="text-highlight">外设发出的 DMA 请求</span>，并<span class="text-highlight">向 CPU 发出总线请求</span>。</li>
+<li>CPU 响应并发出总线响应信号，<span class="text-highlight">DMA 接管总线控制权</span>，进入 DMA 操作周期。</li>
+<li>确定传送数据的主存起始地址及长度，并自动修改主存地址计数和传送长度计数。</li>
+<li>规定数据在主存和外设间的传送方向，发出读/写等控制信号，执行数据传送操作。</li>
+<li>向 CPU 报告 DMA 操作结束。</li>
+</ol>
+<p><img src="./assets/406.png" alt/></p>
+<p>在 DMA 传送过程中，DMA 控制器接管系统总线。而当 DMA 传送结束后，将恢复 CPU 的切权利并开始执行其操作。由此可见，DMA 控制器必须具有控制系统总线的能力。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>DMA 控制器不仅能为高速设备服务，<strong>也能同时为多个慢速外设服务</strong>，例如多路型 DMA 控制器。</p>
+</div>
+</blockquote>
+<h3 id="dma-传送过程">DMA 传送过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dma-传送过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/408.png" alt/></p>
+<ol>
+<li>
+<p><span class="text-highlight">预处理</span></p>
+<p>由 CPU 完成一些必要的准备工作。</p>
+<p>首先，初始化 DMA 控制器中的有关寄存器、设置传送方向、测试并启动设备等。然后，CPU 继续执行原程序，直到 I/O 设备准备好发送的数据（输入情况）或接收的数据（输出情况）时，<strong>I/O 设备向 DMA 控制器发送 DMA 请求</strong>，<strong>再由 DMA 控制器向 CPU 发出总线请求</strong>（这两个过程也可统称 DMA 请求），用以传输数据。即 DMA 请求：I/O 设备 <span>→</span> DMA 控制器 <span>→</span> CPU</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><span class="text-highlight">每个机器周期结束后或总线空闲，CPU 就可以响应 DMA 请求</span>。</p>
+</div>
+</blockquote>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><span class="text-highlight">DMA 传送前是由设备驱动程序设置传送参数</span>。每类设备都配置一个设备驱动程序，设备驱动程序向上层用户程序提供一组标准接口，负责实现对设备发出各种具体操作指令，用户程序不能直接和 DMA 打交道。</p>
+</div>
+</blockquote>
+</li>
+<li>
+<p><span class="text-highlight">数据传送</span></p>
+<p>DMA 以<span class="text-highlight">数据块为基本传送单位</span>。</p>
+<p>DMA 占用总线后的数据输入/输出操作都是通过循环来实现的，这一循环也是由 DMA 控制器实现的，即数据传送阶段完全由 DMA（硬件）控制。</p>
+</li>
+<li>
+<p><span class="text-highlight">后处理</span></p>
+<p>DMA 控制器向 CPU <strong>发送中断请求</strong>，<strong>CPU 执行中断服务程序做 DMA 结束处理</strong>，包括校验数据（出错则转诊断程序）等后处理工作。</p>
+<p>在 DMA 方式下，<strong>整个数据块的传送过程都不需要 CPU 参与</strong>，<strong>CPU 只在最初的 DMA 控制器初始化和最后的 DMA 结束处理时才介入</strong>，因此 CPU 用于 I/O 的开销非常小。</p>
+</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>DMA 方式只是在后处理阶段需要用中断方式请求 CPU 做结束处理，但在整个数据传送过程，并不需要中断请求。</p>
+</div>
+</blockquote>
+<p><img src="./assets/407.png" alt/></p>
+<h3 id="dma-传送方式">DMA 传送方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dma-传送方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>主存和 I/O 设备之间交换信息时，不通过 CPU。但当 I/O 设备和 CPU 同时访问主存时，可能发生冲突，为了有效地使用主存，DMA 与 CPU 通常采用以下 3 种方式使用主存。</p>
+<h4 id="停止-cpu-访存">停止 CPU 访存<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#停止-cpu-访存" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>当 I/O 设备有 DMA 请求时，由 DMA 接口向 CPU 发送一个停止信号，使 CPU 放弃总线控制权，停止访问主存，直到 DMA 传送一块数据结束。</p>
+<p>数据传送结束后，DMA 接口通知 CPU 可以使用主存，并把总线控制权交回给 CPU。</p>
+<p><img src="./assets/409.png" alt/></p>
+<p>优点：控制简单，适用于数据传输速率很高的 I/O 设备实现成组数据的传送。</p>
+<p>缺点：DMA 在访问主存时，CPU 基本上处于不工作状态。</p>
+<h4 id="dma-与-cpu-交替访存">DMA 与 CPU 交替访存<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dma-与-cpu-交替访存" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>将 CPU 的工作周期分成两个时间片，一个给 CPU 访存，另一个给 DMA 访存，这样在每个 CPU 周期内，CPU 和 DMA 就都可以轮流访存。</p>
+<p>这种方式适用于 CPU 的工作周期比主存存取周期长的情况。例如，若 CPU 的工作周期是 1.2us，主存的存取周期小于 0.6us，则可将一个 CPU 周期分为 C 和 C 两个周期，其中 C 专供 DMA 访存，C2 专供 CPU 访存。</p>
+<p>这种方式不需要申请、建立和归还总线使用权，总线使用权是通过 C 和 C 分时控制的。</p>
+<p><img src="./assets/410.png" alt/></p>
+<p>优点：不需要总线控制权的申请、建立和归还过程，具有很高的传送速率。</p>
+<p>缺点：相应的硬件逻辑变得更复杂。</p>
+<h4 id="周期挪用">周期挪用<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#周期挪用" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>由于 I/O 访存的优先级高于 CPU 访存（I/O 不立即访存就可能丢失数据），因此由 I/O 设备挪用一个<span class="text-highlight">存取周期</span>，<strong>传送完一个数据字后立即释放总线</strong>。</p>
+<p>CPU 对 DMA 的响应可在<strong>指令执行过程中的任何两个存取周期之间</strong>。</p>
+<p>它是一种<span class="text-highlight">单字传送方式</span>。</p>
+<p>当 I/O 设备有 DMA 请求时，会遇到 3 种情况：</p>
+<ol>
+<li>此时 CPU 不在访存，因此 I/O 的访存请求与 CPU 未发生冲突；</li>
+<li>CPU 正在访存，此时必须待存取周期结束后，CPU 再将总线占有权让出；</li>
+<li>I/O 和 CPU 同时请求访存，出现访存冲突，此时 CPU 要暂时放弃总线占有权。</li>
+</ol>
+<p><img src="./assets/411.png" alt/></p>
+<p>优点：既实现了 I/O 传送，又较好地发挥了主存与 CPU 的效率。</p>
+<p>缺点：每挪用一个主存周期，DMA 接口都要申请、建立和归还总线控制权。</p>
+<h2 id="dma-方式和中断方式的区别">DMA 方式和中断方式的区别<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dma-方式和中断方式的区别" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/412.png" alt/></p>
+<h2 id="qa">Q&amp;A<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#qa" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/413.png" alt/></p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:60,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>目录</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#io-系统基本概念-" data-for="io-系统基本概念-">I/O 系统基本概念 *</a></li><li class="depth-0"><a href="#io-接口" data-for="io-接口">I/O 接口</a></li><li class="depth-1"><a href="#功能" data-for="功能">功能</a></li><li class="depth-1"><a href="#基本结构" data-for="基本结构">基本结构</a></li><li class="depth-1"><a href="#工作原理" data-for="工作原理">工作原理</a></li><li class="depth-1"><a href="#io-端口编址" data-for="io-端口编址">I/O 端口编址</a></li><li class="depth-1"><a href="#io-接口类型" data-for="io-接口类型">I/O 接口类型</a></li><li class="depth-0"><a href="#io-方式" data-for="io-方式">I/O 方式</a></li><li class="depth-1"><a href="#程序查询方式" data-for="程序查询方式">程序查询方式</a></li><li class="depth-1"><a href="#程序中断方式" data-for="程序中断方式">程序中断方式</a></li><li class="depth-2"><a href="#程序中断基本概念" data-for="程序中断基本概念">程序中断基本概念</a></li><li class="depth-2"><a href="#程序中断的工作流程" data-for="程序中断的工作流程">程序中断的工作流程</a></li><li class="depth-2"><a href="#多重中断" data-for="多重中断">多重中断</a></li><li class="depth-1"><a href="#dma-方式" data-for="dma-方式">DMA 方式</a></li><li class="depth-2"><a href="#特点" data-for="特点">特点</a></li><li class="depth-2"><a href="#dma-控制器的组成" data-for="dma-控制器的组成">DMA 控制器的组成</a></li><li class="depth-2"><a href="#dma-传送过程" data-for="dma-传送过程">DMA 传送过程</a></li><li class="depth-2"><a href="#dma-传送方式" data-for="dma-传送方式">DMA 传送方式</a></li><li class="depth-1"><a href="#dma-方式和中断方式的区别" data-for="dma-方式和中断方式的区别">DMA 方式和中断方式的区别</a></li><li class="depth-1"><a href="#qa" data-for="qa">Q&amp;A</a></li></ul></div></div><div class="backlinks"><h3>反向链接</h3><ul class="overflow"><li><a href="../../../计算机基础/408/计算机操作系统/1_操作系统概述" class="internal">操作系统概述</a></li></ul></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2025</p><ul><li><a href="https://github.com/KISGP">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script type="application/javascript">
+        const socket = new WebSocket('ws://localhost:3001')
+        // reload(true) ensures resources like images and scripts are fetched again in firefox
+        socket.addEventListener('message', () => document.location.reload(true))
+      </script><script src="../../../postscript.js" type="module"></script></html>

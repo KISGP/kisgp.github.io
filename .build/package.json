@@ -13,9 +13,8 @@
   },
   "scripts": {
     "quartz": "./quartz/bootstrap-cli.mjs",
-    "preview": "npx quartz build --serve -d C:\\Users\\root\\Desktop\\Note\\",
-    "build": "npx quartz build -d C:\\Users\\root\\Desktop\\Note\\ -o ..\\",
-    "test": "npx quartz build --serve -d test",
+    "build": "npx quartz build --serve -d C:\\Users\\root\\Desktop\\Note\\ -o ..\\",
+    "preview": "npx quartz build --serve -d test",
     "format": "npx prettier . --write"
   },
   "engines": {

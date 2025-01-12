@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="zh"><head><title>中央处理器</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM Plex Mono&amp;family=Comic_Sans_MS:wght@400;700&amp;family=Comic_Sans_MS:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="😶‍🌫️ Notes"/><meta property="og:title" content="中央处理器"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="中央处理器"/><meta name="twitter:description" content="CPU 功能 CPU 的具体功能包括： 指令控制：完成取指令（也称取指）、分析指令和执行指令的操作，即程序的顺序控制。 操作控制：产生完成一条指令所需的操作信号，把各种操作信号送到相应的部件，从而控制这些部件按指令的要求正确执行。 时间控制：严格控制各种操作信号的出现时间、持续时间及出现的时间顺序。 数据加工：对数据进行算术和逻辑运算。 ..."/><meta property="og:description" content="CPU 功能 CPU 的具体功能包括： 指令控制：完成取指令（也称取指）、分析指令和执行指令的操作，即程序的顺序控制。 操作控制：产生完成一条指令所需的操作信号，把各种操作信号送到相应的部件，从而控制这些部件按指令的要求正确执行。 时间控制：严格控制各种操作信号的出现时间、持续时间及出现的时间顺序。 数据加工：对数据进行算术和逻辑运算。 ..."/><meta property="og:image:type" content="image/webp"/><meta property="og:image:alt" content="CPU 功能 CPU 的具体功能包括： 指令控制：完成取指令（也称取指）、分析指令和执行指令的操作，即程序的顺序控制。 操作控制：产生完成一条指令所需的操作信号，把各种操作信号送到相应的部件，从而控制这些部件按指令的要求正确执行。 时间控制：严格控制各种操作信号的出现时间、持续时间及出现的时间顺序。 数据加工：对数据进行算术和逻辑运算。 ..."/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:url" content="https://kisgp.cn/static/og-image.png"/><meta name="twitter:image" content="https://kisgp.cn/static/og-image.png"/><meta property="og:image" content="https://kisgp.cn/static/og-image.png"/><meta property="twitter:domain" content="kisgp.cn"/><meta property="og:url" content="https://kisgp.cn/计算机基础/408/计算机组成原理/5_中央处理器"/><meta property="twitter:url" content="https://kisgp.cn/计算机基础/408/计算机组成原理/5_中央处理器"/><link rel="icon" href="../../../static/icon.png"/><meta name="description" content="CPU 功能 CPU 的具体功能包括： 指令控制：完成取指令（也称取指）、分析指令和执行指令的操作，即程序的顺序控制。 操作控制：产生完成一条指令所需的操作信号，把各种操作信号送到相应的部件，从而控制这些部件按指令的要求正确执行。 时间控制：严格控制各种操作信号的出现时间、持续时间及出现的时间顺序。 数据加工：对数据进行算术和逻辑运算。 ..."/><meta name="generator" content="Quartz"/><link href="../../../static/font/font-style.css" rel="stylesheet" type="text/css" spa-preserve/><link href="../../../index.css" rel="stylesheet" type="text/css" spa-preserve/><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" spa-preserve/><script src="../../../prescript.js" type="application/javascript" spa-preserve></script><script type="application/javascript" spa-preserve>const fetchData = fetch("../../../static/contentIndex.json").then(data => data.json())</script></head><body data-slug="计算机基础/408/计算机组成原理/5_中央处理器"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../../..">😶‍🌫️ Notes</a></h2><div class="spacer mobile-only"></div><div class="search"><button class="search-button" id="search-button"><p>搜索</p><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg></button><div id="search-container"><div id="search-space"><input autocomplete="off" id="search-bar" name="search" type="text" aria-label="搜索些什么" placeholder="搜索些什么"/><div id="search-layout" data-preview="true"></div></div></div></div><button class="darkmode" id="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="暗色模式"><title>暗色模式</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="亮色模式"><title>亮色模式</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button><div class="explorer desktop-only"><button type="button" id="explorer" data-behavior="collapse" data-collapsed="collapsed" data-savestate="true" data-tree="[{&quot;path&quot;:&quot;编程语言&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Java&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/JavaScript&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Node&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;编程语言/Rust/Rust认识&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;服务器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机操作系统&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机网络&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/计算机组成原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/408/数据结构和算法&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/编译原理&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/软件测试&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;计算机基础/数据库系统概论&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/浏览器&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/CSS&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/react&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/react/react学习&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/rspress&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;前端/UI设计&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;阅读/未完成&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Git&quot;,&quot;collapsed&quot;:true},{&quot;path&quot;:&quot;Markdown&quot;,&quot;collapsed&quot;:true}]" aria-controls="explorer-content" aria-expanded="false"><h2>探索</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-content"><ul class="overflow" id="explorer-ul"><li><div class="folder-outer open"><ul style="padding-left:0;" class="content" data-folderul><li><div class="folder-outer "><ul style="padding-left:0;" class="content" data-folderul></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言"><button class="folder-button"><span class="folder-title">编程语言</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Java"><button class="folder-button"><span class="folder-title">Java</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Java"><li><a href="../../../编程语言/Java/JavaWeb复习" data-for="编程语言/Java/JavaWeb复习" title="JavaWeb复习">JavaWeb复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/JavaScript"><button class="folder-button"><span class="folder-title">JavaScript</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/JavaScript"><li><a href="../../../编程语言/JavaScript/JS笔记" data-for="编程语言/JavaScript/JS笔记" title="JS笔记">JS笔记</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Node"><button class="folder-button"><span class="folder-title">Node</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Node"><li><a href="../../../编程语言/Node/Express项目架构" data-for="编程语言/Node/Express项目架构" title="Express项目架构">Express项目架构</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust"><button class="folder-button"><span class="folder-title">Rust</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="编程语言/Rust/Rust认识"><button class="folder-button"><span class="folder-title">Rust认识</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="编程语言/Rust/Rust认识"><li><a href="../../../编程语言/Rust/Rust认识/1_环境配置" data-for="编程语言/Rust/Rust认识/1_环境配置" title="Rust 环境配置">Rust 环境配置</a></li><li><a href="../../../编程语言/Rust/Rust认识/2_cargo使用" data-for="编程语言/Rust/Rust认识/2_cargo使用" title="Cargo 使用">Cargo 使用</a></li><li><a href="../../../编程语言/Rust/Rust认识/3_变量" data-for="编程语言/Rust/Rust认识/3_变量" title="变量">变量</a></li><li><a href="../../../编程语言/Rust/Rust认识/4_类型" data-for="编程语言/Rust/Rust认识/4_类型" title="类型">类型</a></li></ul></div></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="服务器"><button class="folder-button"><span class="folder-title">服务器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="服务器"><li><a href="../../../服务器/域名注册" data-for="服务器/域名注册" title="域名注册">域名注册</a></li><li><a href="../../../服务器/Cloudflare-Workers-使用" data-for="服务器/Cloudflare-Workers-使用" title="使用 Cloudflare Workers 优化 Github 文件国内访问速度">使用 Cloudflare Workers 优化 Github 文件国内访问速度</a></li><li><a href="../../../服务器/MinIO-使用" data-for="服务器/MinIO-使用" title="MinIO 使用">MinIO 使用</a></li><li><a href="../../../服务器/MongoDB-使用" data-for="服务器/MongoDB-使用" title="MongoDB 使用">MongoDB 使用</a></li><li><a href="../../../服务器/OSS-对象存储" data-for="服务器/OSS-对象存储" title="OSS 对象存储">OSS 对象存储</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础"><button class="folder-button"><span class="folder-title">计算机基础</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408"><button class="folder-button"><span class="folder-title">408</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机操作系统"><button class="folder-button"><span class="folder-title">计算机操作系统</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机操作系统"><li><a href="../../../计算机基础/408/计算机操作系统/1_操作系统概述" data-for="计算机基础/408/计算机操作系统/1_操作系统概述" title="操作系统概述">操作系统概述</a></li><li><a href="../../../计算机基础/408/计算机操作系统/2_进程与线程" data-for="计算机基础/408/计算机操作系统/2_进程与线程" title="进程与线程">进程与线程</a></li><li><a href="../../../计算机基础/408/计算机操作系统/3_内存管理" data-for="计算机基础/408/计算机操作系统/3_内存管理" title="内存管理">内存管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/4_文件管理" data-for="计算机基础/408/计算机操作系统/4_文件管理" title="文件管理">文件管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/5_输入输出管理" data-for="计算机基础/408/计算机操作系统/5_输入输出管理" title="I/O管理">I/O管理</a></li><li><a href="../../../计算机基础/408/计算机操作系统/6_其他" data-for="计算机基础/408/计算机操作系统/6_其他" title="其他文件">其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机网络"><button class="folder-button"><span class="folder-title">计算机网络</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机网络"><li><a href="../../../计算机基础/408/计算机网络/1_计算机网络体系结构" data-for="计算机基础/408/计算机网络/1_计算机网络体系结构" title="计算机网络体系结构">计算机网络体系结构</a></li><li><a href="../../../计算机基础/408/计算机网络/2_物理层" data-for="计算机基础/408/计算机网络/2_物理层" title="物理层">物理层</a></li><li><a href="../../../计算机基础/408/计算机网络/3_数据链路层" data-for="计算机基础/408/计算机网络/3_数据链路层" title="数据链路层">数据链路层</a></li><li><a href="../../../计算机基础/408/计算机网络/4_网络层" data-for="计算机基础/408/计算机网络/4_网络层" title="网络层">网络层</a></li><li><a href="../../../计算机基础/408/计算机网络/5_传输层" data-for="计算机基础/408/计算机网络/5_传输层" title="传输层">传输层</a></li><li><a href="../../../计算机基础/408/计算机网络/6_应用层" data-for="计算机基础/408/计算机网络/6_应用层" title="应用层">应用层</a></li><li><a href="../../../计算机基础/408/计算机网络/7_其他" data-for="计算机基础/408/计算机网络/7_其他" title="其他文件">其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/计算机组成原理"><button class="folder-button"><span class="folder-title">计算机组成原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/计算机组成原理"><li><a href="../../../计算机基础/408/计算机组成原理/1_计算机系统概述" data-for="计算机基础/408/计算机组成原理/1_计算机系统概述" title="计算机组成原理">计算机组成原理</a></li><li><a href="../../../计算机基础/408/计算机组成原理/2_数据的表示和运算" data-for="计算机基础/408/计算机组成原理/2_数据的表示和运算" title="数据的表示和运算">数据的表示和运算</a></li><li><a href="../../../计算机基础/408/计算机组成原理/3_存储系统" data-for="计算机基础/408/计算机组成原理/3_存储系统" title="存储系统">存储系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/4_指令系统" data-for="计算机基础/408/计算机组成原理/4_指令系统" title="指令系统">指令系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/5_中央处理器" data-for="计算机基础/408/计算机组成原理/5_中央处理器" title="中央处理器">中央处理器</a></li><li><a href="../../../计算机基础/408/计算机组成原理/6_总线" data-for="计算机基础/408/计算机组成原理/6_总线" title="总线">总线</a></li><li><a href="../../../计算机基础/408/计算机组成原理/7_IO系统" data-for="计算机基础/408/计算机组成原理/7_IO系统" title="I/O 系统">I/O 系统</a></li><li><a href="../../../计算机基础/408/计算机组成原理/8_其他" data-for="计算机基础/408/计算机组成原理/8_其他" title=" 其他文件"> 其他文件</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/408/数据结构和算法"><button class="folder-button"><span class="folder-title">数据结构和算法</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/408/数据结构和算法"><li><a href="../../../计算机基础/408/数据结构和算法/1_数据结构基本概念" data-for="计算机基础/408/数据结构和算法/1_数据结构基本概念" title="数据结构的基本概念">数据结构的基本概念</a></li><li><a href="../../../计算机基础/408/数据结构和算法/2_算法基本概念" data-for="计算机基础/408/数据结构和算法/2_算法基本概念" title="算法基本概念">算法基本概念</a></li><li><a href="../../../计算机基础/408/数据结构和算法/3_线性表" data-for="计算机基础/408/数据结构和算法/3_线性表" title="线性表">线性表</a></li><li><a href="../../../计算机基础/408/数据结构和算法/4_栈和队列" data-for="计算机基础/408/数据结构和算法/4_栈和队列" title="栈和队列">栈和队列</a></li><li><a href="../../../计算机基础/408/数据结构和算法/5_串" data-for="计算机基础/408/数据结构和算法/5_串" title="串">串</a></li><li><a href="../../../计算机基础/408/数据结构和算法/6_树" data-for="计算机基础/408/数据结构和算法/6_树" title="树">树</a></li><li><a href="../../../计算机基础/408/数据结构和算法/7_图" data-for="计算机基础/408/数据结构和算法/7_图" title="图">图</a></li><li><a href="../../../计算机基础/408/数据结构和算法/8_查找" data-for="计算机基础/408/数据结构和算法/8_查找" title="查找">查找</a></li><li><a href="../../../计算机基础/408/数据结构和算法/9_排序" data-for="计算机基础/408/数据结构和算法/9_排序" title="排序">排序</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/编译原理"><button class="folder-button"><span class="folder-title">编译原理</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/编译原理"><li><a href="../../../计算机基础/编译原理/1_开始" data-for="计算机基础/编译原理/1_开始" title="开始">开始</a></li><li><a href="../../../计算机基础/编译原理/2_引论" data-for="计算机基础/编译原理/2_引论" title="引论">引论</a></li><li><a href="../../../计算机基础/编译原理/3_词法分析" data-for="计算机基础/编译原理/3_词法分析" title="词法分析">词法分析</a></li><li><a href="../../../计算机基础/编译原理/4_语法分析" data-for="计算机基础/编译原理/4_语法分析" title="语法分析">语法分析</a></li><li><a href="../../../计算机基础/编译原理/5_语义分析与中间代码生成器" data-for="计算机基础/编译原理/5_语义分析与中间代码生成器" title="语义分析与中间代码生成器">语义分析与中间代码生成器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/软件测试"><button class="folder-button"><span class="folder-title">软件测试</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/软件测试"><li><a href="../../../计算机基础/软件测试/1_软件测试技术复习" data-for="计算机基础/软件测试/1_软件测试技术复习" title="软件测试技术复习">软件测试技术复习</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="计算机基础/数据库系统概论"><button class="folder-button"><span class="folder-title">数据库系统概论</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="计算机基础/数据库系统概论"><li><a href="../../../计算机基础/数据库系统概论/1_绪论" data-for="计算机基础/数据库系统概论/1_绪论" title="绪论">绪论</a></li><li><a href="../../../计算机基础/数据库系统概论/2_关系数据库" data-for="计算机基础/数据库系统概论/2_关系数据库" title="关系数据库">关系数据库</a></li><li><a href="../../../计算机基础/数据库系统概论/3_SQL" data-for="计算机基础/数据库系统概论/3_SQL" title="SQL">SQL</a></li><li><a href="../../../计算机基础/数据库系统概论/4_数据库安全性" data-for="计算机基础/数据库系统概论/4_数据库安全性" title="数据库安全性">数据库安全性</a></li><li><a href="../../../计算机基础/数据库系统概论/5_数据库完整性" data-for="计算机基础/数据库系统概论/5_数据库完整性" title="数据库完整性">数据库完整性</a></li><li><a href="../../../计算机基础/数据库系统概论/6_关系数据理论" data-for="计算机基础/数据库系统概论/6_关系数据理论" title="关系数据理论">关系数据理论</a></li><li><a href="../../../计算机基础/数据库系统概论/7_数据库设计" data-for="计算机基础/数据库系统概论/7_数据库设计" title="数据库设计">数据库设计</a></li><li><a href="../../../计算机基础/数据库系统概论/8_数据库编程" data-for="计算机基础/数据库系统概论/8_数据库编程" title="数据库编程">数据库编程</a></li><li><a href="../../../计算机基础/数据库系统概论/9_关系查询处理和查询优化" data-for="计算机基础/数据库系统概论/9_关系查询处理和查询优化" title="关系查询处理和查询优化">关系查询处理和查询优化</a></li><li><a href="../../../计算机基础/数据库系统概论/10_数据库恢复技术" data-for="计算机基础/数据库系统概论/10_数据库恢复技术" title="数据库恢复技术">数据库恢复技术</a></li><li><a href="../../../计算机基础/数据库系统概论/11_并发控制" data-for="计算机基础/数据库系统概论/11_并发控制" title="并发控制">并发控制</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端"><button class="folder-button"><span class="folder-title">前端</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/浏览器"><button class="folder-button"><span class="folder-title">浏览器</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/浏览器"><li><a href="../../../前端/浏览器/深入了解现代网络浏览器" data-for="前端/浏览器/深入了解现代网络浏览器" title="深入了解现代网络浏览器">深入了解现代网络浏览器</a></li><li><a href="../../../前端/浏览器/CORS错误" data-for="前端/浏览器/CORS错误" title="CORS错误">CORS错误</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/CSS"><button class="folder-button"><span class="folder-title">CSS</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/CSS"><li><a href="../../../前端/CSS/css选择器" data-for="前端/CSS/css选择器" title="css选择器">css选择器</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/react"><button class="folder-button"><span class="folder-title">react</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/react"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/react/react学习"><button class="folder-button"><span class="folder-title">react学习</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/react/react学习"><li><a href="../../../前端/react/react学习/1_react初体验" data-for="前端/react/react学习/1_react初体验" title="react初体验">react初体验</a></li><li><a href="../../../前端/react/react学习/2_jsx基本语法" data-for="前端/react/react学习/2_jsx基本语法" title="jsx基本语法">jsx基本语法</a></li><li><a href="../../../前端/react/react学习/3_react脚手架解析" data-for="前端/react/react学习/3_react脚手架解析" title="react脚手架解析">react脚手架解析</a></li><li><a href="../../../前端/react/react学习/4_react性能优化" data-for="前端/react/react学习/4_react性能优化" title="react性能优化">react性能优化</a></li><li><a href="../../../前端/react/react学习/5_react组件化开发" data-for="前端/react/react学习/5_react组件化开发" title="react组件化开发">react组件化开发</a></li><li><a href="../../../前端/react/react学习/6_react动画" data-for="前端/react/react学习/6_react动画" title="react动画">react动画</a></li><li><a href="../../../前端/react/react学习/7_Redux的使用" data-for="前端/react/react学习/7_Redux的使用" title="Redux的使用">Redux的使用</a></li><li><a href="../../../前端/react/react学习/8_Router的使用" data-for="前端/react/react学习/8_Router的使用" title="Router的使用">Router的使用</a></li><li><a href="../../../前端/react/react学习/9_Hook" data-for="前端/react/react学习/9_Hook" title="Hook的使用">Hook的使用</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/rspress"><button class="folder-button"><span class="folder-title">rspress</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/rspress"><li><a href="../../../前端/rspress/自动生成侧边栏" data-for="前端/rspress/自动生成侧边栏" title="rspress 自动生成侧边栏">rspress 自动生成侧边栏</a></li><li><a href="../../../前端/rspress/LaTeX无法使用$$语法" data-for="前端/rspress/LaTeX无法使用$$语法" title="LaTeX无法使用$$语法">LaTeX无法使用$$语法</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="前端/UI设计"><button class="folder-button"><span class="folder-title">UI设计</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="前端/UI设计"><li><a href="../../../前端/UI设计/RefactoringUI学习" data-for="前端/UI设计/RefactoringUI学习" title="RefactoringUI学习">RefactoringUI学习</a></li></ul></div></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读"><button class="folder-button"><span class="folder-title">阅读</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="阅读/未完成"><button class="folder-button"><span class="folder-title">未完成</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="阅读/未完成"><li><a href="../../../阅读/未完成/解构现代化：温铁军演讲录" data-for="阅读/未完成/解构现代化：温铁军演讲录" title="解构现代化：温铁军演讲录">解构现代化：温铁军演讲录</a></li><li><a href="../../../阅读/未完成/金瓶梅词话（上下）" data-for="阅读/未完成/金瓶梅词话（上下）" title="金瓶梅词话（上下）">金瓶梅词话（上下）</a></li><li><a href="../../../阅读/未完成/思想的力量（第9版）" data-for="阅读/未完成/思想的力量（第9版）" title="思想的力量（第9版）">思想的力量（第9版）</a></li><li><a href="../../../阅读/未完成/乡土中国-生育制度-乡土重建" data-for="阅读/未完成/乡土中国-生育制度-乡土重建" title="乡土中国 生育制度 乡土重建">乡土中国 生育制度 乡土重建</a></li><li><a href="../../../阅读/未完成/制造消费者：消费主义全球史" data-for="阅读/未完成/制造消费者：消费主义全球史" title="制造消费者：消费主义全球史">制造消费者：消费主义全球史</a></li></ul></div></li><li><a href="../../../阅读/大清为何轰然倒塌" data-for="阅读/大清为何轰然倒塌" title="大清为何轰然倒塌">大清为何轰然倒塌</a></li><li><a href="../../../阅读/叫魂：1768年中国妖术大恐慌" data-for="阅读/叫魂：1768年中国妖术大恐慌" title="叫魂：1768年中国妖术大恐慌">叫魂：1768年中国妖术大恐慌</a></li><li><a href="../../../阅读/菊与刀" data-for="阅读/菊与刀" title="菊与刀">菊与刀</a></li><li><a href="../../../阅读/论语" data-for="阅读/论语" title="论语">论语</a></li><li><a href="../../../阅读/毛泽东选集" data-for="阅读/毛泽东选集" title="毛泽东选集">毛泽东选集</a></li><li><a href="../../../阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" data-for="阅读/人民公开课：中国共产党与国家治理体系和治理能力现代化" title="人民公开课：中国共产党与国家治理体系和治理能力现代化">人民公开课：中国共产党与国家治理体系和治理能力现代化</a></li><li><a href="../../../阅读/盛唐到底盛在哪儿" data-for="阅读/盛唐到底盛在哪儿" title="盛唐到底盛在哪儿">盛唐到底盛在哪儿</a></li><li><a href="../../../阅读/伊豆的舞女" data-for="阅读/伊豆的舞女" title="伊豆的舞女">伊豆的舞女</a></li><li><a href="../../../阅读/以利为利：财政关系与地方政府行为" data-for="阅读/以利为利：财政关系与地方政府行为" title="以利为利：财政关系与地方政府行为">以利为利：财政关系与地方政府行为</a></li><li><a href="../../../阅读/哲学导论讲记" data-for="阅读/哲学导论讲记" title="哲学导论讲记">哲学导论讲记</a></li><li><a href="../../../阅读/治大国若烹小鲜：基层治理与世道人心" data-for="阅读/治大国若烹小鲜：基层治理与世道人心" title="治大国若烹小鲜：基层治理与世道人心">治大国若烹小鲜：基层治理与世道人心</a></li><li><a href="../../../阅读/置身事内：中国政府与经济发展" data-for="阅读/置身事内：中国政府与经济发展" title="置身事内：中国政府与经济发展">置身事内：中国政府与经济发展</a></li><li><a href="../../../阅读/中国是部金融史" data-for="阅读/中国是部金融史" title="中国是部金融史">中国是部金融史</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Git"><button class="folder-button"><span class="folder-title">Git</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Git"><li><a href="../../../Git/如何删除无用分支" data-for="Git/如何删除无用分支" title="如何删除无用分支">如何删除无用分支</a></li><li><a href="../../../Git/文件.gitkeep是什么" data-for="Git/文件.gitkeep是什么" title="文件.gitkeep是什么">文件.gitkeep是什么</a></li></ul></div></li><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div data-folderpath="Markdown"><button class="folder-button"><span class="folder-title">Markdown</span></button></div></div><div class="folder-outer "><ul style="padding-left:1.4rem;" class="content" data-folderul="Markdown"><li><a href="../../../Markdown/Callouts-标注" data-for="Markdown/Callouts-标注" title="Callouts 标注">Callouts 标注</a></li><li><a href="../../../Markdown/Obsidian-教程" data-for="Markdown/Obsidian-教程" title="Obsidian 教程">Obsidian 教程</a></li><li><a href="../../../Markdown/Typora-自定义-Callouts-样式" data-for="Markdown/Typora-自定义-Callouts-样式" title="Typora 自定义 Callouts">Typora 自定义 Callouts</a></li><li><a href="../../../Markdown/Typora-自定义字体" data-for="Markdown/Typora-自定义字体" title="Typora 自定义字体">Typora 自定义字体</a></li></ul></div></li></ul></div></li><li id="explorer-end"></li></ul></div></div><div class="recent-notes desktop-only"><button type="button" id="recent" class aria-controls="recent-content" aria-expanded="true"><h3>最近</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="recent-content" class><ul class="recent-ul"><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../前端/UI设计/RefactoringUI学习" class="internal">RefactoringUI学习</a></h3></div><p class="meta"><time datetime="2025-01-12T08:35:37.000Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机组成原理/8_其他" class="internal"> 其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:15:49.032Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机网络/7_其他" class="internal">其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:11:41.570Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../计算机基础/408/计算机操作系统/6_其他" class="internal">其他文件</a></h3></div><p class="meta"><time datetime="2025-01-12T08:09:23.163Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../编程语言/Node/Express项目架构" class="internal">Express项目架构</a></h3></div><p class="meta"><time datetime="2025-01-12T07:58:20.245Z">2025/1/12</time></p></div></li><li class="recent-li"><div class="section"><div class="desc"><h3><a href="../../../前端/浏览器/深入了解现代网络浏览器" class="internal">深入了解现代网络浏览器</a></h3></div><p class="meta"><time datetime="2025-01-12T07:52:32.258Z">2025/1/12</time></p></div></li></ul></div></div></div><div class="center"><div class="page-header"><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/">计算机基础</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/408/">408</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../../计算机基础/408/计算机组成原理/">计算机组成原理</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>中央处理器</a></div></nav><h1 class="article-title">中央处理器</h1><p show-comma="true" class="content-meta"><time datetime="2024-11-16T13:59:29.146Z">2024年11月16日</time><span>85分钟阅读</span></p><ul class="tags"><li><a href="../../../tags/计算机组成原理" class="internal tag-link">计算机组成原理</a></li></ul></div></div><article class="popover-hint"><h1 id="cpu">CPU<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cpu" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="功能">功能<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#功能" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/296.png" alt/></p>
+<p>CPU 的具体功能包括：</p>
+<ol>
+<li><strong>指令控制</strong>：完成取指令（也称取指）、分析指令和执行指令的操作，即程序的顺序控制。</li>
+<li><strong>操作控制</strong>：产生完成一条指令所需的操作信号，把各种操作信号送到相应的部件，从而控制这些部件按指令的要求正确执行。</li>
+<li><strong>时间控制</strong>：严格控制各种操作信号的出现时间、持续时间及出现的时间顺序。</li>
+<li><strong>数据加工</strong>：对数据进行算术和逻辑运算。</li>
+<li><strong>中断处理</strong>：对运行过程中出现的异常情况和中断请求进行处理。</li>
+</ol>
+<h2 id="基本结构">基本结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="运算器">运算器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#运算器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>运算器主要功能是<strong>根据控制器送来的命令，对数据执行算术运算</strong>（加、减、乘、除）、<strong>逻辑运算</strong>（与、或、非、异或、移位、求补等）或<strong>条件测试</strong>（用于设置 ZF、SF、OF 和 CF 等标志位，作为条件转移的判断条件）。</p>
+<p>运算器主要由以下部分组成：</p>
+<ol>
+<li>
+<p><strong>算术逻辑单元(ALU)</strong></p>
+</li>
+<li>
+<p><strong>暂存寄存器</strong></p>
+<p>用于暂存从数据总线或通用寄存器送来的操作数，以便在取出下一个操作数时将其同时送入 ALU。暂存寄存器<span class="text-highlight">对应用程序员是透明的</span>（不可见）。</p>
+</li>
+<li>
+<p><strong>累加寄存器(ACC)</strong></p>
+<p>一个通用寄存器，用于暂时<strong>存放 ALU 运算的结果</strong>。</p>
+</li>
+<li>
+<p><strong>通用寄存器组(GPRs)</strong></p>
+<p>用于存放<strong>操作数</strong>（包括源操作数、目的操作数及中间结果）和<strong>各种地址信息</strong> 等，如 AX、BX、CX、DX、SP 等。其<strong>位数与机器字长相等</strong>，因此便于操作控制。在指令中要指定寄存器的编号，才能明确是对哪个寄存器进行访问。SP 是堆栈指针，用于指示栈顶的地址。</p>
+</li>
+<li>
+<p><strong>程序状态字寄存器(PSW)</strong></p>
+<p><strong>每个标志位通常由一位触发器来保存，这些标志位组合在一起称为程序状态字</strong>。程序状态字的各位表征程序和机器的运行状态。<span class="text-highlight">程序状态字寄存器对用户不透明</span>。</p>
+<p>由<strong>算术/逻辑运算指令</strong>或<strong>测试指令</strong>的运行结果而建立的各种状态信息，一种是状态标志，如溢出标志(OF)、符号标志(SF)、零标志(ZF)、进位标志(CF)等；另一种是控制标志，如中断标志、陷阱标志等。</p>
+</li>
+<li>
+<p><strong>移位寄存器(SR)</strong></p>
+<p>不但<strong>可用来存放操作数</strong>，而且在控制信号的作用下，寄存器中的数据可根据需要向左或向右移位。</p>
+</li>
+<li>
+<p><strong>计数器(CT)</strong>：控制乘除运算的操作步数。</p>
+</li>
+</ol>
+<p><img src="./assets/297.png" alt/></p>
+<p><img src="./assets/298.png" alt/></p>
+<h3 id="控制器">控制器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#控制器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>控制器的全部功能是<strong>取指令、分析指令和执行指令</strong>，执行指令就是发出有关操作控制信号。</p>
+<p>控制器的主要功能是执行指令，每条指令的执行是由控制器发出的一组微操作实现的。</p>
+<p>控制器的工作原理是，根据指令操作码、指令的执行步骤（微命令序列）和条件信号来形成当前计算机各部件要用到的控制信号。计算机整机各硬件系统在这些控制信号的控制下协同运行，产生预期的执行结果。控制器是整个系统的指挥中枢，在控制器的控制下，运算器、存储器和输入/输出设备等功能部件构成一个有机的整体，根据指令的要求指挥全机协调工作。</p>
+<p>控制器主要由以下部分组成：</p>
+<ol>
+<li><strong>程序计数器</strong>(<span class="text-highlight">PC</span>, Program Counter)：用于指出<strong>欲执行指令在主存储器中的存放地址</strong>。若 PC 和主存储器均按字节编址，则 PC 的位数等于主存储器地址位数。CPU 根据 PC 的内容从主存储器中取指令，然后送入指令寄存器。指令通常是顺序执行的，因此 PC 具有自动加 1 的功能（这里的**“1”是指一条指令的字节数**）；当遇到转移类指令时，PC 的新值由指令计算得到。</li>
+<li><strong>指令寄存器</strong>(<span class="text-highlight">IR</span>, Instruction register)：用于<strong>保存当前正在执行的指令</strong>，IR 的位数等于指令字长。</li>
+<li>指令译码器(ID, Instruction Decoder)</li>
+<li><strong>存储器地址寄存器</strong>(<span class="text-highlight">MAR</span>)：用于存放要访问的主存储器单元的地址，MAR 的位数等于主存储器地址线数，它反映了最多可寻址的存储单元的个数。</li>
+<li><strong>存储器数据寄存器</strong>(<span class="text-highlight">MDR</span>)：用于存放向主存储器写入的信息或从主存储器读出的信息，MDR 的位数等于存储字长。当 CPU 和主存储器交换信息时，都要用到 MAR 和 MDR。</li>
+<li><strong>微操作信号发生器</strong>(<span class="text-highlight">CU</span>, Control Unit)：产生微操作命令序列</li>
+<li>时序电路</li>
+</ol>
+<p><img src="./assets/299.png" alt/></p>
+<p><img src="./assets/300.png" alt/></p>
+<h1 id="指令执行过程">指令执行过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#指令执行过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="指令周期">指令周期<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#指令周期" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><span class="text-highlight">指令周期</span>：<span class="text-highlight">CPU 每取出并执行一条指令所需的全部时间，不同指令的指令周期可能不同</span>。</p>
+<p><strong>机器周期</strong>是<strong>指令执行中每步操作</strong>（如取指令、存储器读、存储器写等）<strong>所需要的时间</strong>，每个<strong>机器周期的长度可变</strong>。</p>
+<p>指令周期通常可用若干<span class="text-highlight">机器周期</span>来表示，<span class="text-highlight">机器周期又叫 CPU 周期</span>。</p>
+<p>一个机器周期又包含若干<span class="text-highlight">时钟周期</span>（也称为节拍、T 周期或 CPU 时钟周期，它是 <strong>CPU 操作的最基本单位</strong>，每个指令周期一定大于或等于一个 CPU 时钟周期）。</p>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>总线周期：一次总线操作所需的时间，通常为一个或多个时钟周期。</p>
+<p>存取周期：存储器进行一次读或写操作所需的时间称为存储器的读/写时间，而连续启动两次独立的读或写操作（如连续两次读操作）所需的最短时间称为存取周期。机器周期通常由存取周期确定。</p>
+</div>
+</blockquote>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>时钟脉冲信号的宽度称为时钟周期，时钟周期的倒数为机器主频。</p>
+<p>时钟脉冲信号由机器脉冲源发出的脉冲信号经整形和分频后形成，时钟周期以相邻状态单元间组合逻辑电路的最大延迟为基准确定。</p>
+</div>
+</blockquote>
+<p><img src="./assets/301.png" alt/></p>
+<p><strong>每个指令周期内的机器周期数可以不等，每个机器周期内的节拍数也可以不等</strong>。</p>
+<ul>
+<li>对于无条件转移指令 <code>JIMP X</code>，在执行时不需要访问主存，只包含取指阶段（包括取指和分析）和执行阶段，所以其指令周期仅包含取指周期和执行周期。</li>
+<li>对于间接寻址的指令，为了取操作数，需要先访问一次主存，取出有效地址，然后访问主存，取出操作数，所以还需包括间址周期。间址周期介于取指周期和执行周期之间。</li>
+<li>当 CPU 采用中断方式实现主机和 I/O 设备的信息交换时，<strong>CPU 在每条指令执行结束前，都要发中断查询信号，若有中断请求，则 CPU 进入中断响应阶段，也称中断周期。</strong></li>
+</ul>
+<blockquote>
+<p>指令字长一般都取存储字长的整数倍，若指令字长等于存储字长的 2 倍，则需要两次访存，取指周期等于机器周期的 2 倍；若指令字长等于存储字长，则取指周期等于机器周期。</p>
+</blockquote>
+<p>这样，一个完整的指令周期可包括<strong>取指、间址、执行和中断</strong> 4 个周期。</p>
+<p><img src="./assets/302.png" alt/></p>
+<ol>
+<li>当 CPU 执行指令时，首先进入取指周期，从 PC 指出的主存单元中取出指令，送至指令寄存器，同时 PC 加“1”以作为下一条指令的地址。当遇到转移指令等改变执行顺序的指令时，在 PC 加“1”后会重新计算并更新 PC 值。</li>
+<li>然后判断是否有间接寻址，如果有，那么进入间址周期以获取操作数的有效地址。</li>
+<li>之后进入执行周期，完成取操作数、执行运算和存操作数的任务。</li>
+<li>执行周期结束后，如果 CPU 检测到中断请求，则进入中断周期，此时需要关中断、保存断点、修改 PC 值为中断服务程序的入口地址，并转向中断服务程序。</li>
+</ol>
+<blockquote>
+<p>CPU <strong>区分指令和数据</strong>的依据：<span class="text-highlight">指令周期的不同阶段</span>。通常，执行阶段取出的是数据，取值阶段取出的是指令。</p>
+</blockquote>
+<p><img src="./assets/303.png" alt/></p>
+<h2 id="指令周期的数据流">指令周期的数据流<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#指令周期的数据流" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="取值周期">取值周期<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#取值周期" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>取指周期的任务是<strong>根据 PC 中的内容从主存中取出指令代码并存放在 IR 中</strong>。</p>
+<p>取指操作是自动进行的，控制器不需要得到相应的指令。</p>
+<p><img src="./assets/304.png" alt/></p>
+<p><strong>不同长度的指令，其取指操作可能是不同的</strong>。例如，双字指令、三字指令与单字指令的取指操作是不同的。</p>
+<h3 id="间址周期">间址周期<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#间址周期" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>间址周期的任务是<strong>取操作数有效地址</strong>。将指令中的地址码送到 MAR 并送至地址总线，此后 CU 向存储器发出读命令，以获取有效地址并存至 MDR。</p>
+<p><img src="./assets/305.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Ad(IR) 表示取出 IR 中存放的指令字的地址字段。</p>
+</div>
+</blockquote>
+<h3 id="执行周期">执行周期<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#执行周期" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>执行周期的任务是取操作数，并根据 IR 中的指令字的操作码通过 ALU 操作产生执行结果。</p>
+<p>不同指令的执行周期操作不同，因此<strong>没有统一的数据流向</strong>。</p>
+<h3 id="中断周期">中断周期<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断周期" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>中断周期的任务是处理中断请求。</p>
+<p>假设程序断点存入堆栈中，并用 SP 指示栈顶地址，而且进栈操作是先修改栈顶指针，后存入数据。</p>
+<p><img src="./assets/306.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>中断周期中的进栈操作是将 SP 减“1”。这和传统意义上的进栈操作相反，原因是计算机中的堆栈都是向低地址方向增长，所以进栈操作是减“1”而不是加“1”。</p>
+</div>
+</blockquote>
+<h2 id="指令执行方案">指令执行方案<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#指令执行方案" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li>
+<p><strong>单周期处理器</strong></p>
+<p>单周期处理器对所有指令都选用相同的执行时间来完成。</p>
+<p>此时<strong>每条指令都在一个时钟周期内完成</strong>（即 <strong>CPI = 1</strong>），指令之间<strong>串行执行</strong>，即下一条指令只能在前一条指令执行结束后才能启动。因此，<strong>指令周期取决于执行时间最长的指令的执行时间</strong>。对于那些本来可以在更短时间内完成的指令，仍要使用这个较长的周期来完成，会降低整个系统的运行速度。</p>
+<blockquote>
+<p><strong>单周期处理器不能使用单总线结构数据通路</strong>，因为单总线结构数据通路将所有寄存器的输入/输出端都链接在一条公共通路上，一个时钟周期只允许一次操作，无法完成指令的所有操作。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>多周期处理器</strong></p>
+<p>多周期处理器对不同类型的指令选用不同的执行步骤。</p>
+<p>指令需要几个周期就为其分配几个周期，因此可选用不同个数的时钟周期来完成不同指令的执行过程（即 <strong>CPI > 1</strong>），不再要求所有指令占用相同的执行时间。</p>
+<p>多指令周期方案中指令之间仍是<strong>串行执行</strong>。</p>
+</li>
+<li>
+<p><strong>流水线处理器</strong></p>
+<p>流水线处理器采用指令之间并行执行的方案，其追求的目标是力争在每个时钟周期完成一条指令的执行过程（只在理想情况下才能达到该效果，此时 CPI = 1。</p>
+<p>这种方案通过在每个时钟周期启动一条指令，尽量让多条指令同时运行，但各自处在不同的执行步骤中。</p>
+</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>单周期 CPU 执行任何指令的时间不一定都会小于多周期 CPU，这取决于单周期 CPU 和多周期 CPU 的时钟周期的长短，以及该指令在多周期 CPU 下所需的时钟周期数。</p>
+</div>
+</blockquote>
+<h1 id="数据通路">数据通路<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据通路" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<h2 id="功能-1">功能<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#功能-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>不论 CPU 的内部结构多么复杂，它都可视为由<strong>数据通路</strong>(Data Path)和<strong>控制部件</strong>(Control Unit)两大部分组成。</p>
+<blockquote>
+<p>数据通路不包含控制部件。</p>
+</blockquote>
+<p><strong>数据通路</strong>：数据在<strong>指令执行过程中</strong>所<strong>经过的路径，包括路径上的部件</strong>。<span class="text-highlight">ALU、通用寄存器、状态寄存器、Cache、MMU、浮点运算逻辑、异常和中断处理逻辑等</span>都是指令执行时数据流经的部件，都属于数据通路的一部分。数据通路描述了信息从哪里开始，中间经过哪些部件，最后被传送到哪里。</p>
+<p>数据通路中数据流动路径<strong>由控制部件控制</strong>，控制部件根据每条指令功能的不同，生成对数据通路的控制信号。</p>
+<h2 id="组成">组成<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#组成" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>组成数据通路的元件主要分为<span class="text-highlight">组合逻辑元件（操作元件）</span>和<span class="text-highlight">时序逻辑元件（状态元件）</span>两类。</p>
+<h3 id="组合逻辑元件操作元件">组合逻辑元件（操作元件）<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#组合逻辑元件操作元件" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>组合逻辑元件<span class="text-highlight">不含存储信号的记忆单元</span>，任何时刻产生的<span class="text-highlight">输出仅取决于当前的输入</span>。组合电路<span class="text-highlight">不受时钟信号的控制</span>，输出与输入之间无反馈通路，信号是单向传输的。</p>
+<p>数据通路中常用的组合逻辑元件有<span class="text-highlight">加法器、算术逻辑单元(ALU)、译码器、多路选择器、三态门</span>等。</p>
+<p><img src="./assets/image-20241218163828273.png" alt/></p>
+<h3 id="时序逻辑元件状态元件">时序逻辑元件（状态元件）<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#时序逻辑元件状态元件" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>任何时刻的<strong>输出不仅与该时刻的输入有关</strong>，还<strong>与该时刻以前的输入有关</strong>，因而时序电路必然<span class="text-highlight">包含存储信号的记忆单元</span>。此外，时序电路必须<span class="text-highlight">在时钟节拍下工作</span>。</p>
+<p>各类寄存器和存储器，如<span class="text-highlight">通用寄存器组、程序计数器、状态/移位/暂存/锁存寄存器</span>等，都属于时序逻辑元件。</p>
+<h2 id="基本结构-1">基本结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本结构-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>数据通路结构直接影响 CPU 内各种信息的传送路径，数据通路不同，指令执行过程的微操作序列的安排也不同，它关系着微操作信号形成部件的设计。</p>
+<h3 id="cpu-内部单总线方式">CPU 内部单总线方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cpu-内部单总线方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1ps4y1d73V?t=222.8&amp;p=64" class="external">https://www.bilibili.com/video/BV1ps4y1d73V<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</blockquote>
+<p>将 ALU 及所有寄存器都连接到一条内部公共总线上，称为单总线结构的数据通路。这种<strong>结构比较简单</strong>，但数据传输<strong>存在较多的冲突现象，性能较低</strong>。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><span class="text-highlight">此总线在 CPU 内部</span>，注意不要把它与连接 CPU、存储器和外设的系统总线相混淆。</p>
+<ul>
+<li>内部总线是指同一部件，如 CPU 内部连接各寄存器及运算部件之间的总线。</li>
+<li>系统总线是指同一台计算机系统的各部件，如 CPU、内存、通道和各类 I/O 接口间互相连接的总线。</li>
+</ul>
+</div>
+</blockquote>
+<p><img src="./assets/312.png" alt/></p>
+<blockquote>
+<p>上图中</p>
+<ul>
+<li>
+<p>GPRs 为通用寄存器组，rs、rd 分别为所读、写的通用寄存器的编号；</p>
+</li>
+<li>
+<p>Y 和 Z 为暂存器；</p>
+</li>
+<li>
+<p>FR 为标志寄存器，用于存放 ALU 产生的标志信息。</p>
+</li>
+<li>
+<p>带箭头的虚线表示控制信号，字母加“in”表示该部件允许写入，字母加“out”表示该部件允许输出。MDRin 表示内部总线上信息写入 MDR，MDRout 表示 MDR 的内容送入内部总线。</p>
+</li>
+</ul>
+<p>能输出到总线的部件<span class="text-highlight">均通过一个三态门与内部总线相连</span>，用于<strong>控制</strong>该部件<strong>与内部总线之间数据通路</strong>的<strong>连接与断开</strong>。</p>
+</blockquote>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>在单总线的 CPU 中，ALU 的一个输入端与总线相连，另一个输入端需通过一个寄存器与总线相连。而且输出端也需通过一个暂存器（用来暂存结果的寄存器）与总线相连。</p>
+<p>因为 ALU 是一个组合逻辑电路，其运算过程中必须保持两个输入端的内容不变。此外，ALU 的输出端若直接与内部总线相连，则其输出又会通过总线反馈到输入端，影响运算结果。</p>
+</div>
+</blockquote>
+<p><img src="./assets/308.png" alt/></p>
+<blockquote>
+<p>例题</p>
+<p><img src="./assets/309.png" alt/></p>
+<p><img src="./assets/310.png" alt/></p>
+<p><img src="./assets/311.png" alt/></p>
+</blockquote>
+<h3 id="cpu-内部多总线方式">CPU 内部多总线方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cpu-内部多总线方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>CPU 内部有两条或更多的总线时，构成双总线结构或多总线结构。将所有寄存器的输入端和输出端都连接到多条公共通路上，相比之下<strong>单总线中一个时钟内只允许传送一个数据</strong>，因而指令执行效率很低，因此采用多总线方式，同时在多个总线上传送不同的数据，提高效率。</p>
+<h3 id="专用数据通路方式">专用数据通路方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#专用数据通路方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>根据指令执行过程中的数据和地址的流动方向安排连接电路，避免使用共享的总线，<strong>性能较高，但硬件量大</strong>。</p>
+<p><img src="./assets/313.png" alt/></p>
+<h1 id="控制器-1">控制器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#控制器-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><img src="./assets/314.png" alt/></p>
+<blockquote>
+<ul>
+<li>FE: fetch</li>
+<li>IND: In Direct</li>
+<li>EX: executive</li>
+<li>INT: intrrupt</li>
+</ul>
+</blockquote>
+<h2 id="结构">结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/315.png" alt/></p>
+<ol>
+<li>运算器部件通过数据总线与内存储器、输入设备和输出设备传送数据。</li>
+<li>输入输出设备通过接口电路与总线相连接。</li>
+<li>内存储器、输入设备和输出设备从地址总线接收地址信息，从控制总线得到控制信号，通过数据总线与其他部件传送数据。</li>
+<li>控制器部件从数据总线接收指令信息，从运算器部件接收指令转移地址，送出指令地址到地址总线，还要向系统中的部件提供它们运行所需要的控制信号。</li>
+</ol>
+<h2 id="功能-2">功能<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#功能-2" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>控制器是<strong>计算机系统的指挥中心</strong>，</p>
+<ol>
+<li><span class="text-highlight">从主存中取出一条指令，并指出下一条指令在主存中的位置</span>。</li>
+<li><span class="text-highlight">对指令进行译码或测试，产生相应的操作控制信号</span>，以便启动规定的动作。</li>
+<li><span class="text-highlight">指挥并控制 CPU、主存、输入设备和输出设备之间的数据流动方向</span>。</li>
+</ol>
+<p>根据控制器<strong>产生微操作控制信号的方式的不同</strong>，控制器可分为<strong>硬布线控制器</strong>和<strong>微程序控制器</strong>，两类控制器中的 <span class="text-highlight">PC 和 IR 是相同的</span>，但<strong>确定和表示指令执行步骤的办法</strong>及<strong>给出控制信号的方案</strong>是不同的。</p>
+<h2 id="硬布线控制器">硬布线控制器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#硬布线控制器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>硬布线控制器由复杂的<span class="text-highlight">组合逻辑门电路</span>和<span class="text-highlight">触发器</span>构成，也称<span class="text-highlight">组合逻辑控制器</span>，其原理是<strong>根据指令的要求、当前的时序及内外部的状态，<span class="text-highlight">按时间的顺序</span>发送一系列微操作控制信号</strong>。</p>
+<p><span class="text-highlight">指令的操作码是决定控制单元 (CU) 发出不同控制信号的关键</span>。为了简化 CU 的逻辑，将存放在 IR 的 n 位操作码经过译码电路产生 2^n^ 个输出，每种操作码对应一个输出送至 CU。</p>
+<p>如果将指令译码器和节拍发生器从 CU 中分离出来，便可得到如图所示的简化的控制单元框图。</p>
+<p><img src="./assets/316.png" alt/></p>
+<p><strong>控制单元（CU）的输入信号来源</strong> 如下：</p>
+<ol>
+<li>
+<p><strong>经指令译码器译码产生的指令信息</strong></p>
+<p>现行指令的操作码决定了不同指令在执行周期所需完成的不同操作，它与时钟配合产生不同的控制信号。</p>
+</li>
+<li>
+<p><strong>时序系统产生的机器周期信号和节拍信号</strong></p>
+<p>为了使控制单元按一定的先后顺序、一定的节奏发出各个控制信号，控制单元必须受时钟控制。</p>
+</li>
+<li>
+<p>来自执行单元的反馈信息即标志（次要因素）</p>
+<p>控制单元有时需依赖 CPU 当前所处的状态产生控制信号，如 BAN 指令，控制单元要根据上条指令的结果是否为负来产生不同的控制信号。</p>
+</li>
+</ol>
+<p><img src="./assets/318.png" alt/></p>
+<h3 id="设计">设计<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#设计" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/322.png" alt/></p>
+<h4 id="分析每个阶段的微操作序列">分析每个阶段的微操作序列<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#分析每个阶段的微操作序列" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/317.png" alt/></p>
+<h4 id="安排微操作时序">安排微操作时序<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#安排微操作时序" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="取址周期">取址周期<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#取址周期" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="./assets/319.png" alt/></p>
+<h5 id="间址周期-1">间址周期<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#间址周期-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="./assets/320.png" alt/></p>
+<h5 id="执行周期-1">执行周期<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#执行周期-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="./assets/321.png" alt/></p>
+<h4 id="电路设计">电路设计<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#电路设计" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/323.png" alt/></p>
+<p><img src="./assets/324.png" alt/></p>
+<p><img src="./assets/325.png" alt/></p>
+<p><img src="./assets/326.png" alt/></p>
+<p><img src="./assets/327.png" alt/></p>
+<p><img src="./assets/328.png" alt/></p>
+<h3 id="特点">特点<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#特点" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>硬布线控制的功能由逻辑门组合实现，其<strong>速度主要取决于电路延迟</strong>，因此高速计算机中的关键核心部件 <strong>CPU 往往采用硬布线逻辑实现</strong>。因此，<strong>RISC 一般都选用硬布线控制器</strong>。</p>
+<p><strong>指令越多，修改、设计、扩充和实现就越困难</strong>。</p>
+<p><strong>指令系统功能越全，微操作命令就越多，电路也就越庞杂，调试就更困难</strong>。</p>
+<h2 id="微程序控制器">微程序控制器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#微程序控制器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/341.png" alt/></p>
+<h3 id="微程序微指令微命令">微程序、微指令、微命令<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#微程序微指令微命令" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/329.png" alt/></p>
+<p><strong>微程序</strong>的设计思想就是<strong>将每条<span class="text-highlight">机器指令编写成一个微程序</span>，每个<span class="text-highlight">微程序包含若干微指令</span>，每条<span class="text-highlight">微指令对应一个或几个微操作命令</span></strong>。</p>
+<p>因此，<strong>执行一条指令的过程就是执行一个微程序的过程</strong>，所以<strong>一个微程序的周期对应一个指令周期</strong>。这些<strong>微程序存储在一个控制存储器(CM)中</strong>。目前，<strong>大多数计算机都采用微程序设计技术</strong>。</p>
+<hr/>
+<p><strong>微指令</strong>是若干微命令的集合，一条微指令通常至少包含两大部分信息：</p>
+<ol>
+<li><strong>操作控制字段</strong>，也称<strong>微操作码字段</strong>，用于<strong>产生</strong>某一步操作所需的<strong>各种操作控制信号</strong>。</li>
+<li><strong>顺序控制字段</strong>，也称<strong>微地址码字段</strong>，用于控制<strong>产生下一条</strong>要执行的<strong>微指令地址</strong>。</li>
+</ol>
+<p><strong>微周期</strong>是指从控制存储器中<strong>取出并执行</strong>一条微指令所需的全部时间，通常为<strong>一个时钟周期</strong>。</p>
+<hr/>
+<p><strong>微命令</strong>：在微程序控制的计算机中，控制部件<strong>向执行部件发出的各种控制命令或者控制信号称为微命令</strong>，它是<strong>构成控制序列的最小单位</strong>。例如，打开或关闭某个控制门的电位信号、某个寄存器的打入脉冲等。<strong>执行部件收到微命令后所进行的操作称为微操作</strong>，<strong>微命令和微操作是一一对应的</strong>。</p>
+<p>微命令有相容性和互斥性之分：</p>
+<ul>
+<li><strong>相容性微命令</strong>：指那些可以同时出现、共同完成某一些微操作的微命令；</li>
+<li><strong>互斥性微命令</strong>：指在机器中不允许同时出现的微命令。若同时出现<strong>可能会引起总线冲突</strong>，<strong>也有可能是其他原因</strong>。</li>
+</ul>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>硬布线控制器中也有微命令与微操作的概念，并非微程序控制器的专有概念。</p>
+</div>
+</blockquote>
+<p><strong>微程序和程序是两个不同的概念</strong>：</p>
+<ul>
+<li>
+<p>程序是<span class="text-highlight">指令的有序集合</span>，用于完成特定的功能。</p>
+</li>
+<li>
+<p>微程序是<span class="text-highlight">微指令的有序集合</span>，用于描述机器指令，一条指令的功能由一段微程序来实现。</p>
+</li>
+</ul>
+<p>微程序实际上是机器指令的实时解释器，是由计算机设计者事先编制好并存放在控制存储器中的，一般不提供给用户。对于程序员来说，系统中<span class="text-highlight">微程序的结构和功能是透明的</span>，无须知道。</p>
+<p>程序最终由机器指令组成，并且由软件设计人员事先编制好并存<strong>放在主存储器或者辅助存储器中</strong>。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li><span class="text-highlight">主存储器用于存放程序和数据，在 CPU 外部，由 ROM 和 RAM 实现</span>（主要是 RAM） 。</li>
+<li><span class="text-highlight">控制存储器用于存放微程序，在 CPU 内部，用 ROM 实现</span>。存放微指令的控制存储器的单元地址称为微地址。</li>
+</ul>
+</div>
+</blockquote>
+<h3 id="结构-1">结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#结构-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/330.png" alt/></p>
+<h3 id="工作过程">工作过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#工作过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>实际上就是在微程序控制器的控制下计算机<span class="text-highlight">执行机器指令的过程</span>，这个过程可描述为：</p>
+<ol>
+<li>执行取指令公共操作。在机器开始运行时，自动地将取指微程序的入口地址送入 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal" style="margin-right:0.07153em;">PC</span></span></span></span>，并从 CM 中读出相应的微指令并送入 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span> 。取指微程序的入口地址一般为 CM 的 0 号单元，取指微程序执行完成后，从主存中取出的机器指令就已存入指令寄存器中。</li>
+<li>由<strong>机器指令的操作码字段</strong>通过<strong>微地址形成部件</strong>产生该机器指令所对应的<strong>微程序的入口地址</strong>，并送入 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal" style="margin-right:0.07153em;">PC</span></span></span></span>。</li>
+<li>从 CM 中逐条取出对应的微指令并执行。</li>
+<li>执行完对应于一条机器指令的一个微程序后，又回到取指微程序的入口地址，继续第 1 步，以完成取下一条机器指令的公共操作。</li>
+</ol>
+<p>以上是一条机器指令的执行过程，如此周而复始，直到整个程序执行完毕。</p>
+<h3 id="原理">原理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#原理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/331.png" alt/></p>
+<p><img src="./assets/332.png" alt/></p>
+<h3 id="微指令设计">微指令设计<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#微指令设计" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="微指令的编码方式">微指令的编码方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#微指令的编码方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="直接编码方式">直接编码方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#直接编码方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>直接编码法<span class="text-highlight">无须进行译码</span>，微指令的<strong>操作控制字段中每一位都代表一个微命令</strong>。</p>
+<p>设计微指令时，选用或不选用某个微命令，只要将表示该微命令的对应位设置成 1 或 0 即可。每个微命令对应并控制数据通路中的一个微操作。</p>
+<ul>
+<li>优点是<strong>简单、直观，执行速度快，操作并行性好</strong>。</li>
+<li>缺点是<strong>微指令字长过长</strong>，n 个微命令就要求微指令的操作字段有 n 位，<strong>造成控制存储器容量过大</strong>。</li>
+</ul>
+<p><img src="./assets/334.png" alt/></p>
+<h5 id="字段直接编码方式">字段直接编码方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#字段直接编码方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>将微指令的操作控制字段分成若干小字段，把<span class="text-highlight">互斥性微命令放在同一字段中</span>，把<span class="text-highlight">相容性微命令放在不同字段中</span>，<strong>每个字段独立编码</strong>，<strong>每种编码代表一个微命令</strong>且<strong>各字段编码含义单独定义，与其他字段无关</strong>。</p>
+<ul>
+<li>优点是可以缩短微指令字长。</li>
+<li>缺点是比直接编码方式慢，因为要通过译码电路后再发出微命令。</li>
+</ul>
+<p><img src="./assets/335.png" alt/></p>
+<h5 id="字段间接编码方式">字段间接编码方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#字段间接编码方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><strong>一个字段的某些微命令需由另一个字段中的某些微命令来解释</strong>，由于不是靠字段直接译码发出的微命令，因此称为字段间接编码，也称隐式编码。</p>
+<p>这种方式可<strong>进一步缩短微指令字长</strong>，但因<strong>削弱了微指令的并行控制能力</strong>，因此<strong>通常作为字段直接编码方式的一种辅助手段</strong>。</p>
+<p><img src="./assets/336.png" alt/></p>
+<h4 id="微指令的地址形成方式">微指令的地址形成方式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#微指令的地址形成方式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/337.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>断定法是指在微指令（后继地址字段）中直接明确指出下一条微指令的地址，这样相当于每条都是转移微指令，此外，还有一些其他如条件测试和转移控制字段，也用于控制微指令的寻址。因此，<strong>后继微指令地址可<span class="text-highlight">由微程序设计者指定</span>，或者<span class="text-highlight">根据微指令所规定的转移控制字段控制产生</span></strong>。</p>
+</div>
+</blockquote>
+<h4 id="微指令格式">微指令格式<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#微指令格式" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="./assets/333.png" alt/></p>
+<p>一条水平型微指令能定义并执行几种并行的基本操作；而一条垂直型微指令只能定义并执行一种基本操作。</p>
+<p>水平型微指令和垂直型微指令的比较如下：</p>
+<ol>
+<li>水平型微指令并行操作能力强、效率高、灵活性强；垂直型微指令则较差。</li>
+<li>水平型微指令执行一条指令的时间短；垂直型微指令执行的时间长。</li>
+<li>用水平型微指令编写的微程序，微指令字较长但微程序短；垂直型微指令正好相反。</li>
+<li>水平型微指令难以掌握；而垂直型微指令与机器指令比较相似，相对容易掌握。</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>垂直型微指令</strong>是一种微指令格式，相比于水平型微指令而言的，并<strong>不是指令格式垂直表示</strong>。</p>
+<p>垂直型微指令的<strong>特点</strong>是在微指令中设置了<strong>微操作码字段</strong>，结构类似于机器指令格式。</p>
+<p><strong>控制信号经过编码产生</strong> 是一种控制字段的编码方法，<strong>属于水平型微指令</strong>，强调并行控制功能是一种控制字段的设计目标，适合水平型微指令而不适合垂直型微指令。</p>
+</div>
+</blockquote>
+<h3 id="微程序控制单元设计">微程序控制单元设计<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#微程序控制单元设计" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/338.png" alt/></p>
+<p><img src="./assets/342.png" alt/></p>
+<p><img src="./assets/343.png" alt/></p>
+<p><img src="./assets/339.png" alt/></p>
+<h2 id="硬布线与微程序的比较">硬布线与微程序的比较<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#硬布线与微程序的比较" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/340.png" alt/></p>
+<p><strong>硬布线控制器</strong>需要结合各个微操作的节拍安排，综合分析，写出逻辑表达式，再设计成逻辑电路图，因此<strong>时序系统比较复杂</strong>；而<strong>微程序</strong>只需按照节拍的安排，顺序执行微指令，因此<strong>时序系统比较简单</strong>。</p>
+<h2 id="qa">Q&amp;A<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#qa" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ol>
+<li><strong>取指令</strong>阶段完成的任务是将现行指令从主存中取出并送至指令寄存器，这个操作是公共的操作，是每条指令都要进行的，与具体的指令无关，所以<strong>不需要操作码的控制</strong>。</li>
+<li><strong>微处理器是相对于一些大型处理器而言的，与微程序控制器没有必然联系</strong>。不管是采用微程序控制器，还是采用硬布线控制器，微机的 CPU 都是微处理器。</li>
+<li><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal" style="margin-right:0.07153em;">PC</span></span></span></span> 无法取代 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">PC</span></span></span></span>，因为它只在微程序中指向下一条微指令地址的寄存器。因此 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">μ</span><span class="mord mathnormal" style="margin-right:0.07153em;">PC</span></span></span></span> 也必然不可能知道这段微程序执行完毕后下一条是什么指令。</li>
+</ol>
+<h1 id="异常和中断">异常和中断<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#异常和中断" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<blockquote>
+<p><a href="../计算机操作系统/2_进程与线程#中断屏蔽方法" class="internal alias" data-slug="计算机基础/408/计算机操作系统/2_进程与线程">中断屏蔽方法</a></p>
+</blockquote>
+<p>现代计算机中都配有完善的异常和中断处理系统，CPU 的数据通路中有相应的异常检测和响应逻辑，外设接口中有相应的中断请求和控制逻辑，操作系统中有相应的中断服务程序。</p>
+<p>这些<strong>中断硬件电路</strong>和<strong>中断服务程序</strong>有机结合，<strong>共同完成异常和中断的处理过程</strong>。</p>
+<h2 id="基本概念">基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>由 <strong>CPU 内部</strong>产生的意外事件被称为<strong>异常</strong>，也称<strong>内中断</strong>。异常是 CPU 执行一条指令时，<span class="text-highlight">由 CPU 在其内部检测到</span>的、与正在执行的指令相关的同步事件；</p>
+<p>由来自 <strong>CPU 外部的设备</strong>向 CPU 发出的<strong>中断请求</strong>被称为<strong>中断</strong>，也称<strong>外中断</strong>，通常用于信息的输入和输出。中断是一种典型的由外部设备触发的、与当前正在执行的指令无关的异步事件。</p>
+<p>异常和中断处理过程的描述如下：</p>
+<ul>
+<li>若 CPU 在执行用户程序的第 i 条指令时<strong>检测到一个异常事件</strong>，或者执行第 i 条指令后<strong>发现一个中断请求信号</strong>，则 CPU 打断当前程序，然后转去执行相应的异常或中断处理程序。即内容异常的响应发生在指令执行过程中。</li>
+<li>若异常或中断处理程序<strong>能够解决</strong>相应的问题，则在异常或中断处理程序的最后，CPU 通过<strong>执行异常或中断返回指令</strong>，回到被打断的用户程序的<strong>第 i 条指令</strong>或<strong>第 i+1 条指令</strong>继续执行；若异常或中断处理程序发现是<strong>不可恢复</strong>的致命错误，则<strong>终止用户程序</strong>。</li>
+</ul>
+<p>通常情况下，对异常和中断的<strong>具体处理过程</strong>由<span class="text-highlight">操作系统（和驱动程序）</span>完成。</p>
+<h2 id="异常分类">异常分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#异常分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>异常是由 CPU 内部产生的意外事件，分为：</p>
+<ul>
+<li><span class="text-highlight">硬故障中断</span>：由<strong>硬连线出现异常</strong>引起的，如存储器校验错、总线错误等。</li>
+<li><span class="text-highlight">程序性异常</span>：也称<strong>软件中断</strong>，是指在 CPU 内部因<strong>执行指令</strong>而引起的异常事件，如整除 0、溢出、断点、单步跟踪、非法指令、栈溢出、地址越界、缺页等。</li>
+</ul>
+<p>按异常<strong>发生原因</strong>和<strong>返回方式</strong>的不同，可分为故障、自陷和终止。</p>
+<h3 id="故障fault">故障(Fault)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#故障fault" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>指在<strong>引起故障的指令<span class="text-highlight">启动后、执行结束前</span>被检测到</strong>的异常事件。</p>
+<p>例如，</p>
+<ul>
+<li><strong>指令译码</strong>时，出现“<span class="text-highlight">非法操作码</span>“或“<span class="text-highlight">除数为 0</span>”等；这种情况因为无法通过异常处理程序恢复故障，因此不能回到原断点执行，必须<strong>终止进程的执行</strong>。</li>
+<li><strong>取数据</strong>时，发生“<span class="text-highlight">缺段</span>”，“<span class="text-highlight">缺页</span>” 等；这种异常事件经处理后可将所需的段或页面从磁盘调入主存，回到发生故障的指令继续执行，<strong>断点为当前发生故障的指令</strong>。</li>
+</ul>
+<h3 id="自陷trap">自陷(Trap)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#自陷trap" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>自陷也称<strong>陷阱</strong>或<strong>陷入</strong>，它是<span class="text-highlight">预先安排</span>的一种“异常”事件，就像预先设定的“陷阱”一样。</p>
+<p>通常的做法是：事先在程序中<strong>用一条特殊指令</strong>或通过某种方式<strong>设定特殊控制标志</strong>来人为设置一个“陷阱”，当执行到被设置了“陷阱”的指令时，CPU 在<span class="text-highlight">执行完自陷指令后</span>，自动根据不同“陷阱”类型进行相应的处理，然后<strong>返回到自陷指令的<span class="text-highlight">下一条</span>指令执行</strong>。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>当自陷指令是转移指令时，并不是返回到下一条指令执行，而是返回到转移目标指令执行。</strong></p>
+</div>
+</blockquote>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>在 x86 机器中，用于程序调试“断点设置”和单步跟踪的功能就是通过陷阱机制实现的。</p>
+</div>
+</blockquote>
+<p>此外，系统调用指令、条件自陷指令等都属于陷阱指令，执行到这些指令时，无条件或有条件地自动调出操作系统内核程序进行执行。<strong>故障异常和自陷异常属于程序性异常（软件中断）</strong>。</p>
+<h3 id="终止abort">终止(Abort)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#终止abort" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>如果在<strong>执行指令的<span class="text-highlight">过程中</span>发生了使计算机无法继续执行的<span class="text-highlight">硬件故障</span></strong>，如<span class="text-highlight">控制器出错、存储器校验错、总线错误</span>等，那么程序将无法继续执行，只能终止，此时，调出异常服务程序来重启系统。</p>
+<p>这种异常与故障和自陷不同，不是由特定指令产生的，而是随机发生的。</p>
+<p>终止异常和外中断属于硬件中断。</p>
+<h2 id="中断分类">中断分类<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断分类" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>中断是指<strong>来自 CPU 外部、与 CPU 执行指令无关的事件</strong> 引起的中断，包括 I/O 设备发出的 <strong>I/O 中断</strong>（如键盘输入、打印机缺纸等），或发生某种<strong>特殊事件</strong>（如用户按 Esc 键、定时器计数时间到）等。</p>
+<p>外部 I/O 设备通过特定的中断请求信号线向 CPU 提出中断请求，CPU 每执行完一条指令就检查中断请求信号线，如果检测到中断请求，则进入中断响应周期。</p>
+<p>中断可分为可屏蔽中断和不可屏蔽中断。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>若根据识别中断服务程序地址的方式，可分为向量中断和非向量中断；</li>
+<li>若根据中断处理过程是否允许被打断，还可分为单重中断和多重中断。</li>
+</ul>
+</div>
+</blockquote>
+<h3 id="可屏蔽中断">可屏蔽中断<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#可屏蔽中断" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>通过<strong>可屏蔽中断请求线 <span class="text-highlight">INTR</span></strong> 向 CPU 发出的中断请求。</p>
+<p>CPU 可以通过在中断控制器中设置相应的屏蔽字来屏蔽它或不屏蔽它，<strong>被屏蔽的中断请求将不被送到 CPU</strong>。</p>
+<h3 id="不可屏蔽中断">不可屏蔽中断<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#不可屏蔽中断" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>通过专门的<strong>不可屏蔽中断请求线 <span class="text-highlight">NMI</span></strong> 向 CPU 发出的中断请求，通常是<strong>非常紧急的硬件故障</strong>，如电源掉电等。</p>
+<p>这类中断请求信号不可被屏蔽，以让 CPU 快速处理这类紧急事件。</p>
+<h2 id="中断和异常联系">中断和异常联系<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#中断和异常联系" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>中断和异常在本质上是一样的，但它们之间有以下两个重要的不同点：</p>
+<ol>
+<li>“缺页”或“溢出”等<strong>异常事件是由特定指令在执行过程中产生</strong>的，而<strong>中断不和任何指令相关联，也不阻止任何指令的完成</strong>。</li>
+<li><strong>异常的检测由 CPU 自身完成</strong>，不必通过外部的某个信号通知 CPU。对于中断，<strong>CPU 必须通过中断请求线获取中断源的信息</strong>，才能知道哪个设备发生了何种中断。</li>
+</ol>
+<p>所有的异常和中断事件<span class="text-highlight">都是由硬件检测发现的</span>。</p>
+<h2 id="异常和中断响应过程">异常和中断响应过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#异常和中断响应过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>CPU 执行指令时，如果发生了异常或中断请求，必须进行相应的处理。</p>
+<p>从 CPU <strong>检测到异常或中断事件，到调出相应的处理程序</strong>，整个过程称为<strong>异常和中断响应</strong>。</p>
+<p>CPU 对异常和中断响应的过程可分为：</p>
+<ol>
+<li>
+<p><strong>关中断</strong></p>
+<p><strong>在保存断点和程序状态期间，不能被新的中断打断</strong>，因此要禁止响应新的中断，即关中断。</p>
+<p>通常通过<strong>设置“中断允许”(IF)触发器</strong>来实现，若 IF 置为 1，则为开中断，表示允许响应中断；若 IF 置为 0，则表示关中断，表示不允许响应中断。</p>
+</li>
+<li>
+<p><strong>保存断点和程序状态</strong></p>
+<p>为了能在<strong>异常和中断处理后正确返回到被中断的程序继续执行</strong>，必须将程序的<span class="text-highlight">断点（返回地址）</span>送到栈或特定寄存器中。<strong>通常保存在栈</strong>中，这是<strong>为了支持异常或中断的嵌套</strong>。</p>
+<ul>
+<li>“陷阱”类异常的断点为陷阱指令下一条指令的地址</li>
+<li>“故障”类异常的断点为当前发生异常的指令的地址</li>
+<li>终止”类异常的断点可以是当前指令或下一条指令的地址</li>
+<li>外部中断的断点是当前刚执行完的指令的地址下一条指令的地址</li>
+</ul>
+<p>异常和中断处理后可能还要回到被中断的程序继续执行，被中断时的<span class="text-highlight">程序状态字寄存器 PSW</span> 的内容也需要<strong>保存在栈或特定寄存器</strong>中，在异常和中断返回时恢复到 PSW 中。</p>
+</li>
+<li>
+<p><strong>识别异常和中断并转到相应的处理程序</strong></p>
+<p>异常和中断源的识别有<strong>软件识别</strong>和<strong>硬件识别</strong>两种方式。</p>
+<p>异常和中断源的识别方式不同，<strong>异常大多采用软件识别方式</strong>，而<strong>中断可以采用软件识别方式或硬件识别方式</strong>。</p>
+<ul>
+<li><strong>软件识别方式</strong>：指 CPU 设置一个<strong>异常状态寄存器</strong>，用于记录异常原因。操作系统使用一个<strong>统一的异常或中断查询程序</strong>，<strong>按优先级顺序查询</strong>异常状态寄存器，以检测异常和中断类型，先查询到的先被处理，然后<strong>转到内核中相应的处理程序</strong>。</li>
+<li><strong>硬件识别方式</strong>：也称<strong>向量中断</strong>，<strong>异常或中断处理程序的首地址称为中断向量</strong>，所有中断向量都存放在中断向量表中。<strong>每个异常或中断都被指定一个中断类型号</strong>。在中断向量表中，<strong>类型号和中断向量一一对应</strong>，因而可以根据类型号快速找到对应的处理程序。</li>
+</ul>
+</li>
+</ol>
+<p><span class="text-highlight">整个响应过程是不可被打断的</span>。中断响应过程结束后，CPU 就从 PC 中取出对应中断服务程序的第一条指令开始执行，直至中断返回，这部分任务是由 CPU 通过执行中断服务程序完成的，<strong>整个中断处理过程是由软/硬件协同实现的</strong>。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>异常和中断的处理过程<span class="text-highlight">基本</span>是相同的，这也是有些教材将两者统称为中断的原因。</p>
+<p>但是在有些细节上 CPU 对于异常和中断的响应处理并不一样。例如，检测到中断请求后，CPU 必须通过“中断回答信号启动中断控制器进行中断查询，以确定当前发出的优先级最高的中断请求，并通过数据线获取相应的中断类型号；而对于异常，CPU 无须进行中断回答。</p>
+</div>
+</blockquote>
+<h1 id="指令流水线">指令流水线<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#指令流水线" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p>可从两方面提高处理机的并行性：</p>
+<ol>
+<li><span class="text-highlight">时间上的并行技术</span>：将一个<strong>任务分解为几个不同的子阶段</strong>，<strong>每个子阶段在不同的功能部件上并行执行</strong>，以便在同一时刻能够同时执行多个任务，进而提升系统性能，这种方法被称为<span class="text-highlight">流水线技术</span>。</li>
+<li><strong>空间上的并行技术</strong>：在一个处理机内设置<strong>多个执行相同任务的功能部件</strong>，并让这些功能部件并行工作，这样的处理机被称为 <strong>超标量处理机</strong>。</li>
+</ol>
+<p>现代计算机普遍采用指令流水线技术，同一时刻有多条指令在 CPU 的不同功能部件中并发执行，大大提高了功能部件的并行性和程序的执行效率。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>流水 CPU 和多媒体 CPU 无必然联系。多媒体 CPU 是指能够处理多种媒体数据（如图像、音频、视频等）的 CPU，它通常具有特殊的指令集和功能部件，与流水 CPU 的概念不同。</p>
+</div>
+</blockquote>
+<h2 id="基本概念-1">基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本概念-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>一条指令的执行过程可分解为若干阶段，每个阶段由相应的功能部件完成。如果将各阶段视为相应的流水段，则指令的执行过程就构成了一条指令流水线。</p>
+<h3 id="流水线各个阶段">流水线各个阶段<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#流水线各个阶段" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>假设一条指令的执行过程分为如下 5 个阶段（也称<strong>功能段</strong>或<strong>流水段</strong>）：</p>
+<ul>
+<li><span class="text-highlight">取指</span>(<span class="text-highlight">IF</span>, Fetch)：从指令存储器或 Cache 中<strong>取指令</strong>。</li>
+<li><span class="text-highlight">译码/读寄存器</span>(<span class="text-highlight">ID</span>, Decode)：操作控制器对指令进行译码，同时<strong>从寄存器堆中取操作数</strong>。</li>
+<li><span class="text-highlight">执行/计算地址</span>(<span class="text-highlight">EX</span>, Execute)：执行运算操作或计算地址。</li>
+<li><span class="text-highlight">访存</span>(<span class="text-highlight">MEM</span>, Memory)：<strong>对存储器进行读/写操作，包括修改 PC</strong>。</li>
+<li><span class="text-highlight">写回</span>(<span class="text-highlight">WB</span>, Writeback)：将指令执行结果<strong>写回寄存器堆</strong>。</li>
+</ul>
+<h3 id="流水线对指令集的要求">流水线对指令集的要求<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#流水线对指令集的要求" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>为了利于实现指令流水线，指令集应具有如下特征：</p>
+<ol>
+<li><span class="text-highlight">指令长度应尽量一致</span>，有利<strong>于简化取指令和指令译码操作</strong>。否则，取指令所花的时间长短不一，使得取指部件极其复杂，并且也不利于指令译码。</li>
+<li><span class="text-highlight">指令格式应尽量规整</span>，尽量保证源寄存器的位置相同，有利于<strong>在指令未知时就可取寄存器操作数</strong>，否则须译码后才能确定指令中各寄存器编号的位置。</li>
+<li><span class="text-highlight">采用 LOAD/STORE 型指令</span>，其他指令都不能访问存储器，这样可把 LOAD/STORE 指令的地址计算和运算指令的执行步骤规整在同一个周期中，有利于<strong>减少操作步骤</strong>。</li>
+<li><strong>数据和指令在存储器中<span class="text-highlight">“按边界对齐”</span>存放</strong>。这样，有利于<strong>减少访存次数</strong>，使所需数据在一个流水段内就能从存储器中得到。</li>
+</ol>
+<h2 id="流水线的实现">流水线的实现<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#流水线的实现" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="设计原则">设计原则<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#设计原则" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>在单周期实现中，虽然不是所有指令都必须经历完整的 5 个阶段，但只能<strong>以<span class="text-highlight">执行速度最慢</span>的指令作为设计其时钟周期的依据</strong>，单周期 CPU 的时钟频率取决于数据通路中的最长路径。</p>
+<p>流水线设计的原则：</p>
+<ol>
+<li>
+<p>指令<strong>流水段个数</strong>以<strong>最复杂指令所用的功能段个数</strong>为准；</p>
+</li>
+<li>
+<p>流水段的长度或者流水段时间以<strong>最复杂的操作所花的时间</strong>为准。</p>
+<p>假设某条指令的 5 个阶段所花的时间分别如下：取指：200ps；译码：100ps；执行：150ps：访存：200ps：写回：100ps，串行执行时该指令的总执行时间为 750ps。但若按照流水线设计原则，则每个流水段的长度为 200ps，每条指令的执行时间为 1000ps，反而比串行执行时增加了 250ps。</p>
+<p>假设某程序有 N 条指令，单周期处理机所用的时间为 Nx750ps，而流水线处理机所用的时间为(N+4)x200ps。由此可见，<strong>流水线方式并不能缩短<span class="text-highlight">单条指令</span>的执行时间</strong>，但<strong>对于整个程序来说执行效率得到了大幅提高</strong>。</p>
+</li>
+</ol>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>1,000 ps (皮秒) = 1 ns (纳秒)</p>
+<p>1,000,000,000 ns (纳秒) = 1 s (秒)</p>
+</div>
+</blockquote>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><strong>指令流水线中每个流水段的时间单位为一个时钟周期</strong>。</p>
+<p>假设流水段的长度为 200ps，则 CPU 时钟周期为 200ps。若还有其它需要花费的时间也应该加上，例如流水段寄存器延时为 20ps，则此时 CPU 时钟周期为 220ps。</p>
+</div>
+</blockquote>
+<h3 id="逻辑结构">逻辑结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#逻辑结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>每个流水段后面都要增加一个<strong>流水段寄存器</strong>，用于<strong>锁存本段处理完的所有数据</strong>，以保证本段的执行结果能在下个时钟周期给下一流水段使用。</p>
+<p><img src="./assets/348.png" alt/></p>
+<p><img src="./assets/347.png" alt/></p>
+<p>一条指令会依次进入 IF、ID、EX、MEM、WB 五个功能段进行处理，第一条指令进入 WB 段后，各流水段都包含一条不同的指令，流水线中将同时存在 5 条不同的指令并行执行。</p>
+<p>各种寄存器和数据存储器<span class="text-highlight">均采用统一时钟 CLK 进行同步</span>，每来一个时钟，各段处理完的数据都将锁存到段尾的流水段寄存器中，作为后段的输入。同时，当前段也会收到前段通过流水段寄存器传递过来的数据。</p>
+<p>在某个时钟周期内，不同的流水段受不同指令的控制信号控制，执行不同指令的不同功能段，在<strong>指令译码阶段由控制器产生指令各流水段的所有控制信号</strong>，分别在随后的各个时钟周期内被使用，因此随后<span class="text-highlight">各流水段寄存器都要保存相应的控制信号，并通过流水段寄存器传递到下一个流水段</span>。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>每条指令的<strong>取指令阶段和指令译码阶段</strong>的功能都相同，是公共流水段，且控制信号是指令译码之后才产生的，因此这两个阶段<strong>不需要控制信号</strong>。</p>
+</div>
+</blockquote>
+<p>不同流水段寄存器存放的信息不同，因此<span class="text-highlight">流水段寄存器位数不一定相同</span>。</p>
+<p><span class="text-highlight">流水段寄存器对用户程序是透明的</span>，用户程序不能通过指令指定访问哪个流水段寄存器。</p>
+<h3 id="流水线的表示方法">流水线的表示方法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#流水线的表示方法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="指令执行过程图">指令执行过程图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#指令执行过程图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>主要用于分析指令执行过程以及影响流水线的因素。</p>
+<p><img src="./assets/346.png" alt/></p>
+<p>从图看出，理想情况下，每个时钟周期都有一条指令进入流水线，每个时钟周期都有一条指令完成，每条指令的时钟周期数（即 CPI）都为 1。</p>
+<h4 id="时空图">时空图<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#时空图" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>在时空图中，横坐标表示时间，它被分割成长度相等的时间段 T；纵坐标为空间，表示当前指令所处的功能部件。</p>
+<p>在图中，第一条指令 1 在时刻 0 进入流水线，在时刻 5T 流出流水线。第二条指令 L 在时刻 T 进入流水线，在时刻 6T 流出流水线。以此类推，每隔一个时间 T 就有一条指令进入流水线，从时刻 5T 开始每隔一个时间 T 就有一条指令流出流水线。</p>
+<p><img src="./assets/349.png" alt/></p>
+<p>从图中可看出，在时刻 10T 时，流水线上便有 6 条指令流出。若采用串行方式执行，在时刻 10T 时，只能执行 2 条指令，可见使用流水线方式成倍地提高了计算机的速度。</p>
+<p>只有大量连续任务不断输入流水线，才能充分发挥流水线的性能，而指令的执行正好是连续不断的，非常适合采用流水线技术。对于其他部件级流水线，如浮点运算流水线，同样也仅适合于提升浮点运算密集型应用的性能，对于单个运算是无法提升性能的。</p>
+<h2 id="流水线的冒险与处理">流水线的冒险与处理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#流水线的冒险与处理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>在指令流水线中，可能会遇到一些情况使得后续指令无法正确执行而引起<strong>流水线阻塞</strong>，这种现象称为流水线冒险。</p>
+<p>不同类型指令在各流水段的操作是不同。</p>
+<p><img src="./assets/350.png" alt/></p>
+<h3 id="结构冒险">结构冒险<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#结构冒险" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>由不同指令在同一时刻<strong>争用同一功能部件</strong>而形成的冲突，也称<span class="text-highlight">结构冲突 / 资源冲突</span>，即<strong>由硬件资源竞争造成的冲突</strong>。</p>
+<p><img src="./assets/image-20241123152537904.png" alt/></p>
+<p>例如，指令和数据通常都存放在同一存储器中，在第 4 个时钟周期，第 i 条 LOAD 指令进入 MEM 段时，第 i+3 条指令的 IF 段也要访存取指令，此时会发生访存冲突，为此可在前一条指令访存时，暂停（一个时钟周期）取后一条指令的操作，如图所示。</p>
+<p>当然，如果第 i 条指令不是 LOAD 指令，在 MEM 段不访存，也就不会发生访存冲突。</p>
+<p><img src="./assets/354.png" alt/></p>
+<p>解决办法：</p>
+<ol>
+<li>
+<p>前一指令访存时，使<strong>后一条</strong>相关指令（及其后续指令）<strong>阻塞若干个时钟周期</strong>，直到不会产生冒险为止。</p>
+<p><img src="./assets/image-20241123152623969.png" alt/></p>
+</li>
+<li>
+<p><strong>设置多个独立的部件</strong>。例如，对于寄存器访问冲突，可将寄存器的读口和写口独立开来；对于访存冲突，单独设置数据存储器和指令存储器。</p>
+<p><img src="./assets/image-20241123152830422.png" alt/></p>
+</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>在现代 Cache 机制中，L1 级 Cache <strong>通常采用数据 Cache 和指令 Cache 分离的方式</strong>，从而也就<strong>避免了资源冲突</strong>的发生。</p>
+</div>
+</blockquote>
+<h3 id="数据冒险">数据冒险<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据冒险" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>数据冒险也称<span class="text-highlight">数据相关</span>。</p>
+<p>引起数据冒险的原因是，<strong>后面指令用到前面指令的结果时，前面指令的结果还没有产生</strong>。</p>
+<p>在以<strong>非乱序执行的流水线</strong>中，<span class="text-highlight">所有</span>数据冒险都是<span class="text-highlight">由于前面指令写结果之前，后面指令就需要读取而造成的</span>，这种数据冒险称为 <strong>写后读</strong>(ReadAfterWrite, <span class="text-highlight">RAW</span>) <strong>冲突</strong>。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="assembly" data-theme="github-light github-dark"><code data-language="assembly" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>I1 add R1, R2, R3 # (R2)+(R3)→R1</span></span>
+<span data-line><span>I2 sub R4, R1, R5 # (R1)-(R5)→R4</span></span></code></pre></figure>
+<p>在写后读（RAW）冲突中，指令 I2 的源操作数是指令 I1 的目的操作数。正常的读/写顺序是由指令 I1 先写入 R1，再由指令 I2 来读 R1。在非流水线中，这种先写后读的顺序是自然维持的。但在流水线中，由于重叠操作，读/写的先后顺序关系发生了变化，如图所示。</p>
+<p><img src="./assets/355.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>通常分析是否存在数据冒险，只需要从某一条指令开始观察该指令“写”了某个寄存器，并<strong>观察后续相邻的 3 条指令是否“读”了同一个寄存器</strong>。若发现此类情况，则存在数据冒险。</p>
+<p><img src="./assets/image-20241123145253733.png" alt/></p>
+</div>
+</blockquote>
+<p>解决数据冒险的办法：</p>
+<ol>
+<li>
+<p><span class="text-highlight">延迟执行相关指令</span></p>
+<p>把<strong>遇到数据相关的指令及其后续指令都暂停一至几个时钟周期</strong>，<strong>直到数据相关问题消失后再继续执行</strong>。</p>
+<p>可分为<span class="text-highlight">软件插入空操作“nop”指令</span>和<span class="text-highlight">硬件阻塞(stall)</span>两种方法，<strong>确保其 ID 段在”写寄存器指令”的 WB 段之后</strong>。</p>
+<p>为此，可以暂停 sub 指令 3 个时钟周期，直至前面 add 指令的结果生成，如图所示。</p>
+<p><img src="./assets/356.png" alt/></p>
+<blockquote>
+<p>对于 I1 和 I2 的数据相关问题，还可以通过将寄存器的写口和读口分别控制在前、后半个时钟周期内操作，使前半周期写入 R1 的值在后半周期马上被读出，在一个周期内读/写寄存器不会产生冲突，这样 I1 的 WB 段和 I2 的 ID 段就可重叠执行，从而只需延迟 2 个时钟周期。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>采用转发（旁路）技术</strong></p>
+<p>设置相关转发通路，不等前一条指令把计算结果写回寄存器，下一条指令也不再从寄存器读，而<strong>将数据通路中生成的中间数据直接转发到 ALU 的输入端</strong>。</p>
+<p>如图所示，指令 I1 在 EX 段结束时已得到 R1 的新值，被存放到 EX/MEM 流水段寄存器中，因此可以直接从该流水段寄存器中取出数据返送到 ALU 的输入端，这样，在指令 I2 执行时 ALU 中用的就是 R1 的新值。</p>
+<p><img src="./assets/357.png" alt/></p>
+<p>增加转发通路后，相邻两条运算类指令之间、相隔一条的两个运算类指令之间的数据相关带来的数据冒险问题就都能解决了。</p>
+<blockquote>
+<p>转发（旁路）技术可以解决大部分数据冒险，但不能解决由 Load 指令写寄存器引 起的 Load-use 数据冒险。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Load-use 数据冒险的处理</strong></p>
+<p>如果 <strong>Load 指令与其后紧邻的运算类指令存在数据相关问题</strong>（如：Load 指令写某个寄存器，相邻的后一条指令读同一个寄存器），则无法通过转发技术来解决，通常把这种情况称为 Load-use 数据冒险。</p>
+<p>对于下列两条指令，Load 指令只有在 MEM 段结束时才能得到主存中的结果，然后送 MEM/WB 流水段寄存器，在 WB 段的前半周期才能存入 R2 的新值，但随后的 add 指令在 EX 阶段就要取 R2 的值，因此，得到的是旧值。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="assembly" data-theme="github-light github-dark"><code data-language="assembly" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>I2 load r2, 12, (r1) # M[(r1)+12]→(r2)</span></span>
+<span data-line><span>I3 add r4, r3, r2 # (r3)+(r2)→(r4)</span></span></code></pre></figure>
+<p>对于 Load-use 数据冒险，最简单的做法是由编译器<strong>在 add 指令之前插入一条 nop 指令</strong>，这样在 add 指令的 EX 段就可以从 MEM/WB 流水段寄存器中取出 Load 指令的最新结果，如图所示。</p>
+<p><img src="./assets/358.png" alt/></p>
+<p>当然，<strong>最好的办法是在程序编译时进行优化</strong>，通过<strong>调整指令顺序</strong> 以避免出现 load-use 现象。</p>
+</li>
+</ol>
+<h3 id="控制冒险">控制冒险<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#控制冒险" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>指令通常是顺序执行的，但当遇到<span class="text-highlight">改变指令执行顺序</span>的情况，例如执行转移或返回指令、发生中断或异常时，会改变 PC 值，从而造成<strong>断流</strong>，也称<strong>控制冲突</strong>。</p>
+<p>对于由转移指令引起的冲突，最简单的处理方法就是<strong>推迟后续指令的执行</strong>。通常把<strong>因流水线阻塞带来的延迟时钟周期数</strong>称为<strong>延迟损失时间片</strong> <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>。</p>
+<p>在下列指令中，假设 R2 存放常数 N，R1 的初值为 1，bne 指令在 EX 段通过计算设置条件码，并<strong>在 MEM 段确定是否将 PC 值更新为转移目的地址</strong>，因此仅当 bne 指令执行到第 5 个时钟结束时才能将转移目标地址送 PC。</p>
+<figure data-rehype-pretty-code-figure><pre tabindex="0" data-language="assembly" data-theme="github-light github-dark"><code data-language="assembly" data-theme="github-light github-dark" style="display:grid;"><span data-line><span>I1 loop:add R1,R1,1 # (R1)+1→R1</span></span>
+<span data-line><span>I2 bne R1,R2,loop # if(R1)!=(R2) goto loop</span></span></code></pre></figure>
+<p>为此，在数据通路检测到分支指令后，可以在分支指令后插入 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>（此处 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">3</span></span></span></span>）条 nop 指令，如图所示。</p>
+<p><img src="./assets/359.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>为什么只需要延后 3 个时钟 </p></div>
+                  
+                </div>
+<div class="callout-content">
+<p><img src="./assets/image-20241123150437320.png" alt/></p>
+</div>
+</blockquote>
+<p>控制冒险解决办法：</p>
+<ol>
+<li>
+<p>对于由<strong>转移指令</strong>引起的冲突，可采用和解决数据冲突相同的软件<strong>插入“nop”指令</strong> 和<strong>硬件阻塞(stall)</strong> 的方法。</p>
+<p>比如，延迟损失多少时间片，就插入多少条 nop 指令。</p>
+</li>
+<li>
+<p>对转移指令进行<span class="text-highlight">分支预测</span>，尽早生成转移目标地址。</p>
+<p>分支预测分为：</p>
+<ul>
+<li><strong>静态预测技术</strong>：也称静态预测，假定分支总是不发生或者总是发生，<span class="text-highlight">每次预测结果是一样的</span>。</li>
+<li><strong>动态预测技术</strong>：根据之前条件跳转的比较结果来预测，根据局部性原理，其<span class="text-highlight">预测成功率通常比静态预测技术高</span>。</li>
+</ul>
+<p><span class="text-highlight">预测错误时，已被错误放入流水线执行的指令必须被舍弃</span>。</p>
+</li>
+</ol>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>Cache 缺失的处理过程也会引起流水线阻塞。</p>
+</div>
+</blockquote>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>流水段的数量越多，意味着在转移结果确定之前，可能取出更多的错误指令，从而需要更多的时间和资源来处理这些错误指令。即流水段的数量越多，控制冒险引发的开销就越多。</p>
+</div>
+</blockquote>
+<h2 id="流水线性能指标">流水线性能指标<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#流水线性能指标" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="吞吐率">吞吐率<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#吞吐率" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>流水线的吞吐率是指在<strong>单位时间内流水线所完成的任务数量</strong>，或输出结果的数量。</p>
+<p>流水线吞吐率(<span class="text-highlight">TP</span>)的最基本公式为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">TP</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1463em;vertical-align:-0.4509em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6954em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4509em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 是任务数，<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是处理完 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 个任务所用的总时间。</p>
+<p>在输入流水线中的任务连续的理想情况下，一条 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 段流水线能在 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> 个时钟周期内完成 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 个任务，流水线的吞吐率为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">TP</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2154em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6954em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mclose mtight">)</span><span class="mord mtight">Δ</span><span class="mord mathnormal mtight">t</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>连续输入的任务数 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.522em;vertical-align:-0.011em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⟶</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord">∞</span></span></span></span> 时，得最大吞吐率 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">Δ</span><span class="mord mathnormal mtight">t</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。</p>
+<p><img src="./assets/344.png" alt/></p>
+<h3 id="加速比">加速比<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#加速比" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>完成同样一批任务，<strong>不使用流水线与使用流水线所用的时间之比</strong>。</p>
+<p>流水线加速比(<span class="text-highlight">S</span>)的基本公式为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.3393em;vertical-align:-0.4509em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8884em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4101em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3173em;"><span style="top:-2.357em;margin-left:-0.1389em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4509em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>，<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 表示不使用流水线的总时间，<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 表示使用流水线的总时间。</p>
+<p>一条 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 段流水线完成 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 个任务所需的时间为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">Δ</span><span class="mord mathnormal">t</span></span></span></span>。顺序执行 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> 个任务时，所需的总时间为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">kn</span><span class="mord">Δ</span><span class="mord mathnormal">t</span></span></span></span>。将 T 和 T 值代入上式，得出流水线的加速比为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.2834em;vertical-align:-0.4033em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mathnormal mtight">n</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">kn</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4033em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>。</p>
+<p>连续输入的任务数 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.522em;vertical-align:-0.011em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⟶</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord">∞</span></span></span></span> 时，得最大加速比为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>。</p>
+<h3 id="效率">效率<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#效率" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>流水线的设备利用率</strong>称为流水线的效率。</p>
+<p>在时空图上，流水线的效率定义为<strong>完成 n 个任务占用的时空区有效面积</strong>与 <strong>n 个任务所用的时间与 k 个流水段所围成的时空区总面积</strong>之比。</p>
+<p><img src="./assets/345.png" alt/></p>
+<h2 id="高级流水线技术">高级流水线技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#高级流水线技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="超标量流水线技术">超标量流水线技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#超标量流水线技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>也称<strong>动态多发射技术</strong>，<span class="text-highlight">每个时钟周期内可并发多条独立指令</span>，<strong>以并行操作方式将两条或多条指令编译并执行</strong>，为此<span class="text-highlight">需配置多个功能部件和指令译码电路，以及多个寄存器和总线</span>。</p>
+<p>在简单的超标量 CPU 中，指令是按顺序发射执行的。为了更好地提高并行性能，<strong>多数超标量 CPU 都结合动态流水线调度技术</strong>，通过动态分支预测等手段，指令不按顺序执行，这种方式称为乱序执行。</p>
+<p><img src="./assets/352.png" alt/></p>
+<blockquote>
+<p>该技术本质上是用空间换时间。</p>
+</blockquote>
+<h3 id="超长指令字技术">超长指令字技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#超长指令字技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>也称<strong>静态多发射技术</strong>，由编译程序挖掘出指令间潜在的并行性，<strong>将多条能并行操作的指令组合成一条具有多个<span class="text-highlight">操作码字段</span>的超长指令字</strong>（可达几百位），为此<strong>需要采用多个处理部件</strong>。</p>
+<p><img src="./assets/351.png" alt/></p>
+<h3 id="超流水线技术">超流水线技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#超流水线技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>流水线功能段<span class="text-highlight">划分得越多，时钟周期就越短，指令吞吐率也就越高</span>，因此超流水线技术是通过提高流水线主频的方式来提升流水线性能的。但是，<strong>流水线级数越多，用于流水寄存器的开销就越大</strong>，因而流水线级数是有限制的，并不是越多越好。</p>
+<p><img src="./assets/353.png" alt/></p>
+<p>超流水线 CPU 在流水线充满后，每个时钟周期还是执行一条指令，CPI = 1，但其主频更高；</p>
+<p>多发射流水线 CPU 每个时钟周期可以处理多条指令，CPI &lt; 1，但其成本更高、控制更复杂。</p>
+<h2 id="常见的五类指令执行过程">常见的五类指令执行过程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#常见的五类指令执行过程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<blockquote>
+<p><a href="https://www.bilibili.com/video/BV1ps4y1d73V?p=72" class="external">https://www.bilibili.com/video/BV1ps4y1d73V?p=72<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+</blockquote>
+<p><img src="./assets/image-20241123153042663.png" alt/></p>
+<h3 id="运算类指令">运算类指令<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#运算类指令" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/360.png" alt/></p>
+<h3 id="load-指令">LOAD 指令<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#load-指令" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/361.png" alt/></p>
+<h3 id="store-指令">STORE 指令<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#store-指令" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/362.png" alt/></p>
+<h3 id="条件转移指令">条件转移指令<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#条件转移指令" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/363.png" alt/></p>
+<h3 id="无条件转移指令">无条件转移指令<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#无条件转移指令" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="./assets/364.png" alt/></p>
+<h2 id="qa-1">Q&amp;A<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#qa-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/365.png" alt/></p>
+<h1 id="多处理器">多处理器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多处理器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h1>
+<p><img src="./assets/374.png" alt/></p>
+<h2 id="多处理器基本概念">多处理器基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多处理器基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>基于指令流的数量和数据流的数量，将计算机体系结构分为 <strong>SISD、SIMD、MISD 和 MIMD</strong> 四类。</p>
+<p><span class="text-highlight">常规的单处理器属于 SISD</span>，而<span class="text-highlight">常规的多处理器属于 MIMD</span>。</p>
+<h3 id="单指令流单数据流sisd结构">单指令流单数据流(SISD)结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#单指令流单数据流sisd结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote>
+<p>Single Instruction Single Data stream</p>
+</blockquote>
+<p>特性：各指令序列只能并发、不能并行，每条指令处理一两个数据。<strong>不是数据级并行技术</strong>。</p>
+<p>硬件组成：<strong>一个处理器</strong> + 一<strong>个主存储器</strong>。若采用指令流水线，需设置<strong>多个功能部件</strong>，采用<strong>多模块交叉存储器</strong>。</p>
+<p><img src="./assets/366.png" alt/></p>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>标量流水处理机属于 SISD 结构。</p>
+</div>
+</blockquote>
+<h3 id="单指令流多数据流simd结构">单指令流多数据流(SIMD)结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#单指令流多数据流simd结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote>
+<p>Single Instruction Multiple Data</p>
+</blockquote>
+<p>特性：各指令序列<strong>只能并发、不能并行</strong>，但每条指令可同时处理很多个具有相同特征的数据。是一种<span class="text-highlight">数据级</span>并行技术。</p>
+<p>硬件组成：一个指令控制部件（CU） + 多个处理单元/执行单元（如 ALU） + 多个局部存储器 + 一个主存储器。每个执行单元有各自的寄存器组、局部存储器、地址寄存器。不同执行单元执行同一条指令，处理不同的数据。</p>
+<p><img src="./assets/367.png" alt/></p>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Note</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>阵列处理器就是属于 SIMD 结构。</p>
+</div>
+</blockquote>
+<h3 id="多指令流单数据流misd结构">多指令流单数据流(MISD)结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多指令流单数据流misd结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>MISD 是指同时执行多条指令，处理同一个数据，实际上<span class="text-highlight">不存在这样的计算机</span>。</p>
+<h3 id="多指令流多数据流mimd结构">多指令流多数据流(MIMD)结构<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多指令流多数据流mimd结构" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<blockquote>
+<p>Multiple InstructionStream Multiple Data</p>
+</blockquote>
+<p>特性：各指令序列并行执行，分别处理多个不同的数据。是一种<span class="text-highlight">线程级</span>并行、甚至是线程级以上并行技术。</p>
+<p>可以分为：</p>
+<ol>
+<li>
+<p>多处理器系统</p>
+<p>各处理器之间，可以通过 LOAD/STORE 指令，访问同一个主存储器，可通过主存相互传送数据。</p>
+<p>一台计算机内，包含多个处理器 + 一个主存储器，一多个处理器共享单一的物理地址空间。</p>
+<p><img src="./assets/368.png" alt/></p>
+</li>
+<li>
+<p>多计算机系统</p>
+<p>各计算机之间，不能通过 LOAD/STORE 指令直接访问对方的存储器，只能通过“消息传递”相互传送数据。</p>
+<p>由多台计算机组成，因此拥有多个处理器 + 多个主存储器。每台计算机拥有各自的私有存储器，物理地址空间相互独立。</p>
+<p><img src="./assets/369.png" alt/></p>
+</li>
+</ol>
+<h3 id="向量处理器simd-思想的进阶应用">向量处理器(SIMD 思想的进阶应用)<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#向量处理器simd-思想的进阶应用" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>特性：一条指令的处理对象是“向量”。擅长对向量型数据并行计算、浮点数运算，常被用于超级计算机中，处理科学研究中巨大运算量</p>
+<p>硬件组成：多个处理单元，多组“向量寄存器”。主存储器应采用“多个端口同时读取 ” 的交叉多模块存储器。主存储器大小限定了机器的解题规模，因此要有大容量的、集中式的主存储器。</p>
+<p><img src="./assets/370.png" alt/></p>
+<h2 id="多核处理器基本概念">多核处理器基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多核处理器基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>多核处理器是指将<strong>多个处理单元</strong>集成到单个 CPU 中，每个处理单元称为一个核(core)，通常也称片上多处理器。每个核既可以有自己的 Cache，又可以共享同一个 Cache，所有核通常共享主存储器。</p>
+<p>双核技术是指将两个一样的 CPU 集成到一个封装内或者直接将两个 CPU 做成一个芯片。</p>
+<p>下图是一个不共享 Cache 的双核 CPU 结构。</p>
+<p><img src="./assets/375.png" alt/></p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>多核处理器属于 MIMD 架构。</p>
+</div>
+</blockquote>
+<h2 id="硬件多线程基本概念">硬件多线程基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#硬件多线程基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="./assets/373.png" alt/></p>
+<p>在传统 CPU 中，线程的切换包含一系列开销，频繁地切换会极大影响系统的性能，为了减少线程切换过程中的开销，便诞生了硬件多线程。</p>
+<p>在支持硬件多线程的 CPU 中，必须为每个线程提供单独的通用寄存器组、单独的程序计数器等，线程的切换只需激活选中的寄存器，从而省略了与存储器数据交换的环节，大大减少了线程切换的开销。</p>
+<blockquote class="callout tip" data-callout="tip">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>Tip</p></div>
+                  
+                </div>
+<div class="callout-content">
+<p>硬件多线程技术也可以用于单核处理器。</p>
+</div>
+</blockquote>
+<p>硬件多线程有 3 种实现方式：</p>
+<ol>
+<li>
+<p>细粒度多线程</p>
+<p>多个线程之间轮流交叉执行指令，多个线程之间的指令是不相关的，可以乱序并行执行。</p>
+<p>在这种方式下，处理器能在每个时钟周期切换线程。例如，在时钟周期 i，将线程 A 中的多条指令发射执行；在时钟周期 i+1，将线程 B 中的多条指令发射执行。</p>
+</li>
+<li>
+<p>粗粒度多线程</p>
+<p>连续几个时钟周期都执行同一线程的指令序列，仅在当前线程出现了较大开销的阻塞时，才切换线程，如 Cache 缺失。</p>
+<p>在这种方式下，当发生流水线阻塞时，必须清除被阻塞的流水线，新线程的指令开始执行前需要重载流水线，因此，线程切换的开销比细粒度多线程更大。</p>
+</li>
+<li>
+<p>同时多线程</p>
+<p>同时多线程(SMT)是上述两种多线程技术的变体。它在实现指令级并行的同时，实现线程级并行，也就是说，它在同一个时钟周期中，发射多个不同线程中的多条指令执行。</p>
+</li>
+</ol>
+<p><img src="./assets/371.png" alt/></p>
+<p><img src="./assets/372.png" alt/></p>
+<h2 id="共享内存多处理器的基本概念">共享内存多处理器的基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#共享内存多处理器的基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>具有共享的<strong>单一物理地址空间</strong>的<strong>多处理器</strong>称为<strong>共享内存多处理器 (SMP)</strong>。</p>
+<p>处理器通过存储器中的<strong>共享变量</strong>互相通信，所有处理器都能通过存取指令访问存储器的任何位置。即使这些系统共享同一个物理地址空间，它们仍然可在自己的虚拟地址空间中单独地运行程序。</p>
+<p>单一地址空间的多处理器有两种类型：</p>
+<ul>
+<li>
+<p>统一存储访问(<span class="text-highlight">UMA</span>)多处理器</p>
+<p>每个处理器对所有存储单元的访问时间是大致相同的，即访问时间与哪个处理器提出访存请求及访问哪个字无关。</p>
+<p>UMA 构架由于所有 CPU 共享相同的内存，增加 CPU 路数会加大访存冲突，通常 2 或 4 路的性能最好。</p>
+<p>UMA 构架中所有 CPU 共享同一内存空间，每个 CPU 的 Cache 中都是共享内存中的一部分副本，因此各 CPU 的 Cache 一致性是需要解决的重要问题。</p>
+</li>
+<li>
+<p>非统一存储访问(<span class="text-highlight">NUMA</span>)多处理器</p>
+<p>某些存储器的访存速度要比其他的快，具体取决于哪个处理器提出访问请求及访问哪个字，这是由于主存被分割分配给了不同处理器。</p>
+<p>NUMA 理论上支持无限扩展。</p>
+</li>
+</ul>
+<h2 id="超线程">超线程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#超线程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>超线程技术是在一个 CPU 中，提供两套线程处理单元，让单个处理器实现线程级并行。</p>
+<p>超线程技术在 CPU 内部仅复制必要的线程资源来让两个线程同时运行，能并行执行两个线程，模拟实体双核。</p>
+<p>虽然采用超线程技术能够同时执行两个线程，但是当两个线程同时需要某个资源时，其中一个线程必须暂时挂起，直到这些资源空闲后才能继续运行。因此，超线程的性能并不等于两个 CPU 的性能。而且，超线程技术的 CPU 需要芯片组、操作系统和应用软件的支持，才能发挥该项技术的优势。</p></article><hr/><div class="page-footer"></div></div><div class="right sidebar"><div class="graph"><h3>关系图谱</h3><div class="graph-outer"><div id="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:60,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false}"></div><button id="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div id="global-graph-outer"><div id="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true}"></div></div></div><div class="toc desktop-only"><button type="button" id="toc" class aria-controls="toc-content" aria-expanded="true"><h3>目录</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="toc-content" class><ul class="overflow"><li class="depth-0"><a href="#cpu" data-for="cpu">CPU</a></li><li class="depth-1"><a href="#功能" data-for="功能">功能</a></li><li class="depth-1"><a href="#基本结构" data-for="基本结构">基本结构</a></li><li class="depth-2"><a href="#运算器" data-for="运算器">运算器</a></li><li class="depth-2"><a href="#控制器" data-for="控制器">控制器</a></li><li class="depth-0"><a href="#指令执行过程" data-for="指令执行过程">指令执行过程</a></li><li class="depth-1"><a href="#指令周期" data-for="指令周期">指令周期</a></li><li class="depth-1"><a href="#指令周期的数据流" data-for="指令周期的数据流">指令周期的数据流</a></li><li class="depth-2"><a href="#取值周期" data-for="取值周期">取值周期</a></li><li class="depth-2"><a href="#间址周期" data-for="间址周期">间址周期</a></li><li class="depth-2"><a href="#执行周期" data-for="执行周期">执行周期</a></li><li class="depth-2"><a href="#中断周期" data-for="中断周期">中断周期</a></li><li class="depth-1"><a href="#指令执行方案" data-for="指令执行方案">指令执行方案</a></li><li class="depth-0"><a href="#数据通路" data-for="数据通路">数据通路</a></li><li class="depth-1"><a href="#功能-1" data-for="功能-1">功能</a></li><li class="depth-1"><a href="#组成" data-for="组成">组成</a></li><li class="depth-2"><a href="#组合逻辑元件操作元件" data-for="组合逻辑元件操作元件">组合逻辑元件（操作元件）</a></li><li class="depth-2"><a href="#时序逻辑元件状态元件" data-for="时序逻辑元件状态元件">时序逻辑元件（状态元件）</a></li><li class="depth-1"><a href="#基本结构-1" data-for="基本结构-1">基本结构</a></li><li class="depth-2"><a href="#cpu-内部单总线方式" data-for="cpu-内部单总线方式">CPU 内部单总线方式</a></li><li class="depth-2"><a href="#cpu-内部多总线方式" data-for="cpu-内部多总线方式">CPU 内部多总线方式</a></li><li class="depth-2"><a href="#专用数据通路方式" data-for="专用数据通路方式">专用数据通路方式</a></li><li class="depth-0"><a href="#控制器-1" data-for="控制器-1">控制器</a></li><li class="depth-1"><a href="#结构" data-for="结构">结构</a></li><li class="depth-1"><a href="#功能-2" data-for="功能-2">功能</a></li><li class="depth-1"><a href="#硬布线控制器" data-for="硬布线控制器">硬布线控制器</a></li><li class="depth-2"><a href="#设计" data-for="设计">设计</a></li><li class="depth-2"><a href="#特点" data-for="特点">特点</a></li><li class="depth-1"><a href="#微程序控制器" data-for="微程序控制器">微程序控制器</a></li><li class="depth-2"><a href="#微程序微指令微命令" data-for="微程序微指令微命令">微程序、微指令、微命令</a></li><li class="depth-2"><a href="#结构-1" data-for="结构-1">结构</a></li><li class="depth-2"><a href="#工作过程" data-for="工作过程">工作过程</a></li><li class="depth-2"><a href="#原理" data-for="原理">原理</a></li><li class="depth-2"><a href="#微指令设计" data-for="微指令设计">微指令设计</a></li><li class="depth-2"><a href="#微程序控制单元设计" data-for="微程序控制单元设计">微程序控制单元设计</a></li><li class="depth-1"><a href="#硬布线与微程序的比较" data-for="硬布线与微程序的比较">硬布线与微程序的比较</a></li><li class="depth-1"><a href="#qa" data-for="qa">Q&amp;A</a></li><li class="depth-0"><a href="#异常和中断" data-for="异常和中断">异常和中断</a></li><li class="depth-1"><a href="#基本概念" data-for="基本概念">基本概念</a></li><li class="depth-1"><a href="#异常分类" data-for="异常分类">异常分类</a></li><li class="depth-2"><a href="#故障fault" data-for="故障fault">故障(Fault)</a></li><li class="depth-2"><a href="#自陷trap" data-for="自陷trap">自陷(Trap)</a></li><li class="depth-2"><a href="#终止abort" data-for="终止abort">终止(Abort)</a></li><li class="depth-1"><a href="#中断分类" data-for="中断分类">中断分类</a></li><li class="depth-2"><a href="#可屏蔽中断" data-for="可屏蔽中断">可屏蔽中断</a></li><li class="depth-2"><a href="#不可屏蔽中断" data-for="不可屏蔽中断">不可屏蔽中断</a></li><li class="depth-1"><a href="#中断和异常联系" data-for="中断和异常联系">中断和异常联系</a></li><li class="depth-1"><a href="#异常和中断响应过程" data-for="异常和中断响应过程">异常和中断响应过程</a></li><li class="depth-0"><a href="#指令流水线" data-for="指令流水线">指令流水线</a></li><li class="depth-1"><a href="#基本概念-1" data-for="基本概念-1">基本概念</a></li><li class="depth-2"><a href="#流水线各个阶段" data-for="流水线各个阶段">流水线各个阶段</a></li><li class="depth-2"><a href="#流水线对指令集的要求" data-for="流水线对指令集的要求">流水线对指令集的要求</a></li><li class="depth-1"><a href="#流水线的实现" data-for="流水线的实现">流水线的实现</a></li><li class="depth-2"><a href="#设计原则" data-for="设计原则">设计原则</a></li><li class="depth-2"><a href="#逻辑结构" data-for="逻辑结构">逻辑结构</a></li><li class="depth-2"><a href="#流水线的表示方法" data-for="流水线的表示方法">流水线的表示方法</a></li><li class="depth-1"><a href="#流水线的冒险与处理" data-for="流水线的冒险与处理">流水线的冒险与处理</a></li><li class="depth-2"><a href="#结构冒险" data-for="结构冒险">结构冒险</a></li><li class="depth-2"><a href="#数据冒险" data-for="数据冒险">数据冒险</a></li><li class="depth-2"><a href="#控制冒险" data-for="控制冒险">控制冒险</a></li><li class="depth-1"><a href="#流水线性能指标" data-for="流水线性能指标">流水线性能指标</a></li><li class="depth-2"><a href="#吞吐率" data-for="吞吐率">吞吐率</a></li><li class="depth-2"><a href="#加速比" data-for="加速比">加速比</a></li><li class="depth-2"><a href="#效率" data-for="效率">效率</a></li><li class="depth-1"><a href="#高级流水线技术" data-for="高级流水线技术">高级流水线技术</a></li><li class="depth-2"><a href="#超标量流水线技术" data-for="超标量流水线技术">超标量流水线技术</a></li><li class="depth-2"><a href="#超长指令字技术" data-for="超长指令字技术">超长指令字技术</a></li><li class="depth-2"><a href="#超流水线技术" data-for="超流水线技术">超流水线技术</a></li><li class="depth-1"><a href="#常见的五类指令执行过程" data-for="常见的五类指令执行过程">常见的五类指令执行过程</a></li><li class="depth-2"><a href="#运算类指令" data-for="运算类指令">运算类指令</a></li><li class="depth-2"><a href="#load-指令" data-for="load-指令">LOAD 指令</a></li><li class="depth-2"><a href="#store-指令" data-for="store-指令">STORE 指令</a></li><li class="depth-2"><a href="#条件转移指令" data-for="条件转移指令">条件转移指令</a></li><li class="depth-2"><a href="#无条件转移指令" data-for="无条件转移指令">无条件转移指令</a></li><li class="depth-1"><a href="#qa-1" data-for="qa-1">Q&amp;A</a></li><li class="depth-0"><a href="#多处理器" data-for="多处理器">多处理器</a></li><li class="depth-1"><a href="#多处理器基本概念" data-for="多处理器基本概念">多处理器基本概念</a></li><li class="depth-2"><a href="#单指令流单数据流sisd结构" data-for="单指令流单数据流sisd结构">单指令流单数据流(SISD)结构</a></li><li class="depth-2"><a href="#单指令流多数据流simd结构" data-for="单指令流多数据流simd结构">单指令流多数据流(SIMD)结构</a></li><li class="depth-2"><a href="#多指令流单数据流misd结构" data-for="多指令流单数据流misd结构">多指令流单数据流(MISD)结构</a></li><li class="depth-2"><a href="#多指令流多数据流mimd结构" data-for="多指令流多数据流mimd结构">多指令流多数据流(MIMD)结构</a></li><li class="depth-2"><a href="#向量处理器simd-思想的进阶应用" data-for="向量处理器simd-思想的进阶应用">向量处理器(SIMD 思想的进阶应用)</a></li><li class="depth-1"><a href="#多核处理器基本概念" data-for="多核处理器基本概念">多核处理器基本概念</a></li><li class="depth-1"><a href="#硬件多线程基本概念" data-for="硬件多线程基本概念">硬件多线程基本概念</a></li><li class="depth-1"><a href="#共享内存多处理器的基本概念" data-for="共享内存多处理器的基本概念">共享内存多处理器的基本概念</a></li><li class="depth-1"><a href="#超线程" data-for="超线程">超线程</a></li></ul></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.4.0</a> © 2025</p><ul><li><a href="https://github.com/KISGP">GitHub</a></li></ul></footer></div></div></body><script type="application/javascript">function c(){let t=this.parentElement;t.classList.toggle("is-collapsed");let l=t.classList.contains("is-collapsed")?this.scrollHeight:t.scrollHeight;t.style.maxHeight=l+"px";let o=t,e=t.parentElement;for(;e;){if(!e.classList.contains("callout"))return;let n=e.classList.contains("is-collapsed")?e.scrollHeight:e.scrollHeight+o.scrollHeight;e.style.maxHeight=n+"px",o=e,e=e.parentElement}}function i(){let t=document.getElementsByClassName("callout is-collapsible");for(let s of t){let l=s.firstElementChild;if(l){l.addEventListener("click",c),window.addCleanup(()=>l.removeEventListener("click",c));let e=s.classList.contains("is-collapsed")?l.scrollHeight:s.scrollHeight;s.style.maxHeight=e+"px"}}}document.addEventListener("nav",i);window.addEventListener("resize",i);
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript"></script><script type="application/javascript">
+        const socket = new WebSocket('ws://localhost:3001')
+        // reload(true) ensures resources like images and scripts are fetched again in firefox
+        socket.addEventListener('message', () => document.location.reload(true))
+      </script><script src="../../../postscript.js" type="module"></script></html>

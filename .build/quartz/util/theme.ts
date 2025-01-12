@@ -8,6 +8,8 @@ export interface ColorScheme {
   tertiary: string
   highlight: string
   textHighlight: string
+  scrollTrack: string
+  scrollThumb: string
 }
 
 interface Colors {
@@ -51,6 +53,8 @@ ${stylesheet.join("\n\n")}
   --tertiary: ${theme.colors.lightMode.tertiary};
   --highlight: ${theme.colors.lightMode.highlight};
   --textHighlight: ${theme.colors.lightMode.textHighlight};
+  --scrollTrack: ${theme.colors.lightMode.scrollTrack};
+  --scrollThumb: ${theme.colors.lightMode.scrollThumb};
 
   --headerFont: "${theme.typography.header}", ${DEFAULT_SANS_SERIF};
   --bodyFont: "${theme.typography.body}", ${DEFAULT_SANS_SERIF};
@@ -67,6 +71,8 @@ ${stylesheet.join("\n\n")}
   --tertiary: ${theme.colors.darkMode.tertiary};
   --highlight: ${theme.colors.darkMode.highlight};
   --textHighlight: ${theme.colors.darkMode.textHighlight};
+  --scrollTrack: ${theme.colors.darkMode.scrollTrack};
+  --scrollThumb: ${theme.colors.darkMode.scrollThumb};
 }
 `
 }

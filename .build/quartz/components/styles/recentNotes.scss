@@ -1,24 +1,68 @@
 .recent-notes {
-  & > h3 {
+  & h3 {
     margin: 0.5rem 0 0 0;
     font-size: 1rem;
   }
+}
 
-  & > ul.recent-ul {
+button#recent {
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+
+  & h3 {
+    font-size: 1rem;
+    display: inline-block;
+    margin: 0;
+  }
+
+  & .fold {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+    opacity: 0.8;
+  }
+
+  &.collapsed .fold {
+    transform: rotateZ(-90deg);
+  }
+}
+
+#recent-content {
+  &>ul.recent-ul {
     list-style: none;
     margin-top: 1rem;
     padding-left: 0;
 
-    & > li {
+    &>li {
       margin: 1rem 0;
-      .section > .desc > h3 > a {
+
+      .section>.desc>h3>a {
+        font-size: .9rem;
         background-color: transparent;
       }
 
-      .section > .meta {
+      .section>.meta {
+        font-size: .8rem;
         margin: 0 0 0.5rem 0;
         opacity: 0.6;
       }
     }
+  }
+
+  &.collapsed {
+    max-height: 0;
+    transition:
+      max-height 0.35s ease,
+      visibility 0s linear 0.35s;
+    visibility: hidden;
+  }
+
+  &.collapsed>.overflow::after {
+    opacity: 0;
   }
 }

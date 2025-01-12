@@ -5,6 +5,7 @@ import { QuartzPluginData } from "../plugins/vfile"
 interface Props {
   date: Date
   locale?: ValidLocale
+  simplify?: boolean
 }
 
 export type ValidDateType = keyof Required<QuartzPluginData>["dates"]
@@ -18,14 +19,16 @@ export function getDate(cfg: GlobalConfiguration, data: QuartzPluginData): Date 
   return data.dates?.[cfg.defaultDateType]
 }
 
-export function formatDate(d: Date, locale: ValidLocale = "en-US"): string {
-  return d.toLocaleDateString(locale, {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-  })
+export function formatDate(d: Date, locale: ValidLocale = "en-US", simplify?: boolean): string {
+  return simplify
+    ? d.toLocaleDateString()
+    : d.toLocaleDateString(locale, {
+        year: "numeric",
+        month: "short",
+        day: "2-digit",
+      })
 }
 
-export function Date({ date, locale }: Props) {
-  return <time datetime={date.toISOString()}>{formatDate(date, locale)}</time>
+export function Date({ date, locale, simplify }: Props) {
+  return <time datetime={date.toISOString()}>{formatDate(date, locale, simplify)}</time>
 }
