@@ -86,8 +86,20 @@
     <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/JS%E7%AC%94%E8%AE%B0</loc>
     <lastmod>2024-11-29T15:33:04.126Z</lastmod>
   </url><url>
+    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/Promise%E5%92%8CAsync</loc>
+    <lastmod>2025-01-17T09:53:43.610Z</lastmod>
+  </url><url>
+    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JavaScript/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF</loc>
+    <lastmod>2025-01-14T06:46:24.480Z</lastmod>
+  </url><url>
+    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Node/Express%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81</loc>
+    <lastmod>2025-01-15T06:35:06.548Z</lastmod>
+  </url><url>
     <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Node/Express%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84</loc>
     <lastmod>2025-01-12T07:58:20.245Z</lastmod>
+  </url><url>
+    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Node/Mongose%E4%BD%BF%E7%94%A8</loc>
+    <lastmod>2025-01-13T17:45:35.421Z</lastmod>
   </url><url>
     <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%E8%AE%A4%E8%AF%86/1_%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE</loc>
     <lastmod>2024-11-16T13:59:26.258Z</lastmod>
@@ -95,11 +107,17 @@
     <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%E8%AE%A4%E8%AF%86/2_cargo%E4%BD%BF%E7%94%A8</loc>
     <lastmod>2024-11-16T13:59:26.262Z</lastmod>
   </url><url>
-    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%E8%AE%A4%E8%AF%86/3_%E5%8F%98%E9%87%8F</loc>
+    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%E8%AE%A4%E8%AF%86/3_%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F</loc>
     <lastmod>2025-01-01T12:55:14.728Z</lastmod>
   </url><url>
-    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%E8%AE%A4%E8%AF%86/4_%E7%B1%BB%E5%9E%8B</loc>
+    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%E8%AE%A4%E8%AF%86/4_%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B</loc>
     <lastmod>2025-01-01T16:42:51.921Z</lastmod>
+  </url><url>
+    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%E8%AE%A4%E8%AF%86/5_%E6%89%80%E6%9C%89%E6%9D%83%E5%92%8C%E5%80%9F%E7%94%A8</loc>
+    <lastmod>2025-01-12T17:18:08.170Z</lastmod>
+  </url><url>
+    <loc>https://kisgp.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Rust/Rust%E8%AE%A4%E8%AF%86/6_%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B</loc>
+    <lastmod>2025-01-12T17:19:40.023Z</lastmod>
   </url><url>
     <loc>https://kisgp.cn/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/408/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/1_%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5</loc>
     <lastmod>2024-11-16T13:59:27.180Z</lastmod>
